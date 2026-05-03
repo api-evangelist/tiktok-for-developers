@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/tiktok-for-developers/main/json-schema/tiktok-for-developers-video-schema.json",
+  "title": "TikTok Video",
+  "description": "Schema for a TikTok video object returned by the Display API and Research API",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the video"
+    },
+    "create_time": {
+      "type": "integer",
+      "description": "Unix timestamp when the video was created"
+    },
+    "cover_image_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL of the video cover image"
+    },
+    "share_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "Shareable URL for the video"
+    },
+    "video_description": {
+      "type": "string",
+      "description": "Caption or description of the video"
+    },
+    "duration": {
+      "type": "integer",
+      "description": "Video duration in seconds"
+    },
+    "height": {
+      "type": "integer",
+      "description": "Video height in pixels"
+    },
+    "width": {
+      "type": "integer",
+      "description": "Video width in pixels"
+    },
+    "title": {
+      "type": "string",
+      "description": "Video title"
+    },
+    "embed_html": {
+      "type": "string",
+      "description": "HTML embed code for the video"
+    },
+    "embed_link": {
+      "type": "string",
+      "format": "uri",
+      "description": "Embed link URL"
+    },
+    "like_count": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Number of likes"
+    },
+    "comment_count": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Number of comments"
+    },
+    "share_count": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Number of shares"
+    },
+    "view_count": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Number of views"
+    },
+    "hashtag_names": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Hashtags used in the video"
+    },
+    "username": {
+      "type": "string",
+      "description": "Username of the video creator"
+    },
+    "region_code": {
+      "type": "string",
+      "description": "ISO 3166-1 alpha-2 region code"
+    },
+    "music_id": {
+      "type": "string",
+      "description": "ID of the background music used"
+    }
+  },
+  "required": ["id"]
+}

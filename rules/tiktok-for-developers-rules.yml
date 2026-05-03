@@ -1,0 +1,107 @@
+extends: spectral:oas
+rules:
+  tiktok-operation-id-camel-case:
+    description: Operation IDs must use camelCase
+    message: "Operation ID '{{value}}' must use camelCase"
+    severity: warn
+    given: "$.paths[*][*].operationId"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[a-z][a-zA-Z0-9]*$"
+
+  tiktok-path-trailing-slash:
+    description: TikTok API paths must end with a trailing slash
+    message: "Path '{{path}}' must end with a trailing slash per TikTok API convention"
+    severity: warn
+    given: "$.paths"
+    then:
+      field: "@key"
+      function: pattern
+      functionOptions:
+        match: ".*/$"
+
+  tiktok-versioned-paths:
+    description: All paths must include an API version prefix
+    message: "Path '{{value}}' must start with /v2/ version prefix"
+    severity: error
+    given: "$.paths"
+    then:
+      field: "@key"
+      function: pattern
+      functionOptions:
+        match: "^/v[0-9]+/"
+
+  tiktok-bearer-auth:
+    description: All operations must use Bearer authentication
+    message: "Operation must use BearerAuth security scheme"
+    severity: error
+    given: "$.paths[*][*]"
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: object
+          properties:
+            security:
+              type: array
+          required:
+            - security
+
+  tiktok-response-data-wrapper:
+    description: Successful responses should wrap data in a data envelope
+    message: "Response 200 schema should have a 'data' property"
+    severity: warn
+    given: "$.paths[*][*].responses.200.content.application/json.schema.properties"
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: object
+          required:
+            - data
+
+  tiktok-error-object:
+    description: Successful responses should include an error object for consistent error signaling
+    message: "Response 200 schema should include an 'error' property"
+    severity: warn
+    given: "$.paths[*][*].responses.200.content.application/json.schema.properties"
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: object
+          required:
+            - error
+
+  tiktok-operation-summary-present:
+    description: All operations must have a summary
+    message: "Operation must have a summary"
+    severity: error
+    given: "$.paths[*][*]"
+    then:
+      field: summary
+      function: truthy
+
+  tiktok-operation-tags:
+    description: All operations must have at least one tag
+    message: "Operation must have at least one tag"
+    severity: warn
+    given: "$.paths[*][*]"
+    then:
+      field: tags
+      function: truthy
+
+  tiktok-fields-query-param:
+    description: GET and POST endpoints that return data should support a fields query parameter
+    message: "Endpoint should support a 'fields' query parameter for field selection"
+    severity: info
+    given: "$.paths[*][get,post].parameters[*]"
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: object
+          properties:
+            name:
+              type: string

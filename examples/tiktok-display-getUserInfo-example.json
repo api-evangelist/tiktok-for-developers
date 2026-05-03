@@ -1,0 +1,33 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://open.tiktokapis.com/v2/user/info/?fields=open_id,avatar_url,display_name,bio_description,profile_deep_link,is_verified,follower_count,following_count,video_count",
+    "headers": {
+      "Authorization": "Bearer {{ACCESS_TOKEN}}",
+      "Content-Type": "application/json"
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "data": {
+        "user": {
+          "open_id": "6784563321783754498",
+          "avatar_url": "https://p16-sign-va.tiktokcdn.com/avatar.jpg",
+          "display_name": "techcreator",
+          "bio_description": "Building cool apps with TikTok API",
+          "profile_deep_link": "https://www.tiktok.com/@techcreator",
+          "is_verified": false,
+          "follower_count": 15234,
+          "following_count": 312,
+          "video_count": 87
+        }
+      },
+      "error": {
+        "code": "ok",
+        "message": "",
+        "log_id": "202605031200001234"
+      }
+    }
+  }
+}

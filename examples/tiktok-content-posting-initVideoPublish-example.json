@@ -1,0 +1,38 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://open.tiktokapis.com/v2/post/publish/video/init/",
+    "headers": {
+      "Authorization": "Bearer {{ACCESS_TOKEN}}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "source_info": {
+        "source": "FILE_UPLOAD",
+        "chunk_size": 10000000,
+        "total_chunk_count": 1
+      },
+      "post_info": {
+        "title": "Check out this awesome tutorial! #coding #developer",
+        "privacy_level": "PUBLIC_TO_EVERYONE",
+        "disable_duet": false,
+        "disable_comment": false,
+        "disable_stitch": false
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "data": {
+        "publish_id": "v_pub_url~v2.123456789",
+        "upload_url": "https://upload.tiktokapis.com/video/?upload_id=67890&upload_token=abc123"
+      },
+      "error": {
+        "code": "ok",
+        "message": "",
+        "log_id": "202605031200005678"
+      }
+    }
+  }
+}

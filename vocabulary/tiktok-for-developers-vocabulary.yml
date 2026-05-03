@@ -1,0 +1,165 @@
+vocabulary:
+  name: TikTok for Developers Vocabulary
+  description: >-
+    Taxonomy and vocabulary for TikTok developer platform APIs covering
+    authentication, content, social graph, research, and business advertising
+    concepts.
+  version: "2026-05-03"
+  terms:
+    - term: Access Token
+      definition: >-
+        OAuth 2.0 bearer token granting authorized access to TikTok API
+        endpoints on behalf of a user.
+      category: Authentication
+      tags:
+        - OAuth
+        - Authentication
+    - term: Authorization Code
+      definition: >-
+        Short-lived code issued by TikTok after user consent, exchanged for
+        an access token.
+      category: Authentication
+      tags:
+        - OAuth
+        - Authentication
+    - term: Open ID
+      definition: >-
+        Unique identifier for a TikTok user within a specific application.
+        Different from Union ID.
+      category: User
+      tags:
+        - Identity
+        - User
+    - term: Union ID
+      definition: >-
+        Consistent identifier for a TikTok user across multiple applications
+        within the same developer account.
+      category: User
+      tags:
+        - Identity
+        - User
+    - term: Display API
+      definition: >-
+        TikTok API product enabling access to user profile data and video
+        metadata.
+      category: API Product
+      tags:
+        - Display
+        - Video
+        - User
+    - term: Content Posting API
+      definition: >-
+        TikTok API product allowing third-party apps to publish videos directly
+        to a user's TikTok account.
+      category: API Product
+      tags:
+        - Publishing
+        - Video
+        - Content
+    - term: Research API
+      definition: >-
+        TikTok API product providing academic researchers access to public
+        TikTok data under approved use policies.
+      category: API Product
+      tags:
+        - Research
+        - Analytics
+        - Data
+    - term: Login Kit
+      definition: >-
+        TikTok SDK enabling users to authenticate into third-party apps using
+        their TikTok credentials.
+      category: API Product
+      tags:
+        - Authentication
+        - OAuth
+        - SDK
+    - term: Publish ID
+      definition: >-
+        Unique tracking identifier returned when a video publish job is initiated,
+        used to poll for status updates.
+      category: Content Posting
+      tags:
+        - Publishing
+        - Video
+    - term: Privacy Level
+      definition: >-
+        Setting controlling who can view a TikTok video: PUBLIC_TO_EVERYONE,
+        MUTUAL_FOLLOW_FRIENDS, FOLLOWER_OF_CREATOR, or SELF_ONLY.
+      category: Content
+      tags:
+        - Privacy
+        - Publishing
+    - term: Scope
+      definition: >-
+        OAuth permission defining what data or actions a third-party app can
+        access on behalf of a TikTok user.
+      category: Authentication
+      tags:
+        - OAuth
+        - Permissions
+    - term: Video Query
+      definition: >-
+        Research API operation using boolean operators (AND, OR, NOT) to filter
+        public TikTok videos by attributes like keyword, region, hashtag, or
+        date range.
+      category: Research
+      tags:
+        - Research
+        - Query
+        - Video
+    - term: Creator
+      definition: >-
+        A TikTok user who produces and publishes video content on the platform.
+      category: User
+      tags:
+        - Creator
+        - User
+    - term: Duet
+      definition: >-
+        A TikTok feature allowing users to create a video alongside another
+        user's content side-by-side. Can be enabled or disabled per post.
+      category: Content
+      tags:
+        - Content
+        - Features
+    - term: Stitch
+      definition: >-
+        A TikTok feature allowing users to clip and integrate another user's
+        video into their own. Can be enabled or disabled per post.
+      category: Content
+      tags:
+        - Content
+        - Features
+    - term: Hashtag
+      definition: >-
+        A metadata tag prefixed with # used to categorize TikTok videos and
+        make them discoverable.
+      category: Content
+      tags:
+        - Content
+        - Discovery
+    - term: Region Code
+      definition: >-
+        ISO 3166-1 alpha-2 country code representing the geographic region of
+        a TikTok video or user.
+      category: Geography
+      tags:
+        - Geography
+        - Localization
+    - term: Chunk Upload
+      definition: >-
+        A method of uploading large video files in smaller sequential pieces
+        to the TikTok Content Posting API.
+      category: Content Posting
+      tags:
+        - Upload
+        - Video
+    - term: Inbox Video
+      definition: >-
+        A draft video sent to a user's TikTok inbox via the API, allowing them
+        to review and publish from within the TikTok app.
+      category: Content Posting
+      tags:
+        - Publishing
+        - Draft

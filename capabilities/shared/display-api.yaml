@@ -1,0 +1,174 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "TikTok Display API"
+  description: >-
+    Access TikTok user profile information and video metadata. Supports
+    retrieving user info, listing recent videos, and querying videos by ID.
+  tags:
+    - TikTok
+    - Display
+    - Social Media
+    - Video
+    - Content
+  created: "2026-05-03"
+  modified: "2026-05-03"
+
+binds:
+  - namespace: env
+    keys:
+      TIKTOK_ACCESS_TOKEN: TIKTOK_ACCESS_TOKEN
+
+capability:
+  consumes:
+    - type: http
+      namespace: tiktok-display
+      baseUri: https://open.tiktokapis.com
+      description: "TikTok Display API for accessing user profiles and video metadata"
+      authentication:
+        type: bearer
+        token: "{{TIKTOK_ACCESS_TOKEN}}"
+      resources:
+        - name: user
+          path: /v2/user
+          description: "TikTok user profile operations"
+          operations:
+            - name: get-user-info
+              method: GET
+              description: "Retrieve a TikTok user's basic profile information"
+              inputParameters:
+                - name: fields
+                  in: query
+                  type: string
+                  required: true
+                  description: "Comma-separated list of fields to return"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: video
+          path: /v2/video
+          description: "TikTok video metadata operations"
+          operations:
+            - name: list-videos
+              method: POST
+              description: "Retrieve a paginated list of user's most recent public videos"
+              inputParameters:
+                - name: fields
+                  in: query
+                  type: string
+                  required: true
+                  description: "Comma-separated list of fields to return"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  max_count: "{{tools.max_count}}"
+                  cursor: "{{tools.cursor}}"
+            - name: query-videos
+              method: POST
+              description: "Retrieve metadata for specific videos by ID"
+              inputParameters:
+                - name: fields
+                  in: query
+                  type: string
+                  required: true
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  filters:
+                    video_ids: "{{tools.video_ids}}"
+
+  exposes:
+    - type: rest
+      port: 8100
+      namespace: tiktok-display-rest
+      resources:
+        - path: /v1/users/me
+          name: current-user
+          description: "Current authenticated user profile"
+          operations:
+            - method: GET
+              name: get-user-info
+              description: "Get current user profile information"
+              call: "tiktok-display.get-user-info"
+              with:
+                fields: "rest.fields"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/videos
+          name: videos
+          description: "User video listings"
+          operations:
+            - method: GET
+              name: list-videos
+              description: "List user's recent videos"
+              call: "tiktok-display.list-videos"
+              with:
+                fields: "rest.fields"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/videos/query
+          name: video-query
+          description: "Query specific videos by ID"
+          operations:
+            - method: POST
+              name: query-videos
+              description: "Query video metadata by video IDs"
+              call: "tiktok-display.query-videos"
+              with:
+                fields: "rest.fields"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9100
+      namespace: tiktok-display-mcp
+      transport: http
+      tools:
+        - name: get-user-info
+          description: "Retrieve TikTok user profile information"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "tiktok-display.get-user-info"
+          with:
+            fields: "tools.fields"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-videos
+          description: "List a user's most recent TikTok videos"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "tiktok-display.list-videos"
+          with:
+            fields: "tools.fields"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: query-videos
+          description: "Query specific TikTok video metadata by video IDs"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "tiktok-display.query-videos"
+          with:
+            fields: "tools.fields"
+          outputParameters:
+            - type: object
+              mapping: "$."

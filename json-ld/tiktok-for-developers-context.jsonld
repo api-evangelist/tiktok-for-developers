@@ -1,0 +1,33 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "tiktok": "https://developers.tiktok.com/vocab/",
+    "open_id": "tiktok:openId",
+    "union_id": "tiktok:unionId",
+    "avatar_url": "image",
+    "display_name": "name",
+    "bio_description": "description",
+    "profile_deep_link": "url",
+    "is_verified": "tiktok:isVerified",
+    "follower_count": "tiktok:followerCount",
+    "following_count": "tiktok:followingCount",
+    "likes_count": "tiktok:likesCount",
+    "video_count": "tiktok:videoCount",
+    "cover_image_url": "thumbnailUrl",
+    "share_url": "url",
+    "video_description": "description",
+    "view_count": "tiktok:viewCount",
+    "like_count": "tiktok:likeCount",
+    "comment_count": "commentCount",
+    "share_count": "tiktok:shareCount",
+    "hashtag_names": "keywords",
+    "region_code": "addressCountry",
+    "publish_id": "tiktok:publishId",
+    "privacy_level": "tiktok:privacyLevel",
+    "create_time": "dateCreated",
+    "duration": "duration",
+    "TikTokVideo": "VideoObject",
+    "TikTokUser": "Person",
+    "TikTokComment": "Comment"
+  }
+}

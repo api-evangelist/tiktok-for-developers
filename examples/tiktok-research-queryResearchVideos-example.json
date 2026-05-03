@@ -1,0 +1,57 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://open.tiktokapis.com/v2/research/video/query/?fields=id,video_description,create_time,region_code,like_count,comment_count,share_count,view_count,hashtag_names",
+    "headers": {
+      "Authorization": "Bearer {{RESEARCH_ACCESS_TOKEN}}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "query": {
+        "and": [
+          {
+            "field_name": "keyword",
+            "operation": "IN",
+            "field_values": ["openapi", "developer"]
+          },
+          {
+            "field_name": "region_code",
+            "operation": "IN",
+            "field_values": ["US"]
+          }
+        ]
+      },
+      "start_date": "20260101",
+      "end_date": "20260503",
+      "max_count": 20
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "data": {
+        "videos": [
+          {
+            "id": "7213456789012345678",
+            "video_description": "Building an app with the TikTok OpenAPI #openapi #developer",
+            "create_time": 1746230400,
+            "region_code": "US",
+            "like_count": 1245,
+            "comment_count": 87,
+            "share_count": 312,
+            "view_count": 54320,
+            "hashtag_names": ["openapi", "developer", "coding"]
+          }
+        ],
+        "cursor": 20,
+        "has_more": true,
+        "search_id": "7213456789012345679"
+      },
+      "error": {
+        "code": "ok",
+        "message": "",
+        "log_id": "202605031200009012"
+      }
+    }
+  }
+}

@@ -1,0 +1,176 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "TikTok Content Creation"
+  description: >-
+    Unified workflow capability for creating and publishing content on TikTok.
+    Combines the Display API and Content Posting API to support the full
+    content lifecycle: discovering user profile settings, initiating video
+    uploads, and monitoring publish status. Designed for app developers,
+    content management platforms, and media tools.
+  tags:
+    - TikTok
+    - Content Creation
+    - Publishing
+    - Social Media
+    - Video
+  created: "2026-05-03"
+  modified: "2026-05-03"
+
+binds:
+  - namespace: env
+    keys:
+      TIKTOK_ACCESS_TOKEN: TIKTOK_ACCESS_TOKEN
+
+capability:
+  consumes:
+    - import: tiktok-display
+      location: ./shared/display-api.yaml
+    - import: tiktok-posting
+      location: ./shared/content-posting-api.yaml
+
+  exposes:
+    - type: rest
+      port: 8080
+      namespace: tiktok-content-creation-api
+      description: "Unified REST API for TikTok content creation workflows."
+      resources:
+        - path: /v1/users/me
+          name: current-user
+          description: "Current user profile"
+          operations:
+            - method: GET
+              name: get-user-info
+              description: "Get authenticated user's TikTok profile"
+              call: "tiktok-display.get-user-info"
+              with:
+                fields: "rest.fields"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/videos
+          name: videos
+          description: "User video listings"
+          operations:
+            - method: GET
+              name: list-videos
+              description: "List user's recent TikTok videos"
+              call: "tiktok-display.list-videos"
+              with:
+                fields: "rest.fields"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/videos/query
+          name: video-query
+          description: "Query specific videos by ID"
+          operations:
+            - method: POST
+              name: query-videos
+              description: "Query TikTok video metadata by video IDs"
+              call: "tiktok-display.query-videos"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/posts/creator-info
+          name: creator-info
+          description: "Creator posting configuration"
+          operations:
+            - method: GET
+              name: query-creator-info
+              description: "Get creator's content posting settings"
+              call: "tiktok-posting.query-creator-info"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/posts/init
+          name: post-init
+          description: "Initiate video post"
+          operations:
+            - method: POST
+              name: init-video-publish
+              description: "Initiate a TikTok video upload or direct post"
+              call: "tiktok-posting.init-video-publish"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/posts/status
+          name: post-status
+          description: "Video publish status"
+          operations:
+            - method: POST
+              name: get-publish-status
+              description: "Check the status of a video publish job"
+              call: "tiktok-posting.get-publish-status"
+              with:
+                publish_id: "rest.publish_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9090
+      namespace: tiktok-content-creation-mcp
+      transport: http
+      description: "MCP server for AI-assisted TikTok content creation."
+      tools:
+        - name: get-user-info
+          description: "Retrieve authenticated user's TikTok profile information"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "tiktok-display.get-user-info"
+          with:
+            fields: "tools.fields"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-videos
+          description: "List a user's most recent TikTok videos"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "tiktok-display.list-videos"
+          with:
+            fields: "tools.fields"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: query-videos
+          description: "Query TikTok video metadata by specific video IDs"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "tiktok-display.query-videos"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: query-creator-info
+          description: "Get TikTok creator's content posting settings and permissions"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "tiktok-posting.query-creator-info"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: init-video-publish
+          description: "Initiate a TikTok video upload or direct post to a user's account"
+          hints:
+            readOnly: false
+            destructive: false
+          call: "tiktok-posting.init-video-publish"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-publish-status
+          description: "Check the current status of a TikTok video publish job"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "tiktok-posting.get-publish-status"
+          with:
+            publish_id: "tools.publish_id"
+          outputParameters:
+            - type: object
+              mapping: "$."

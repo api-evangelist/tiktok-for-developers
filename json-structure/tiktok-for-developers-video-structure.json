@@ -1,0 +1,24 @@
+{
+  "name": "TikTok Video",
+  "description": "Structure of a TikTok video object",
+  "fields": [
+    {"name": "id", "type": "string", "required": true, "description": "Unique video identifier"},
+    {"name": "create_time", "type": "integer", "required": false, "description": "Unix creation timestamp"},
+    {"name": "cover_image_url", "type": "string", "required": false, "description": "Cover image URL"},
+    {"name": "share_url", "type": "string", "required": false, "description": "Shareable video URL"},
+    {"name": "video_description", "type": "string", "required": false, "description": "Video caption"},
+    {"name": "duration", "type": "integer", "required": false, "description": "Duration in seconds"},
+    {"name": "height", "type": "integer", "required": false, "description": "Height in pixels"},
+    {"name": "width", "type": "integer", "required": false, "description": "Width in pixels"},
+    {"name": "title", "type": "string", "required": false, "description": "Video title"},
+    {"name": "embed_html", "type": "string", "required": false, "description": "HTML embed code"},
+    {"name": "embed_link", "type": "string", "required": false, "description": "Embed link URL"},
+    {"name": "like_count", "type": "integer", "required": false, "description": "Like count"},
+    {"name": "comment_count", "type": "integer", "required": false, "description": "Comment count"},
+    {"name": "share_count", "type": "integer", "required": false, "description": "Share count"},
+    {"name": "view_count", "type": "integer", "required": false, "description": "View count"},
+    {"name": "hashtag_names", "type": "array<string>", "required": false, "description": "Hashtag list"},
+    {"name": "username", "type": "string", "required": false, "description": "Creator username"},
+    {"name": "region_code", "type": "string", "required": false, "description": "Region code"}
+  ]
+}

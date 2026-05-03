@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/tiktok-for-developers/main/json-schema/tiktok-for-developers-user-schema.json",
+  "title": "TikTok User",
+  "description": "Schema for a TikTok user profile object",
+  "type": "object",
+  "properties": {
+    "open_id": {
+      "type": "string",
+      "description": "User's unique identifier within your app"
+    },
+    "union_id": {
+      "type": "string",
+      "description": "Union ID across TikTok applications"
+    },
+    "avatar_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL of the user's avatar image"
+    },
+    "display_name": {
+      "type": "string",
+      "description": "User's display name"
+    },
+    "bio_description": {
+      "type": "string",
+      "description": "User's biography text"
+    },
+    "profile_deep_link": {
+      "type": "string",
+      "format": "uri",
+      "description": "Deep link URL to the user's TikTok profile"
+    },
+    "is_verified": {
+      "type": "boolean",
+      "description": "Whether the user account is verified"
+    },
+    "follower_count": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Number of followers"
+    },
+    "following_count": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Number of accounts the user follows"
+    },
+    "likes_count": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Total number of likes the user has received"
+    },
+    "video_count": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Total number of public videos"
+    },
+    "username": {
+      "type": "string",
+      "description": "User's TikTok handle (without @)"
+    }
+  },
+  "required": ["open_id"]
+}
