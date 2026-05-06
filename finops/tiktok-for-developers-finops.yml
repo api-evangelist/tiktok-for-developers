@@ -1,159 +1,78 @@
 specification: FinOps Framework
 specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: TikTok for Developers
+providerId: tiktok-for-developers
+created: '2026-05-04'
+modified: '2026-05-05'
+reconciled: true
+tags:
+  - Social
+  - Video
+  - FinOps
+  - FOCUS
+description: 'FOCUS-aligned FinOps for the TikTok for Developers platform: free, approval-gated access
+  with no per-call billing. FinOps focus is on quota burn against the published 600 rpm limits and approval-tier
+  entitlements.'
+sources:
+  - https://developers.tiktok.com/products
+  - https://developers.tiktok.com/doc/tiktok-api-v2-rate-limit
+  - https://focus.finops.org/focus-specification/v1-3/
+notes: TikTok does not bill developers per call; there is no usage-based invoice surface. FinOps observability
+  is internal telemetry against the documented 600 rpm sliding window per endpoint.
 alignedWith:
   framework: FinOps Foundation Framework
   frameworkUrl: https://www.finops.org/framework/
   dataSpec: FOCUS
   dataSpecVersion: '1.3'
   dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
-provider: TikTok for Developers
-providerId: tiktok-for-developers
-publisherName: TikTok for Developers
-serviceCategory: API
-created: '2026-05-04'
-modified: '2026-05-04'
-tags:
-  - Advertising
-  - Analytics
-  - Authentication
-  - Content
-  - Social Media
-  - Video
-  - FinOps
-  - Cost Management
-  - FOCUS
-description: FinOps framework definition for the TikTok for Developers API surface. Provides a FOCUS-aligned
-  mapping for cost allocation, usage measurement, and unit-economics reporting across the provider's APIs.
-principles:
-  - name: Visibility
-    description: Make API consumption costs visible to engineering, product, and finance teams in near
-      real-time.
-  - name: Allocation
-    description: Tag every chargeable API call with the consuming team, environment, application, and
-      feature so cost can be allocated.
-  - name: Optimization
-    description: Continuously evaluate request patterns, caching, batching, and tier selection to reduce
-      cost per useful unit of work.
-  - name: Accountability
-    description: Establish budget owners and chargeback or showback flows for each consuming team.
-domains:
-  - name: Understand Usage and Cost
-    capabilities:
-      - Data Ingestion
-      - Allocation
-      - Reporting and Analytics
-      - Anomaly Management
-  - name: Quantify Business Value
-    capabilities:
-      - Planning and Estimating
-      - Forecasting
-      - Budgeting
-      - Benchmarking
-      - Unit Economics
-  - name: Optimize Usage and Cost
-    capabilities:
-      - Architecting for Cloud
-      - Rate Optimization
-      - Workload Optimization
-      - Cloud Sustainability
-      - Licensing and SaaS
-  - name: Manage the FinOps Practice
-    capabilities:
-      - FinOps Practice Operations
-      - FinOps Education and Enablement
-      - Invoicing and Chargeback
-      - Onboarding Workloads
-      - Intersecting Disciplines
+publisherName: TikTok Pte. Ltd.
+serviceCategory: Social Platform APIs
 billingModel:
-  pricingCategory: Usage-Based
-  billingFrequency: Monthly
+  pricingCategory: Free / Approval-Gated
+  billingFrequency: N/A
   billingCurrency: USD
   chargeCategories:
     - Usage
-    - Purchase
-    - Tax
-    - Credit
-    - Adjustment
-  chargeFrequency: Recurring
 focusColumns:
   ServiceName: TikTok for Developers
-  ServiceCategory: Developer Tools / API
-  ProviderName: TikTok for Developers
-  PublisherName: TikTok for Developers
-  InvoiceIssuerName: TikTok for Developers
-  PricingCategory: Usage-Based
-  PricingUnit: request
+  ServiceCategory: Social Platform APIs
+  ProviderName: TikTok
+  PublisherName: TikTok Pte. Ltd.
   BillingCurrency: USD
   ChargeCategory: Usage
 meters:
-  - name: api_requests
-    description: Count of billable API requests
+  - name: user_info_requests
     unit: request
     aggregation: sum
     dimensions:
-      - api
+      - client_key
       - endpoint
-      - tier
-      - region
-      - consumer
-  - name: data_egress
-    description: Bytes returned over the network in API responses
-    unit: GB
+  - name: video_query_requests
+    unit: request
     aggregation: sum
     dimensions:
-      - api
-      - region
-      - consumer
-  - name: compute_seconds
-    description: Server-side compute consumed by the request, where applicable
-    unit: second
+      - client_key
+      - endpoint
+  - name: video_list_requests
+    unit: request
     aggregation: sum
     dimensions:
-      - api
+      - client_key
       - endpoint
-      - tier
-apis:
-  - name: TikTok Display API
-    baseURL: https://open.tiktokapis.com
-    tags:
-      - Content
-      - Social Media
-      - Video
-    serviceName: TikTok Display API
-    serviceCategory: API
-  - name: TikTok Content Posting API
-    baseURL: https://open.tiktokapis.com
-    tags:
-      - Content
-      - Publishing
-      - Social Media
-      - Video
-    serviceName: TikTok Content Posting API
-    serviceCategory: API
-  - name: TikTok Research API
-    baseURL: https://open.tiktokapis.com
-    tags:
-      - Analytics
-      - Research
-      - Social Media
-      - Video
-    serviceName: TikTok Research API
-    serviceCategory: API
-  - name: TikTok Login Kit
-    baseURL: https://open.tiktokapis.com
-    tags:
-      - Authentication
-      - OAuth
-      - Social Login
-    serviceName: TikTok Login Kit
-    serviceCategory: API
-unitEconomics:
-  - name: Cost per 1K Requests
-    metric: billed_cost / (api_requests / 1000)
-    target: TBD
-  - name: Cost per Active Consumer
-    metric: billed_cost / active_consumers
-    target: TBD
+principles:
+  - name: Visibility
+    description: Track per-client_key request volume against the 600 rpm sliding window for the documented
+      v2 endpoints to anticipate 429 throttling.
+  - name: Allocation
+    description: Issue a distinct client key per app and environment so quota and approval-tier entitlements
+      can be attributed to the consuming product team.
+  - name: Optimization
+    description: Cache user_info responses, batch video queries, and avoid redundant list polls before
+      requesting a quota raise via TikTok Support.
+  - name: Accountability
+    description: Designate a developer-relations owner accountable for app review status, approval-tier
+      renewal, and Support tickets for limit increases.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

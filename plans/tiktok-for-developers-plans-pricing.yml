@@ -4,156 +4,97 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: TikTok for Developers
 providerId: tiktok-for-developers
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: true
 tags:
-  - Advertising
-  - Analytics
-  - Authentication
-  - Content
-  - Social Media
+  - Social
   - Video
-description: Machine-readable plans and pricing scaffold for this API provider. Conforms to the API Commons
-  Plans schema. Tier limits and prices are scaffold defaults; replace with provider-published values.
+  - Login
+  - Sharing
+description: TikTok for Developers exposes Login Kit, Share Kit, Embed Videos, Content Posting API, Display
+  API, and Webhooks to any registered developer at no published price. Research Tools and Commercial
+  Content API require approval; the Data Portability API is restricted to TikTok users in the EEA and
+  UK. There is no per-call rate card.
+sources:
+  - https://developers.tiktok.com/products
+  - https://developers.tiktok.com/doc/getting-started-create-an-app
+notes: TikTok for Developers does not publish pricing. Plans capture the approval and audience tiers
+  rather than billing tiers.
 plans:
-  - id: tiktok-for-developers-free
-    name: Free
+  - id: tiktok-for-developers-developer
+    name: Developer (Default)
     type: freemium
-    description: Free entry tier for the TikTok for Developers API surface. Intended for evaluation, prototyping,
-      and low-volume integrations. Real limits and pricing must be reconciled with the provider's published
-      plan documentation.
+    description: Default access to the open developer products for any registered TikTok app.
     entries:
-      - label: API Requests
-        description: Monthly API request quota across all included endpoints
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: 1000
-        timeFrame: month
-        geo: global
-        domains:
-          - https://open.tiktokapis.com
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the free tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 10
-        timeFrame: minute
-        geo: global
-        domains:
-          - https://open.tiktokapis.com
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-    elements:
-      - name: Public Documentation
-      - name: Community Support
-      - name: Sandbox Access
-      - name: TikTok Display API
-      - name: TikTok Content Posting API
-      - name: TikTok Research API
-      - name: TikTok Login Kit
-  - id: tiktok-for-developers-pro
-    name: Professional
-    type: paid
-    description: Production tier for TikTok for Developers. Provides higher quotas, priority support,
-      and access to the broader API portfolio. Pricing placeholder; align with the provider's pricing
-      page.
-    entries:
-      - label: API Requests
-        description: Monthly API request quota
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: 100000
-        timeFrame: month
-        geo: global
-        domains:
-          - https://open.tiktokapis.com
-        unit: 1
-        price: TBD
-        userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the professional tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 100
-        timeFrame: minute
-        geo: global
-        domains:
-          - https://open.tiktokapis.com
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Overage
-        description: Per-request price after monthly quota is exceeded
-        name: overage
-        type: metered
-        metric: requests
+      - label: Default Access
+        name: default_access
+        type: flat
+        metric: usage
         limit: -1
-        timeFrame: month
+        timeFrame: usage
         geo: global
-        domains:
-          - https://open.tiktokapis.com
-        unit: 1000
-        price: TBD
+        unit: 1
+        price: '0'
         userMultiplied: false
     elements:
-      - name: All Production Endpoints
-      - name: Email Support
-      - name: SLA Targets
-      - name: Webhook Subscriptions
-      - name: TikTok Display API
-      - name: TikTok Content Posting API
-      - name: TikTok Research API
-      - name: TikTok Login Kit
-  - id: tiktok-for-developers-enterprise
-    name: Enterprise
+      - name: Login Kit
+      - name: Share Kit
+      - name: Embed Videos
+      - name: Content Posting API
+      - name: Display API
+      - name: Webhooks
+      - name: Green Screen Kit
+  - id: tiktok-for-developers-research
+    name: Research Tools
     type: enterprise
-    description: Custom-negotiated tier for TikTok for Developers. Includes dedicated capacity, contractual
-      SLAs, security review, data residency options, and named technical account management.
+    description: Available only to approved researchers.
     entries:
-      - label: API Requests
-        description: Negotiated request volume; -1 indicates uncapped subject to fair use
-        name: api_requests
-        type: quota
-        metric: requests
+      - label: Approved-Researcher Access
+        name: approved_researcher_access
+        type: flat
+        metric: usage
         limit: -1
-        timeFrame: month
-        geo: configurable
-        domains:
-          - https://open.tiktokapis.com
+        timeFrame: usage
+        geo: global
         unit: 1
-        price: custom
-        userMultiplied: false
-      - label: Rate Limit
-        description: Negotiated burst and steady-state rate
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 1000
-        timeFrame: minute
-        geo: configurable
-        domains:
-          - https://open.tiktokapis.com
-        unit: 1
-        price: custom
+        price: 'approval-gated'
         userMultiplied: false
     elements:
-      - name: Unlimited / Negotiated Volume
-      - name: 24/7 Dedicated Support
-      - name: Contractual SLA
-      - name: Security & Compliance Review
-      - name: Dedicated Account Manager
-      - name: Custom Data Residency
-      - name: TikTok Display API
-      - name: TikTok Content Posting API
-      - name: TikTok Research API
-      - name: TikTok Login Kit
+      - name: Available only to approved researchers
+  - id: tiktok-for-developers-commercial-content
+    name: Commercial Content API
+    type: enterprise
+    description: Approval-gated access to commercial-content data and tooling.
+    entries:
+      - label: Approval-Gated Access
+        name: approval_gated_access
+        type: flat
+        metric: usage
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: 'approval-gated'
+        userMultiplied: false
+    elements:
+      - name: Approval required
+  - id: tiktok-for-developers-data-portability
+    name: Data Portability API
+    type: enterprise
+    description: Limited to TikTok users in the EEA and UK.
+    entries:
+      - label: EEA / UK Access
+        name: eea_uk_access
+        type: flat
+        metric: usage
+        limit: -1
+        timeFrame: usage
+        geo: 'EEA, UK'
+        unit: 1
+        price: '0'
+        userMultiplied: false
+    elements:
+      - name: EEA and UK users only
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
