@@ -1,0 +1,80 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: TikTok Display API — User
+  description: 'TikTok Display API — User. 1 operations. Lead operation: Get User Info. Self-contained Naftiko capability
+    covering one Tiktok For Developers business surface.'
+  tags:
+  - Tiktok For Developers
+  - User
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    TIKTOK_FOR_DEVELOPERS_API_KEY: TIKTOK_FOR_DEVELOPERS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: tiktok-display-user
+    baseUri: https://open.tiktokapis.com
+    description: TikTok Display API — User business capability. Self-contained, no shared references.
+    resources:
+    - name: v2-user-info
+      path: /v2/user/info/
+      operations:
+      - name: getuserinfo
+        method: GET
+        description: Get User Info
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: string
+          description: Comma-separated list of fields to return (e.g. open_id,avatar_url,display_name,bio_description,profile_deep_link,union_id,is_verified,follower_count,following_c
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.TIKTOK_FOR_DEVELOPERS_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: tiktok-display-user-rest
+    port: 8080
+    description: REST adapter for TikTok Display API — User. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/v2/user/info
+      name: v2-user-info
+      description: REST surface for v2-user-info.
+      operations:
+      - method: GET
+        name: getuserinfo
+        description: Get User Info
+        call: tiktok-display-user.getuserinfo
+        with:
+          fields: rest.fields
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: tiktok-display-user-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for TikTok Display API — User. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: get-user-info
+      description: Get User Info
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: tiktok-display-user.getuserinfo
+      with:
+        fields: tools.fields
+      outputParameters:
+      - type: object
+        mapping: $.

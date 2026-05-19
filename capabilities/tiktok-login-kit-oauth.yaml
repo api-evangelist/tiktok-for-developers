@@ -1,0 +1,161 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: TikTok Login Kit API — OAuth
+  description: 'TikTok Login Kit API — OAuth. 3 operations. Lead operation: Revoke Access Token. Self-contained Naftiko capability
+    covering one Tiktok For Developers business surface.'
+  tags:
+  - Tiktok For Developers
+  - OAuth
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    TIKTOK_FOR_DEVELOPERS_API_KEY: TIKTOK_FOR_DEVELOPERS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: tiktok-login-kit-oauth
+    baseUri: https://open.tiktokapis.com
+    description: TikTok Login Kit API — OAuth business capability. Self-contained, no shared references.
+    resources:
+    - name: v2-oauth-revoke
+      path: /v2/oauth/revoke/
+      operations:
+      - name: revoketoken
+        method: POST
+        description: Revoke Access Token
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: v2-oauth-token
+      path: /v2/oauth/token/
+      operations:
+      - name: exchangetoken
+        method: POST
+        description: Exchange Authorization Code for Token
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: v2-oauth-token-refresh
+      path: /v2/oauth/token/refresh/
+      operations:
+      - name: refreshtoken
+        method: POST
+        description: Refresh Access Token
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+  exposes:
+  - type: rest
+    namespace: tiktok-login-kit-oauth-rest
+    port: 8080
+    description: REST adapter for TikTok Login Kit API — OAuth. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/v2/oauth/revoke
+      name: v2-oauth-revoke
+      description: REST surface for v2-oauth-revoke.
+      operations:
+      - method: POST
+        name: revoketoken
+        description: Revoke Access Token
+        call: tiktok-login-kit-oauth.revoketoken
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v2/oauth/token
+      name: v2-oauth-token
+      description: REST surface for v2-oauth-token.
+      operations:
+      - method: POST
+        name: exchangetoken
+        description: Exchange Authorization Code for Token
+        call: tiktok-login-kit-oauth.exchangetoken
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v2/oauth/token/refresh
+      name: v2-oauth-token-refresh
+      description: REST surface for v2-oauth-token-refresh.
+      operations:
+      - method: POST
+        name: refreshtoken
+        description: Refresh Access Token
+        call: tiktok-login-kit-oauth.refreshtoken
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: tiktok-login-kit-oauth-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for TikTok Login Kit API — OAuth. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: revoke-access-token
+      description: Revoke Access Token
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: tiktok-login-kit-oauth.revoketoken
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: exchange-authorization-code-token
+      description: Exchange Authorization Code for Token
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: tiktok-login-kit-oauth.exchangetoken
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: refresh-access-token
+      description: Refresh Access Token
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: tiktok-login-kit-oauth.refreshtoken
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

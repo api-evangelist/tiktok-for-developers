@@ -1,0 +1,86 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: TikTok Research API — Research Users
+  description: 'TikTok Research API — Research Users. 1 operations. Lead operation: Query Research User Info. Self-contained
+    Naftiko capability covering one Tiktok For Developers business surface.'
+  tags:
+  - Tiktok For Developers
+  - Research Users
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    TIKTOK_FOR_DEVELOPERS_API_KEY: TIKTOK_FOR_DEVELOPERS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: tiktok-research-research-users
+    baseUri: https://open.tiktokapis.com
+    description: TikTok Research API — Research Users business capability. Self-contained, no shared references.
+    resources:
+    - name: v2-research-user-info
+      path: /v2/research/user/info/
+      operations:
+      - name: queryresearchuserinfo
+        method: POST
+        description: Query Research User Info
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.TIKTOK_FOR_DEVELOPERS_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: tiktok-research-research-users-rest
+    port: 8080
+    description: REST adapter for TikTok Research API — Research Users. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/v2/research/user/info
+      name: v2-research-user-info
+      description: REST surface for v2-research-user-info.
+      operations:
+      - method: POST
+        name: queryresearchuserinfo
+        description: Query Research User Info
+        call: tiktok-research-research-users.queryresearchuserinfo
+        with:
+          fields: rest.fields
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: tiktok-research-research-users-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for TikTok Research API — Research Users. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: query-research-user-info
+      description: Query Research User Info
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: tiktok-research-research-users.queryresearchuserinfo
+      with:
+        fields: tools.fields
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
