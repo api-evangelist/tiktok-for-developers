@@ -1,0 +1,118 @@
+arazzo: 1.0.1
+info:
+  title: TikTok Research User Social Graph
+  summary: Look up a public user by handle, then pull their followers and the accounts they follow.
+  description: >-
+    Maps a public TikTok account's social graph for research using the Research
+    API. The workflow first resolves a handle to its public profile and counts,
+    then retrieves the user's follower list, and finally retrieves the list of
+    accounts the user follows. Together the three steps produce a two-sided edge
+    set anchored on the resolved profile. Every step spells out its request
+    inline, including the inline Bearer authorization, so the flow can be read
+    and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: researchApi
+  url: ../openapi/tiktok-research-openapi.yml
+  type: openapi
+workflows:
+- workflowId: research-user-social-graph
+  summary: Resolve a handle, then list its followers and following.
+  description: >-
+    Resolves a TikTok handle to its public profile, then lists the user's
+    followers and the accounts they follow.
+  inputs:
+    type: object
+    required:
+    - accessToken
+    - username
+    properties:
+      accessToken:
+        type: string
+        description: OAuth 2.0 client-credentials token for the Research API.
+      username:
+        type: string
+        description: TikTok handle to profile (without the @).
+      userFields:
+        type: string
+        description: Comma-separated user fields to return.
+        default: display_name,bio_description,avatar_url,is_verified,follower_count,following_count,likes_count,video_count
+      socialFields:
+        type: string
+        description: Comma-separated social user fields to return.
+        default: display_name,username
+      maxCount:
+        type: integer
+        description: Maximum number of social users to return per page (1-100).
+        default: 100
+  steps:
+  - stepId: getUserInfo
+    description: >-
+      Resolve the supplied handle to its public profile and follower/following
+      counts.
+    operationId: queryResearchUserInfo
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    - name: fields
+      in: query
+      value: $inputs.userFields
+    requestBody:
+      contentType: application/json
+      payload:
+        username: $inputs.username
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      displayName: $response.body#/data/display_name
+      followerCount: $response.body#/data/follower_count
+      followingCount: $response.body#/data/following_count
+  - stepId: listFollowers
+    description: >-
+      Retrieve the list of followers for the resolved user.
+    operationId: listUserFollowers
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    - name: fields
+      in: query
+      value: $inputs.socialFields
+    requestBody:
+      contentType: application/json
+      payload:
+        username: $inputs.username
+        max_count: $inputs.maxCount
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      followers: $response.body#/data/user_followers
+      hasMore: $response.body#/data/has_more
+      cursor: $response.body#/data/cursor
+  - stepId: listFollowing
+    description: >-
+      Retrieve the list of accounts the resolved user follows.
+    operationId: listUserFollowing
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    - name: fields
+      in: query
+      value: $inputs.socialFields
+    requestBody:
+      contentType: application/json
+      payload:
+        username: $inputs.username
+        max_count: $inputs.maxCount
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      following: $response.body#/data/user_followers
+      hasMore: $response.body#/data/has_more
+      cursor: $response.body#/data/cursor
+  outputs:
+    displayName: $steps.getUserInfo.outputs.displayName
+    followers: $steps.listFollowers.outputs.followers
+    following: $steps.listFollowing.outputs.following

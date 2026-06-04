@@ -99,6 +99,36 @@ apis:
     - type: NaftikoCapability
       url: capabilities/tiktok-login-kit-oauth.yaml
 common:
+  - type: ArazzoWorkflows
+    url: arazzo/
+    workflows:
+    - url: arazzo/tiktok-for-developers-direct-post-video-workflow.yml
+      name: TikTok Direct Post a Video from a URL
+      summary: Check creator settings, initiate a PULL_FROM_URL direct post, then poll publish status until it completes.
+    - url: arazzo/tiktok-for-developers-inbox-draft-upload-workflow.yml
+      name: TikTok Upload a Draft to the Creator Inbox
+      summary: Confirm creator settings, send a video to the user's TikTok inbox as a draft, then poll until it lands.
+    - url: arazzo/tiktok-for-developers-oauth-login-and-profile-workflow.yml
+      name: TikTok OAuth Login and Profile Bootstrap
+      summary: Exchange an authorization code for an access token, then immediately read the authenticated user's profile.
+    - url: arazzo/tiktok-for-developers-refresh-token-and-list-videos-workflow.yml
+      name: TikTok Refresh Token and List Videos
+      summary: Refresh an expired access token, then list the authenticated user's recent videos with the new token.
+    - url: arazzo/tiktok-for-developers-research-pinned-video-comments-workflow.yml
+      name: TikTok Research Pinned Video Comments
+      summary: Resolve a handle, fetch the user's pinned videos, then pull comments on the first pinned video.
+    - url: arazzo/tiktok-for-developers-research-search-and-comments-workflow.yml
+      name: TikTok Research Video Search and Comments
+      summary: Search public videos by keyword and date range, then pull comments on the first matching video.
+    - url: arazzo/tiktok-for-developers-research-user-activity-workflow.yml
+      name: TikTok Research User Video Activity
+      summary: Resolve a handle, then collect the user's liked videos and reposted videos.
+    - url: arazzo/tiktok-for-developers-research-user-social-graph-workflow.yml
+      name: TikTok Research User Social Graph
+      summary: Look up a public user by handle, then pull their followers and the accounts they follow.
+    - url: arazzo/tiktok-for-developers-user-profile-and-videos-workflow.yml
+      name: TikTok User Profile and Recent Videos
+      summary: Read the authenticated user's profile, list their recent videos, then refresh metadata for the newest video.
   - type: LinkedIn
     url: https://www.linkedin.com/company/tiktok-for-developers
   - type: Website

@@ -1,0 +1,95 @@
+arazzo: 1.0.1
+info:
+  title: TikTok OAuth Login and Profile Bootstrap
+  summary: Exchange an authorization code for an access token, then immediately read the authenticated user's profile.
+  description: >-
+    Completes the TikTok OAuth handshake and bootstraps a user session. The
+    workflow exchanges the authorization code returned from the Login Kit
+    redirect for an access token and refresh token, then uses the freshly
+    issued access token to read the authenticated user's profile from the
+    Display API. Every step spells out its request inline, including the inline
+    Bearer authorization on the profile call, so the flow can be read and
+    executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: loginKitApi
+  url: ../openapi/tiktok-login-kit-openapi.yml
+  type: openapi
+- name: displayApi
+  url: ../openapi/tiktok-display-openapi.yml
+  type: openapi
+workflows:
+- workflowId: oauth-login-and-profile
+  summary: Exchange an authorization code for tokens and read the user's profile.
+  description: >-
+    Exchanges the OAuth authorization code for access and refresh tokens, then
+    reads the authenticated user's profile using the new access token.
+  inputs:
+    type: object
+    required:
+    - clientKey
+    - clientSecret
+    - code
+    - redirectUri
+    properties:
+      clientKey:
+        type: string
+        description: Your app's client key.
+      clientSecret:
+        type: string
+        description: Your app's client secret.
+      code:
+        type: string
+        description: Authorization code from the OAuth redirect.
+      redirectUri:
+        type: string
+        description: Redirect URI registered for your app.
+      userFields:
+        type: string
+        description: Comma-separated user fields to return.
+        default: open_id,union_id,avatar_url,display_name,is_verified,follower_count,video_count
+  steps:
+  - stepId: exchangeCode
+    description: >-
+      Exchange the authorization code for an access token and refresh token via
+      the OAuth token endpoint.
+    operationId: exchangeToken
+    requestBody:
+      contentType: application/x-www-form-urlencoded
+      payload:
+        client_key: $inputs.clientKey
+        client_secret: $inputs.clientSecret
+        code: $inputs.code
+        grant_type: authorization_code
+        redirect_uri: $inputs.redirectUri
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      accessToken: $response.body#/access_token
+      refreshToken: $response.body#/refresh_token
+      openId: $response.body#/open_id
+      scope: $response.body#/scope
+      expiresIn: $response.body#/expires_in
+  - stepId: getProfile
+    description: >-
+      Read the authenticated user's profile using the freshly issued access
+      token.
+    operationId: getUserInfo
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $steps.exchangeCode.outputs.accessToken
+    - name: fields
+      in: query
+      value: $inputs.userFields
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      displayName: $response.body#/data/user/display_name
+      avatarUrl: $response.body#/data/user/avatar_url
+      followerCount: $response.body#/data/user/follower_count
+  outputs:
+    accessToken: $steps.exchangeCode.outputs.accessToken
+    refreshToken: $steps.exchangeCode.outputs.refreshToken
+    openId: $steps.exchangeCode.outputs.openId
+    displayName: $steps.getProfile.outputs.displayName

@@ -1,0 +1,117 @@
+arazzo: 1.0.1
+info:
+  title: TikTok Upload a Draft to the Creator Inbox
+  summary: Confirm creator settings, send a video to the user's TikTok inbox as a draft, then poll until it lands.
+  description: >-
+    Sends a video to a creator's TikTok inbox as a draft using the Content
+    Posting API so the user can review and publish it from the TikTok app. The
+    workflow first queries the creator's posting settings, then initiates an
+    inbox upload that pulls the video from a URL, and finally polls the publish
+    status until the draft has been delivered to the user's inbox or the job
+    fails. Every step spells out its request inline, including the inline Bearer
+    authorization, so the flow can be read and executed without opening the
+    underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: contentPostingApi
+  url: ../openapi/tiktok-content-posting-openapi.yml
+  type: openapi
+workflows:
+- workflowId: inbox-draft-upload
+  summary: Upload a video as an inbox draft and poll until it reaches the inbox.
+  description: >-
+    Reads the creator's posting settings, initiates a PULL_FROM_URL inbox
+    upload, and polls the publish status until it reaches SENDING_TO_USER_INBOX
+    or PUBLISH_COMPLETE.
+  inputs:
+    type: object
+    required:
+    - accessToken
+    - videoUrl
+    properties:
+      accessToken:
+        type: string
+        description: OAuth 2.0 user access token with video.upload scope.
+      videoUrl:
+        type: string
+        description: Publicly reachable URL of the video to pull into the inbox draft.
+  steps:
+  - stepId: getCreatorInfo
+    description: >-
+      Query the creator's content posting settings before sending a draft to
+      their inbox.
+    operationId: queryCreatorInfo
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      creatorUsername: $response.body#/data/creator_username
+      maxDurationSec: $response.body#/data/max_video_post_duration_sec
+  - stepId: initInboxUpload
+    description: >-
+      Initiate an inbox upload that pulls the video from the supplied URL so the
+      user can review and publish it from the TikTok app.
+    operationId: initInboxVideoUpload
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    requestBody:
+      contentType: application/json
+      payload:
+        source_info:
+          source: PULL_FROM_URL
+          video_url: $inputs.videoUrl
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      publishId: $response.body#/data/publish_id
+  - stepId: pollStatus
+    description: >-
+      Poll the publish status until the draft has been delivered to the user's
+      inbox, the job completes, or it fails.
+    operationId: getPublishStatus
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    requestBody:
+      contentType: application/json
+      payload:
+        publish_id: $steps.initInboxUpload.outputs.publishId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      status: $response.body#/data/status
+    onSuccess:
+    - name: delivered
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.data.status == "SENDING_TO_USER_INBOX"
+        type: jsonpath
+    - name: completed
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.data.status == "PUBLISH_COMPLETE"
+        type: jsonpath
+    - name: failed
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.data.status == "FAILED"
+        type: jsonpath
+    - name: stillProcessing
+      type: goto
+      stepId: pollStatus
+      criteria:
+      - context: $response.body
+        condition: $.data.status == "PROCESSING_UPLOAD" || $.data.status == "PROCESSING_DOWNLOAD"
+        type: jsonpath
+  outputs:
+    publishId: $steps.initInboxUpload.outputs.publishId
+    finalStatus: $steps.pollStatus.outputs.status

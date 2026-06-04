@@ -1,0 +1,95 @@
+arazzo: 1.0.1
+info:
+  title: TikTok Refresh Token and List Videos
+  summary: Refresh an expired access token, then list the authenticated user's recent videos with the new token.
+  description: >-
+    Keeps a long-lived TikTok integration running by rotating credentials before
+    reading data. The workflow uses a valid refresh token to mint a fresh access
+    token via the Login Kit OAuth endpoint, then immediately lists the
+    authenticated user's most recent public videos from the Display API using
+    the newly issued token. Every step spells out its request inline, including
+    the inline Bearer authorization on the video listing call, so the flow can
+    be read and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: loginKitApi
+  url: ../openapi/tiktok-login-kit-openapi.yml
+  type: openapi
+- name: displayApi
+  url: ../openapi/tiktok-display-openapi.yml
+  type: openapi
+workflows:
+- workflowId: refresh-token-and-list-videos
+  summary: Rotate the access token, then list the user's recent videos.
+  description: >-
+    Refreshes the access token using a valid refresh token and lists the
+    authenticated user's recent public videos with the new token.
+  inputs:
+    type: object
+    required:
+    - clientKey
+    - clientSecret
+    - refreshToken
+    properties:
+      clientKey:
+        type: string
+        description: Your app's client key.
+      clientSecret:
+        type: string
+        description: Your app's client secret.
+      refreshToken:
+        type: string
+        description: A valid refresh token to exchange for a new access token.
+      videoFields:
+        type: string
+        description: Comma-separated video fields to return.
+        default: id,create_time,cover_image_url,share_url,video_description,title,like_count,comment_count,view_count
+      maxCount:
+        type: integer
+        description: Maximum number of videos to list (1-20).
+        default: 20
+  steps:
+  - stepId: refreshAccessToken
+    description: >-
+      Exchange the refresh token for a new access token via the OAuth token
+      refresh endpoint.
+    operationId: refreshToken
+    requestBody:
+      contentType: application/x-www-form-urlencoded
+      payload:
+        client_key: $inputs.clientKey
+        client_secret: $inputs.clientSecret
+        grant_type: refresh_token
+        refresh_token: $inputs.refreshToken
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      accessToken: $response.body#/access_token
+      newRefreshToken: $response.body#/refresh_token
+      expiresIn: $response.body#/expires_in
+  - stepId: listVideosWithNewToken
+    description: >-
+      List the authenticated user's most recent public videos using the newly
+      issued access token.
+    operationId: listVideos
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $steps.refreshAccessToken.outputs.accessToken
+    - name: fields
+      in: query
+      value: $inputs.videoFields
+    requestBody:
+      contentType: application/json
+      payload:
+        max_count: $inputs.maxCount
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      videos: $response.body#/data/videos
+      hasMore: $response.body#/data/has_more
+      cursor: $response.body#/data/cursor
+  outputs:
+    accessToken: $steps.refreshAccessToken.outputs.accessToken
+    newRefreshToken: $steps.refreshAccessToken.outputs.newRefreshToken
+    videos: $steps.listVideosWithNewToken.outputs.videos

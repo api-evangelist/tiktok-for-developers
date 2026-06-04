@@ -1,0 +1,138 @@
+arazzo: 1.0.1
+info:
+  title: TikTok Direct Post a Video from a URL
+  summary: Check creator settings, initiate a PULL_FROM_URL direct post, then poll publish status until it completes.
+  description: >-
+    Publishes a video straight to a creator's public TikTok profile using the
+    Content Posting API and the PULL_FROM_URL source so no chunk upload is
+    required. The workflow first queries the creator's allowed posting settings,
+    then initiates the direct post with the supplied caption and privacy level,
+    and finally polls the publish status in a loop, branching on the terminal
+    PUBLISH_COMPLETE and FAILED states. Every step spells out its request inline,
+    including the inline Bearer authorization, so the flow can be read and
+    executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: contentPostingApi
+  url: ../openapi/tiktok-content-posting-openapi.yml
+  type: openapi
+workflows:
+- workflowId: direct-post-video
+  summary: Direct post a video from a URL and poll until publishing completes.
+  description: >-
+    Reads the creator's posting settings, initiates a PULL_FROM_URL direct
+    post, and polls the publish status until it reaches PUBLISH_COMPLETE or
+    FAILED.
+  inputs:
+    type: object
+    required:
+    - accessToken
+    - videoUrl
+    - title
+    properties:
+      accessToken:
+        type: string
+        description: OAuth 2.0 user access token with video.publish scope.
+      videoUrl:
+        type: string
+        description: Publicly reachable URL of the video to pull and publish.
+      title:
+        type: string
+        description: Caption/title for the post (max 2200 chars).
+      privacyLevel:
+        type: string
+        description: Privacy level for the post.
+        default: PUBLIC_TO_EVERYONE
+      disableComment:
+        type: boolean
+        description: Whether to disable comments on the post.
+        default: false
+      disableDuet:
+        type: boolean
+        description: Whether to disable duet for the post.
+        default: false
+      disableStitch:
+        type: boolean
+        description: Whether to disable stitch for the post.
+        default: false
+  steps:
+  - stepId: getCreatorInfo
+    description: >-
+      Query the creator's content posting settings to confirm the requested
+      privacy level and interaction settings are permitted.
+    operationId: queryCreatorInfo
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      privacyOptions: $response.body#/data/privacy_level_options
+      maxDurationSec: $response.body#/data/max_video_post_duration_sec
+  - stepId: initDirectPost
+    description: >-
+      Initiate a direct post that pulls the video from the supplied URL and
+      applies the caption and privacy/interaction settings.
+    operationId: initVideoPublish
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    requestBody:
+      contentType: application/json
+      payload:
+        source_info:
+          source: PULL_FROM_URL
+          video_url: $inputs.videoUrl
+        post_info:
+          title: $inputs.title
+          privacy_level: $inputs.privacyLevel
+          disable_comment: $inputs.disableComment
+          disable_duet: $inputs.disableDuet
+          disable_stitch: $inputs.disableStitch
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      publishId: $response.body#/data/publish_id
+  - stepId: pollStatus
+    description: >-
+      Poll the publish status using the publish_id. Repeats while the job is
+      still processing and branches on the terminal states.
+    operationId: getPublishStatus
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    requestBody:
+      contentType: application/json
+      payload:
+        publish_id: $steps.initDirectPost.outputs.publishId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      status: $response.body#/data/status
+      uploadedBytes: $response.body#/data/uploaded_bytes
+    onSuccess:
+    - name: completed
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.data.status == "PUBLISH_COMPLETE"
+        type: jsonpath
+    - name: failed
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.data.status == "FAILED"
+        type: jsonpath
+    - name: stillProcessing
+      type: goto
+      stepId: pollStatus
+      criteria:
+      - context: $response.body
+        condition: $.data.status != "PUBLISH_COMPLETE" && $.data.status != "FAILED"
+        type: jsonpath
+  outputs:
+    publishId: $steps.initDirectPost.outputs.publishId
+    finalStatus: $steps.pollStatus.outputs.status

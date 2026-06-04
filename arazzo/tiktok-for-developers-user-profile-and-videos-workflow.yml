@@ -1,0 +1,128 @@
+arazzo: 1.0.1
+info:
+  title: TikTok User Profile and Recent Videos
+  summary: Read the authenticated user's profile, list their recent videos, then refresh metadata for the newest video.
+  description: >-
+    Builds a complete snapshot of an authenticated TikTok creator using the
+    Display API. The workflow first reads the user's basic profile, then lists
+    their most recently uploaded public videos, and finally re-queries the
+    newest video by its id to refresh its cover image URL TTL and pull fresh
+    engagement metrics. Every step spells out its request inline, including the
+    inline Bearer authorization, so the flow can be read and executed without
+    opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: displayApi
+  url: ../openapi/tiktok-display-openapi.yml
+  type: openapi
+workflows:
+- workflowId: user-profile-and-videos
+  summary: Snapshot a creator's profile and refresh their newest video metadata.
+  description: >-
+    Reads the authenticated user's profile fields, lists their recent public
+    videos, and re-queries the newest video id to refresh its cover image and
+    counts.
+  inputs:
+    type: object
+    required:
+    - accessToken
+    properties:
+      accessToken:
+        type: string
+        description: OAuth 2.0 user access token for the TikTok Display API.
+      userFields:
+        type: string
+        description: Comma-separated user fields to return.
+        default: open_id,union_id,avatar_url,display_name,bio_description,profile_deep_link,is_verified,follower_count,following_count,likes_count,video_count
+      videoFields:
+        type: string
+        description: Comma-separated video fields to return.
+        default: id,create_time,cover_image_url,share_url,video_description,duration,title,like_count,comment_count,share_count,view_count
+      maxCount:
+        type: integer
+        description: Maximum number of videos to list (1-20).
+        default: 20
+  steps:
+  - stepId: getProfile
+    description: >-
+      Read the authenticated user's basic profile information using the
+      requested set of user fields.
+    operationId: getUserInfo
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    - name: fields
+      in: query
+      value: $inputs.userFields
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      openId: $response.body#/data/user/open_id
+      displayName: $response.body#/data/user/display_name
+      videoCount: $response.body#/data/user/video_count
+  - stepId: listRecentVideos
+    description: >-
+      List the user's most recently uploaded public videos, sorted by create
+      time descending.
+    operationId: listVideos
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    - name: fields
+      in: query
+      value: $inputs.videoFields
+    requestBody:
+      contentType: application/json
+      payload:
+        max_count: $inputs.maxCount
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      videos: $response.body#/data/videos
+      newestVideoId: $response.body#/data/videos/0/id
+      hasMore: $response.body#/data/has_more
+      cursor: $response.body#/data/cursor
+    onSuccess:
+    - name: haveVideos
+      type: goto
+      stepId: refreshNewestVideo
+      criteria:
+      - context: $response.body
+        condition: $.data.videos.length > 0
+        type: jsonpath
+    - name: noVideos
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.data.videos.length == 0
+        type: jsonpath
+  - stepId: refreshNewestVideo
+    description: >-
+      Re-query the newest video by id to refresh its cover image URL TTL and
+      pull fresh engagement metrics.
+    operationId: queryVideos
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    - name: fields
+      in: query
+      value: $inputs.videoFields
+    requestBody:
+      contentType: application/json
+      payload:
+        filters:
+          video_ids:
+          - $steps.listRecentVideos.outputs.newestVideoId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      refreshedVideos: $response.body#/data/videos
+      refreshedCoverImageUrl: $response.body#/data/videos/0/cover_image_url
+  outputs:
+    openId: $steps.getProfile.outputs.openId
+    displayName: $steps.getProfile.outputs.displayName
+    videos: $steps.listRecentVideos.outputs.videos
+    refreshedCoverImageUrl: $steps.refreshNewestVideo.outputs.refreshedCoverImageUrl

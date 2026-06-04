@@ -1,0 +1,118 @@
+arazzo: 1.0.1
+info:
+  title: TikTok Research User Video Activity
+  summary: Resolve a handle, then collect the user's liked videos and reposted videos.
+  description: >-
+    Builds a picture of what a public TikTok account engages with using the
+    Research API. The workflow resolves a handle to its public profile, then
+    retrieves the videos the user has liked, and finally retrieves the videos
+    the user has reposted. The two activity lists share the same video response
+    shape, giving a consistent view of the account's outbound engagement. Every
+    step spells out its request inline, including the inline Bearer
+    authorization, so the flow can be read and executed without opening the
+    underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: researchApi
+  url: ../openapi/tiktok-research-openapi.yml
+  type: openapi
+workflows:
+- workflowId: research-user-activity
+  summary: Resolve a handle, then list the user's liked and reposted videos.
+  description: >-
+    Resolves a TikTok handle, then retrieves the videos the user has liked and
+    the videos the user has reposted.
+  inputs:
+    type: object
+    required:
+    - accessToken
+    - username
+    properties:
+      accessToken:
+        type: string
+        description: OAuth 2.0 client-credentials token for the Research API.
+      username:
+        type: string
+        description: TikTok handle to inspect (without the @).
+      userFields:
+        type: string
+        description: Comma-separated user fields to return.
+        default: display_name,is_verified,follower_count,likes_count,video_count
+      videoFields:
+        type: string
+        description: Comma-separated video fields to return.
+        default: id,create_time,username,region_code,video_description,like_count,comment_count,view_count
+      maxCount:
+        type: integer
+        description: Maximum number of videos to return per page (1-100).
+        default: 100
+  steps:
+  - stepId: getUserInfo
+    description: >-
+      Resolve the supplied handle to its public profile before collecting
+      activity.
+    operationId: queryResearchUserInfo
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    - name: fields
+      in: query
+      value: $inputs.userFields
+    requestBody:
+      contentType: application/json
+      payload:
+        username: $inputs.username
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      displayName: $response.body#/data/display_name
+      likesCount: $response.body#/data/likes_count
+  - stepId: listLikedVideos
+    description: >-
+      Retrieve the list of videos the resolved user has liked.
+    operationId: listUserLikedVideos
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    - name: fields
+      in: query
+      value: $inputs.videoFields
+    requestBody:
+      contentType: application/json
+      payload:
+        username: $inputs.username
+        max_count: $inputs.maxCount
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      likedVideos: $response.body#/data/videos
+      hasMore: $response.body#/data/has_more
+      cursor: $response.body#/data/cursor
+  - stepId: listRepostedVideos
+    description: >-
+      Retrieve the list of videos the resolved user has reposted.
+    operationId: listUserRepostedVideos
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    - name: fields
+      in: query
+      value: $inputs.videoFields
+    requestBody:
+      contentType: application/json
+      payload:
+        username: $inputs.username
+        max_count: $inputs.maxCount
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      repostedVideos: $response.body#/data/videos
+      hasMore: $response.body#/data/has_more
+      cursor: $response.body#/data/cursor
+  outputs:
+    displayName: $steps.getUserInfo.outputs.displayName
+    likedVideos: $steps.listLikedVideos.outputs.likedVideos
+    repostedVideos: $steps.listRepostedVideos.outputs.repostedVideos
