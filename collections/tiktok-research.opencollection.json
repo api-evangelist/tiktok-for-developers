@@ -1,0 +1,225 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TikTok Research API",
+    "version": "v2"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Research Videos",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Query Research Videos",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://open.tiktokapis.com/v2/research/video/query/",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to return"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Queries TikTok videos using boolean operators (AND, OR, NOT) with filters such as keywords, region, date range, hashtags, music ID, and effect ID. Returns video IDs and selected metadata fields."
+        },
+        {
+          "info": {
+            "name": "List User Liked Videos",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://open.tiktokapis.com/v2/research/user/liked_videos/",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Retrieves the list of videos liked by a specified TikTok user."
+        },
+        {
+          "info": {
+            "name": "List User Pinned Videos",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://open.tiktokapis.com/v2/research/user/pinned_videos/",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Retrieves the list of videos pinned by a specified TikTok user."
+        },
+        {
+          "info": {
+            "name": "List User Reposted Videos",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://open.tiktokapis.com/v2/research/user/reposted_videos/",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Retrieves the list of videos reposted by a specified TikTok user."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Research Users",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Query Research User Info",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://open.tiktokapis.com/v2/research/user/info/",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Retrieves public TikTok account information by TikTok handle. Returns fields such as display_name, bio_description, avatar_url, is_verified, follower_count, following_count, likes_count, and video_count."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Research Comments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Video Comments",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://open.tiktokapis.com/v2/research/video/comment/list/",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Retrieves all comments on a specific TikTok video, including comment text, author information, create time, and like count."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Research Social",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List User Followers",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://open.tiktokapis.com/v2/research/user/followers/",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Retrieves the list of followers for a specified TikTok user."
+        },
+        {
+          "info": {
+            "name": "List User Following",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://open.tiktokapis.com/v2/research/user/following/",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Retrieves the list of accounts that a specified TikTok user follows."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

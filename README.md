@@ -1,92 +1,161 @@
-# TikTok for Developers
+# TikTok for Developers (tiktok-for-developers)
 
 TikTok for Developers provides a suite of REST APIs enabling third-party platforms to integrate with TikTok's social video ecosystem. Products include Login Kit, Display API, Content Posting API, Research API, and the TikTok API for Business, supporting use cases from user authentication and video publishing to advertising campaign management and academic research.
 
-**Human URL:** https://developers.tiktok.com/
+**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/tiktok-for-developers/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/tiktok-for-developers/refs/heads/main/apis.yml)
+
+## Scope
+
+- **Type:** Index
+- **Position:** Consumer
+- **Access:** 3rd-Party
+
+## Tags
+
+- Advertising
+- Analytics
+- Authentication
+- Content
+- Social Media
+- Video
+
+## Timestamps
+
+- **Created:** 2025-07-29
+- **Modified:** 2026-05-19
 
 ## APIs
 
-| Name | Description |
-|---|---|
-| [TikTok Display API](https://developers.tiktok.com/doc/display-api-overview) | Access user profile information and video metadata |
-| [TikTok Content Posting API](https://developers.tiktok.com/doc/content-posting-api-get-started) | Publish videos directly to user TikTok accounts |
-| [TikTok Research API](https://developers.tiktok.com/doc/research-api-get-started) | Access public data for academic research |
-| [TikTok Login Kit](https://developers.tiktok.com/doc/login-kit-web) | OAuth 2.0 authentication via TikTok |
+### TikTok Display API
 
-## OpenAPI Specifications
+Enables developers to access TikTok user profile information and video metadata. Supports retrieving user info, listing recent videos, and querying videos by ID.
 
-| Specification | Description |
-|---|---|
-| [TikTok Display API](openapi/tiktok-display-openapi.yml) | User info and video listing endpoints |
-| [TikTok Content Posting API](openapi/tiktok-content-posting-openapi.yml) | Video upload and publish endpoints |
-| [TikTok Research API](openapi/tiktok-research-openapi.yml) | Research data query endpoints |
-| [TikTok Login Kit API](openapi/tiktok-login-kit-openapi.yml) | OAuth token management endpoints |
+- **Human URL:** [https://developers.tiktok.com/doc/display-api-overview](https://developers.tiktok.com/doc/display-api-overview)
+- **Base URL:** `https://open.tiktokapis.com`
 
-## Capabilities
+#### Tags
 
-Workflow-oriented Naftiko capabilities combining TikTok APIs for common integration patterns.
+- Content
+- Social Media
+- Video
 
-| Capability | APIs Used | Description |
-|---|---|---|
-| [Content Creation](capabilities/content-creation.yaml) | Display API, Content Posting API | Full content lifecycle for app developers and media tools |
-| [Social Research](capabilities/social-research.yaml) | Research API | Video, user, comment, and social graph data for researchers |
+#### Properties
 
-### Shared API Definitions
+- [Documentation](https://developers.tiktok.com/doc/display-api-overview)
+- [OpenAPI](https://raw.githubusercontent.com/api-evangelist/tiktok-for-developers/refs/heads/main/openapi/tiktok-display-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Postman Collection](collections/tiktok-content-posting.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/tiktok-content-posting.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Postman Collection](collections/tiktok-display.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/tiktok-display.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Postman Collection](collections/tiktok-login-kit.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/tiktok-login-kit.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Postman Collection](collections/tiktok-research.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/tiktok-research.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
 
-| Shared Definition | Description |
-|---|---|
-| [display-api.yaml](capabilities/shared/display-api.yaml) | TikTok Display API consumed definition |
-| [content-posting-api.yaml](capabilities/shared/content-posting-api.yaml) | TikTok Content Posting API consumed definition |
-| [research-api.yaml](capabilities/shared/research-api.yaml) | TikTok Research API consumed definition |
+### TikTok Content Posting API
 
-## Rules
+Allows third-party platforms to publish videos directly to a user's TikTok account. Supports direct post and upload-then-publish flows including initiating uploads, uploading video chunks, and checking publish status.
 
-| Ruleset | Description |
-|---|---|
-| [tiktok-for-developers-rules.yml](rules/tiktok-for-developers-rules.yml) | Spectral ruleset enforcing TikTok API conventions |
+- **Human URL:** [https://developers.tiktok.com/doc/content-posting-api-reference-direct-post](https://developers.tiktok.com/doc/content-posting-api-reference-direct-post)
+- **Base URL:** `https://open.tiktokapis.com`
 
-## Schemas
+#### Tags
 
-| Schema | Description |
-|---|---|
-| [tiktok-for-developers-video-schema.json](json-schema/tiktok-for-developers-video-schema.json) | JSON Schema for TikTok video objects |
-| [tiktok-for-developers-user-schema.json](json-schema/tiktok-for-developers-user-schema.json) | JSON Schema for TikTok user profiles |
+- Content
+- Publishing
+- Social Media
+- Video
 
-## Structures
+#### Properties
 
-| Structure | Description |
-|---|---|
-| [tiktok-for-developers-video-structure.json](json-structure/tiktok-for-developers-video-structure.json) | Video object field structure |
+- [Documentation](https://developers.tiktok.com/doc/content-posting-api-get-started)
+- [OpenAPI](https://raw.githubusercontent.com/api-evangelist/tiktok-for-developers/refs/heads/main/openapi/tiktok-content-posting-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Postman Collection](collections/tiktok-content-posting.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/tiktok-content-posting.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Postman Collection](collections/tiktok-display.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/tiktok-display.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Postman Collection](collections/tiktok-login-kit.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/tiktok-login-kit.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Postman Collection](collections/tiktok-research.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/tiktok-research.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
 
-## JSON-LD
+### TikTok Research API
 
-| Context | Description |
-|---|---|
-| [tiktok-for-developers-context.jsonld](json-ld/tiktok-for-developers-context.jsonld) | JSON-LD context mapping to schema.org |
+Provides academic and institutional researchers with access to TikTok public data including video queries, user information, comments, followers, and liked videos.
 
-## Examples
+- **Human URL:** [https://developers.tiktok.com/doc/research-api-get-started](https://developers.tiktok.com/doc/research-api-get-started)
+- **Base URL:** `https://open.tiktokapis.com`
 
-| Example | Description |
-|---|---|
-| [Get User Info](examples/tiktok-display-getUserInfo-example.json) | Example request/response for user info |
-| [Init Video Publish](examples/tiktok-content-posting-initVideoPublish-example.json) | Example video publish initiation |
-| [Query Research Videos](examples/tiktok-research-queryResearchVideos-example.json) | Example research video query |
+#### Tags
 
-## Vocabulary
+- Analytics
+- Research
+- Social Media
+- Video
 
-| Vocabulary | Description |
-|---|---|
-| [tiktok-for-developers-vocabulary.yml](vocabulary/tiktok-for-developers-vocabulary.yml) | TikTok developer platform vocabulary |
+#### Properties
+
+- [Documentation](https://developers.tiktok.com/doc/research-api-get-started)
+- [OpenAPI](https://raw.githubusercontent.com/api-evangelist/tiktok-for-developers/refs/heads/main/openapi/tiktok-research-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Postman Collection](collections/tiktok-content-posting.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/tiktok-content-posting.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Postman Collection](collections/tiktok-display.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/tiktok-display.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Postman Collection](collections/tiktok-login-kit.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/tiktok-login-kit.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Postman Collection](collections/tiktok-research.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/tiktok-research.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+
+### TikTok Login Kit
+
+Allows users to securely log in to third-party apps and websites using their TikTok credentials via OAuth 2.0. Supports authorization code flow and token management.
+
+- **Human URL:** [https://developers.tiktok.com/doc/login-kit-web](https://developers.tiktok.com/doc/login-kit-web)
+- **Base URL:** `https://open.tiktokapis.com`
+
+#### Tags
+
+- Authentication
+- OAuth
+- Social Login
+
+#### Properties
+
+- [Documentation](https://developers.tiktok.com/doc/login-kit-web)
+- [OpenAPI](https://raw.githubusercontent.com/api-evangelist/tiktok-for-developers/refs/heads/main/openapi/tiktok-login-kit-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Postman Collection](collections/tiktok-content-posting.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/tiktok-content-posting.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Postman Collection](collections/tiktok-display.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/tiktok-display.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Postman Collection](collections/tiktok-login-kit.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/tiktok-login-kit.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Postman Collection](collections/tiktok-research.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/tiktok-research.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
 
 ## Common Properties
 
-- **Website:** https://www.tiktok.com/
-- **Developer Portal:** https://developers.tiktok.com/
-- **Documentation:** https://developers.tiktok.com/doc/overview
-- **GitHub:** https://github.com/tiktok
-- **Change Log:** https://developers.tiktok.com/doc/changelog
-- **Terms of Service:** https://developers.tiktok.com/doc/tiktok-api-terms-of-service
+- [Arazzo Workflows](arazzo/) — [Arazzo Specification](https://spec.openapis.org/arazzo/latest.html)
+- [LinkedIn](https://www.linkedin.com/company/tiktok-for-developers)
+- [Website](https://www.tiktok.com/)
+- [Portal](https://developers.tiktok.com/)
+- [Documentation](https://developers.tiktok.com/doc/overview)
+- [Getting Started](https://developers.tiktok.com/doc/overview)
+- [Authentication](https://developers.tiktok.com/doc/login-kit-manage-user-access-tokens)
+- [GitHub Organization](https://github.com/tiktok)
+- [SDK](https://github.com/tiktok/tiktok-opensdk-ios)
+- [SDK](https://github.com/tiktok/tiktok-opensdk-android)
+- [SDK](https://github.com/tiktok/tiktok-business-api-sdk)
+- [Changelog](https://developers.tiktok.com/doc/changelog)
+- [Blog](https://developers.tiktok.com/blog)
+- [Forum](https://developers.tiktok.com/community)
+- [Status Page](https://status.tiktok.com/)
+- [Terms of Service](https://developers.tiktok.com/doc/tiktok-api-terms-of-service)
+- [Privacy Policy](https://developers.tiktok.com/doc/tiktok-api-data-privacy)
+- [Use  Cases](https://developers.tiktok.com/)
+- [Sign Up](https://developers.tiktok.com/)
+- [Login](https://developers.tiktok.com/login)
 
 ## Maintainers
 
-**Kin Lane** (kin@apievangelist.com)
+**FN:** Kin Lane
+**Email:** kin@apievangelist.com

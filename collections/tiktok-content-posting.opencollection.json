@@ -1,0 +1,80 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TikTok Content Posting API",
+    "version": "v2"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Post",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Init Video Upload",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://open.tiktokapis.com/v2/post/publish/video/init/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Initiates a video upload or direct post to a user's TikTok account. Declare the video source type (FILE_UPLOAD or PULL_FROM_URL), chunk count, file size, and publish metadata. Returns an upload_url and publish_id."
+        },
+        {
+          "info": {
+            "name": "Get Publish Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://open.tiktokapis.com/v2/post/publish/status/fetch/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Polls the status of a video publish job using the publish_id returned from the init endpoint. Status transitions from PROCESSING to PUBLISH_COMPLETE."
+        },
+        {
+          "info": {
+            "name": "Init Inbox Video Upload",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://open.tiktokapis.com/v2/post/publish/inbox/video/init/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Initiates a video upload to a user's TikTok inbox as a draft. The user can review and publish from the TikTok app."
+        },
+        {
+          "info": {
+            "name": "Query Creator Info",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://open.tiktokapis.com/v2/post/publish/creator_info/query/"
+          },
+          "docs": "Retrieves the authenticated creator's content posting settings including allowed privacy levels, duet and stitch permissions, and comment settings."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
