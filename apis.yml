@@ -1,172 +1,171 @@
 aid: tiktok-for-developers
 name: TikTok for Developers
-description: TikTok for Developers provides a suite of REST APIs enabling third-party platforms to integrate with TikTok's
-  social video ecosystem. Products include Login Kit, Display API, Content Posting API, Research API, and the TikTok API for
-  Business, supporting use cases from user authentication and video publishing to advertising campaign management and academic
-  research.
+description: TikTok for Developers provides a suite of REST APIs enabling third-party
+  platforms to integrate with TikTok's social video ecosystem. Products include Login
+  Kit, Display API, Content Posting API, Research API, and the TikTok API for Business,
+  supporting use cases from user authentication and video publishing to advertising
+  campaign management and academic research.
 type: Index
 position: Consumer
 access: 3rd-Party
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
-  - Advertising
-  - Analytics
-  - Authentication
-  - Content
-  - Social Media
-  - Video
+- Advertising
+- Analytics
+- Authentication
+- Content
+- Social Media
+- Video
 created: '2025-07-29'
 modified: '2026-05-19'
 url: https://raw.githubusercontent.com/api-evangelist/tiktok-for-developers/refs/heads/main/apis.yml
 specificationVersion: '0.19'
 apis:
-  - aid: tiktok-for-developers:tiktok-display-api
-    name: TikTok Display API
-    description: Enables developers to access TikTok user profile information and video metadata. Supports retrieving user info,
-      listing recent videos, and querying videos by ID.
-    humanURL: https://developers.tiktok.com/doc/display-api-overview
-    baseURL: https://open.tiktokapis.com
-    tags:
-    - Content
-    - Social Media
-    - Video
-    properties:
-    - type: Documentation
-      url: https://developers.tiktok.com/doc/display-api-overview
-    - type: OpenAPI
-      url: https://raw.githubusercontent.com/api-evangelist/tiktok-for-developers/refs/heads/main/openapi/tiktok-display-openapi.yml
-    - type: NaftikoCapability
-      url: capabilities/tiktok-display-user.yaml
-    - type: NaftikoCapability
-      url: capabilities/tiktok-display-video.yaml
-  - aid: tiktok-for-developers:tiktok-content-posting-api
-    name: TikTok Content Posting API
-    description: Allows third-party platforms to publish videos directly to a user's TikTok account. Supports direct post and
-      upload-then-publish flows including initiating uploads, uploading video chunks, and checking publish status.
-    humanURL: https://developers.tiktok.com/doc/content-posting-api-reference-direct-post
-    baseURL: https://open.tiktokapis.com
-    tags:
-    - Content
-    - Publishing
-    - Social Media
-    - Video
-    properties:
-    - type: Documentation
-      url: https://developers.tiktok.com/doc/content-posting-api-get-started
-    - type: OpenAPI
-      url: https://raw.githubusercontent.com/api-evangelist/tiktok-for-developers/refs/heads/main/openapi/tiktok-content-posting-openapi.yml
-    - type: NaftikoCapability
-      url: capabilities/tiktok-content-posting-post.yaml
-  - aid: tiktok-for-developers:tiktok-research-api
-    name: TikTok Research API
-    description: Provides academic and institutional researchers with access to TikTok public data including video queries,
-      user information, comments, followers, and liked videos.
-    humanURL: https://developers.tiktok.com/doc/research-api-get-started
-    baseURL: https://open.tiktokapis.com
-    tags:
-    - Analytics
-    - Research
-    - Social Media
-    - Video
-    properties:
-    - type: Documentation
-      url: https://developers.tiktok.com/doc/research-api-get-started
-    - type: OpenAPI
-      url: https://raw.githubusercontent.com/api-evangelist/tiktok-for-developers/refs/heads/main/openapi/tiktok-research-openapi.yml
-    - type: NaftikoCapability
-      url: capabilities/tiktok-research-research-comments.yaml
-    - type: NaftikoCapability
-      url: capabilities/tiktok-research-research-social.yaml
-    - type: NaftikoCapability
-      url: capabilities/tiktok-research-research-users.yaml
-    - type: NaftikoCapability
-      url: capabilities/tiktok-research-research-videos.yaml
-  - aid: tiktok-for-developers:tiktok-login-kit
-    name: TikTok Login Kit
-    description: Allows users to securely log in to third-party apps and websites using their TikTok credentials via OAuth 2.0.
-      Supports authorization code flow and token management.
-    humanURL: https://developers.tiktok.com/doc/login-kit-web
-    baseURL: https://open.tiktokapis.com
-    tags:
-    - Authentication
-    - OAuth
-    - Social Login
-    properties:
-    - type: Documentation
-      url: https://developers.tiktok.com/doc/login-kit-web
-    - type: OpenAPI
-      url: https://raw.githubusercontent.com/api-evangelist/tiktok-for-developers/refs/heads/main/openapi/tiktok-login-kit-openapi.yml
-    - type: NaftikoCapability
-      url: capabilities/tiktok-login-kit-oauth.yaml
-common:
-  - type: ArazzoWorkflows
-    url: arazzo/
-    workflows:
-    - url: arazzo/tiktok-for-developers-direct-post-video-workflow.yml
-      name: TikTok Direct Post a Video from a URL
-      summary: Check creator settings, initiate a PULL_FROM_URL direct post, then poll publish status until it completes.
-    - url: arazzo/tiktok-for-developers-inbox-draft-upload-workflow.yml
-      name: TikTok Upload a Draft to the Creator Inbox
-      summary: Confirm creator settings, send a video to the user's TikTok inbox as a draft, then poll until it lands.
-    - url: arazzo/tiktok-for-developers-oauth-login-and-profile-workflow.yml
-      name: TikTok OAuth Login and Profile Bootstrap
-      summary: Exchange an authorization code for an access token, then immediately read the authenticated user's profile.
-    - url: arazzo/tiktok-for-developers-refresh-token-and-list-videos-workflow.yml
-      name: TikTok Refresh Token and List Videos
-      summary: Refresh an expired access token, then list the authenticated user's recent videos with the new token.
-    - url: arazzo/tiktok-for-developers-research-pinned-video-comments-workflow.yml
-      name: TikTok Research Pinned Video Comments
-      summary: Resolve a handle, fetch the user's pinned videos, then pull comments on the first pinned video.
-    - url: arazzo/tiktok-for-developers-research-search-and-comments-workflow.yml
-      name: TikTok Research Video Search and Comments
-      summary: Search public videos by keyword and date range, then pull comments on the first matching video.
-    - url: arazzo/tiktok-for-developers-research-user-activity-workflow.yml
-      name: TikTok Research User Video Activity
-      summary: Resolve a handle, then collect the user's liked videos and reposted videos.
-    - url: arazzo/tiktok-for-developers-research-user-social-graph-workflow.yml
-      name: TikTok Research User Social Graph
-      summary: Look up a public user by handle, then pull their followers and the accounts they follow.
-    - url: arazzo/tiktok-for-developers-user-profile-and-videos-workflow.yml
-      name: TikTok User Profile and Recent Videos
-      summary: Read the authenticated user's profile, list their recent videos, then refresh metadata for the newest video.
-  - type: LinkedIn
-    url: https://www.linkedin.com/company/tiktok-for-developers
-  - type: Website
-    url: https://www.tiktok.com/
-  - type: Portal
-    url: https://developers.tiktok.com/
+- aid: tiktok-for-developers:tiktok-display-api
+  name: TikTok Display API
+  description: Enables developers to access TikTok user profile information and video
+    metadata. Supports retrieving user info, listing recent videos, and querying videos
+    by ID.
+  humanURL: https://developers.tiktok.com/doc/display-api-overview
+  baseURL: https://open.tiktokapis.com
+  tags:
+  - Content
+  - Social Media
+  - Video
+  properties:
   - type: Documentation
-    url: https://developers.tiktok.com/doc/overview
-  - type: GettingStarted
-    url: https://developers.tiktok.com/doc/overview
-  - type: Authentication
-    url: https://developers.tiktok.com/doc/login-kit-manage-user-access-tokens
-  - type: GitHubOrganization
-    url: https://github.com/tiktok
-  - type: SDK
-    url: https://github.com/tiktok/tiktok-opensdk-ios
-  - type: SDK
-    url: https://github.com/tiktok/tiktok-opensdk-android
-  - type: SDK
-    url: https://github.com/tiktok/tiktok-business-api-sdk
-  - type: ChangeLog
-    url: https://developers.tiktok.com/doc/changelog
-  - type: Blog
-    url: https://developers.tiktok.com/blog
-  - type: Forum
-    url: https://developers.tiktok.com/community
-  - type: StatusPage
-    url: https://status.tiktok.com/
-  - type: TermsOfService
-    url: https://developers.tiktok.com/doc/tiktok-api-terms-of-service
-  - type: PrivacyPolicy
-    url: https://developers.tiktok.com/doc/tiktok-api-data-privacy
-  - type: Use Cases
-    url: https://developers.tiktok.com/
-  - type: SignUp
-    url: https://developers.tiktok.com/
-  - type: Login
-    url: https://developers.tiktok.com/login
+    url: https://developers.tiktok.com/doc/display-api-overview
+  - type: OpenAPI
+    url: https://raw.githubusercontent.com/api-evangelist/tiktok-for-developers/refs/heads/main/openapi/tiktok-display-openapi.yml
+  - url: graphql/tiktok-for-developers-graphql.md
+    type: GraphQL
+- aid: tiktok-for-developers:tiktok-content-posting-api
+  name: TikTok Content Posting API
+  description: Allows third-party platforms to publish videos directly to a user's
+    TikTok account. Supports direct post and upload-then-publish flows including initiating
+    uploads, uploading video chunks, and checking publish status.
+  humanURL: https://developers.tiktok.com/doc/content-posting-api-reference-direct-post
+  baseURL: https://open.tiktokapis.com
+  tags:
+  - Content
+  - Publishing
+  - Social Media
+  - Video
+  properties:
+  - type: Documentation
+    url: https://developers.tiktok.com/doc/content-posting-api-get-started
+  - type: OpenAPI
+    url: https://raw.githubusercontent.com/api-evangelist/tiktok-for-developers/refs/heads/main/openapi/tiktok-content-posting-openapi.yml
+- aid: tiktok-for-developers:tiktok-research-api
+  name: TikTok Research API
+  description: Provides academic and institutional researchers with access to TikTok
+    public data including video queries, user information, comments, followers, and
+    liked videos.
+  humanURL: https://developers.tiktok.com/doc/research-api-get-started
+  baseURL: https://open.tiktokapis.com
+  tags:
+  - Analytics
+  - Research
+  - Social Media
+  - Video
+  properties:
+  - type: Documentation
+    url: https://developers.tiktok.com/doc/research-api-get-started
+  - type: OpenAPI
+    url: https://raw.githubusercontent.com/api-evangelist/tiktok-for-developers/refs/heads/main/openapi/tiktok-research-openapi.yml
+- aid: tiktok-for-developers:tiktok-login-kit
+  name: TikTok Login Kit
+  description: Allows users to securely log in to third-party apps and websites using
+    their TikTok credentials via OAuth 2.0. Supports authorization code flow and token
+    management.
+  humanURL: https://developers.tiktok.com/doc/login-kit-web
+  baseURL: https://open.tiktokapis.com
+  tags:
+  - Authentication
+  - OAuth
+  - Social Login
+  properties:
+  - type: Documentation
+    url: https://developers.tiktok.com/doc/login-kit-web
+  - type: OpenAPI
+    url: https://raw.githubusercontent.com/api-evangelist/tiktok-for-developers/refs/heads/main/openapi/tiktok-login-kit-openapi.yml
+common:
+- type: ArazzoWorkflows
+  url: arazzo/
+  workflows:
+  - url: arazzo/tiktok-for-developers-direct-post-video-workflow.yml
+    name: TikTok Direct Post a Video from a URL
+    summary: Check creator settings, initiate a PULL_FROM_URL direct post, then poll
+      publish status until it completes.
+  - url: arazzo/tiktok-for-developers-inbox-draft-upload-workflow.yml
+    name: TikTok Upload a Draft to the Creator Inbox
+    summary: Confirm creator settings, send a video to the user's TikTok inbox as
+      a draft, then poll until it lands.
+  - url: arazzo/tiktok-for-developers-oauth-login-and-profile-workflow.yml
+    name: TikTok OAuth Login and Profile Bootstrap
+    summary: Exchange an authorization code for an access token, then immediately
+      read the authenticated user's profile.
+  - url: arazzo/tiktok-for-developers-refresh-token-and-list-videos-workflow.yml
+    name: TikTok Refresh Token and List Videos
+    summary: Refresh an expired access token, then list the authenticated user's recent
+      videos with the new token.
+  - url: arazzo/tiktok-for-developers-research-pinned-video-comments-workflow.yml
+    name: TikTok Research Pinned Video Comments
+    summary: Resolve a handle, fetch the user's pinned videos, then pull comments
+      on the first pinned video.
+  - url: arazzo/tiktok-for-developers-research-search-and-comments-workflow.yml
+    name: TikTok Research Video Search and Comments
+    summary: Search public videos by keyword and date range, then pull comments on
+      the first matching video.
+  - url: arazzo/tiktok-for-developers-research-user-activity-workflow.yml
+    name: TikTok Research User Video Activity
+    summary: Resolve a handle, then collect the user's liked videos and reposted videos.
+  - url: arazzo/tiktok-for-developers-research-user-social-graph-workflow.yml
+    name: TikTok Research User Social Graph
+    summary: Look up a public user by handle, then pull their followers and the accounts
+      they follow.
+  - url: arazzo/tiktok-for-developers-user-profile-and-videos-workflow.yml
+    name: TikTok User Profile and Recent Videos
+    summary: Read the authenticated user's profile, list their recent videos, then
+      refresh metadata for the newest video.
+- type: LinkedIn
+  url: https://www.linkedin.com/company/tiktok-for-developers
+- type: Website
+  url: https://www.tiktok.com/
+- type: Portal
+  url: https://developers.tiktok.com/
+- type: Documentation
+  url: https://developers.tiktok.com/doc/overview
+- type: GettingStarted
+  url: https://developers.tiktok.com/doc/overview
+- type: Authentication
+  url: https://developers.tiktok.com/doc/login-kit-manage-user-access-tokens
+- type: GitHubOrganization
+  url: https://github.com/tiktok
+- type: SDK
+  url: https://github.com/tiktok/tiktok-opensdk-ios
+- type: SDK
+  url: https://github.com/tiktok/tiktok-opensdk-android
+- type: SDK
+  url: https://github.com/tiktok/tiktok-business-api-sdk
+- type: ChangeLog
+  url: https://developers.tiktok.com/doc/changelog
+- type: Blog
+  url: https://developers.tiktok.com/blog
+- type: Forum
+  url: https://developers.tiktok.com/community
+- type: StatusPage
+  url: https://status.tiktok.com/
+- type: TermsOfService
+  url: https://developers.tiktok.com/doc/tiktok-api-terms-of-service
+- type: PrivacyPolicy
+  url: https://developers.tiktok.com/doc/tiktok-api-data-privacy
+- type: Use Cases
+  url: https://developers.tiktok.com/
+- type: SignUp
+  url: https://developers.tiktok.com/
+- type: Login
+  url: https://developers.tiktok.com/login
 maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+- FN: Kin Lane
+  email: kin@apievangelist.com

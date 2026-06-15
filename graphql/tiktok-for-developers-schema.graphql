@@ -1,0 +1,787 @@
+"""
+TikTok for Developers GraphQL Schema
+Conceptual schema derived from TikTok for Developers REST API surface including
+Login Kit, Share Kit, Content Posting API, Display API, Research API, and TikTok Shop.
+"""
+
+# ─── Scalars ───────────────────────────────────────────────────────────────────
+
+scalar DateTime
+scalar JSON
+scalar URL
+
+# ─── Enums ─────────────────────────────────────────────────────────────────────
+
+enum VideoPrivacyLevel {
+  PUBLIC_TO_EVERYONE
+  MUTUAL_FOLLOW_FRIENDS
+  FOLLOWER_OF_CREATOR
+  SELF_ONLY
+}
+
+enum VideoPublishStatus {
+  PUBLISH_COMPLETE
+  PUBLISH_FAILED
+  PROCESSING_UPLOAD
+  PROCESSING_DOWNLOAD
+  SEND_TO_USER_INBOX
+  SPEED_LIMIT_PUBLISH
+}
+
+enum VideoUploadType {
+  PULL_FROM_URL
+  FILE_UPLOAD
+}
+
+enum VideoCaption {
+  ON
+  OFF
+}
+
+enum CommentStatus {
+  ENABLED
+  DISABLED
+}
+
+enum ShareTarget {
+  TIKTOK
+  SMS
+  WHATSAPP
+  FACEBOOK
+  INSTAGRAM
+  TWITTER
+  EMAIL
+}
+
+enum AuthScope {
+  USER_INFO_BASIC
+  USER_INFO_EMAIL
+  USER_INFO_STATS
+  VIDEO_LIST
+  VIDEO_UPLOAD
+  VIDEO_PUBLISH
+  RESEARCH_DATA_BASIC
+  BUSINESS_ACCOUNT_READ
+  BUSINESS_ACCOUNT_WRITE
+  SHOP_READ
+  SHOP_WRITE
+}
+
+enum TokenType {
+  BEARER
+}
+
+enum ContentFormat {
+  VIDEO
+  PHOTO
+}
+
+enum VideoSortField {
+  CREATE_TIME
+  PLAY_COUNT
+  LIKE_COUNT
+  COMMENT_COUNT
+  SHARE_COUNT
+}
+
+enum SortOrder {
+  ASC
+  DESC
+}
+
+enum BusinessAccountType {
+  BUSINESS
+  CREATOR
+}
+
+enum ProductStatus {
+  ACTIVE
+  INACTIVE
+  DRAFT
+  DELETED
+}
+
+enum OrderStatus {
+  AWAITING_SHIPMENT
+  AWAITING_COLLECTION
+  IN_TRANSIT
+  DELIVERED
+  COMPLETED
+  CANCELLED
+  RETURN_REQUESTED
+  RETURN_IN_TRANSIT
+  RETURNED
+}
+
+enum ShopCurrency {
+  USD
+  EUR
+  GBP
+  SGD
+  IDR
+  MYR
+  PHP
+  THB
+  VND
+}
+
+enum ResearchVideoQueryField {
+  ID
+  CREATE_TIME
+  USERNAME
+  REGION_CODE
+  VIDEO_DESCRIPTION
+  MUSIC_ID
+  LIKE_COUNT
+  COMMENT_COUNT
+  SHARE_COUNT
+  VIEW_COUNT
+  HASHTAG_NAME
+  EFFECT_ID
+  PLAYLIST_ID
+  VOICE_TO_TEXT
+}
+
+enum RegionCode {
+  US
+  GB
+  CA
+  AU
+  FR
+  DE
+  JP
+  KR
+  BR
+  ID
+  MY
+  PH
+  TH
+  VN
+  SG
+  MX
+  AR
+}
+
+# ─── Core User Types ───────────────────────────────────────────────────────────
+
+"""A TikTok user account accessible via the Display API."""
+type User {
+  openId: ID!
+  unionId: ID
+  displayName: String!
+  avatarUrl: URL
+  avatarUrl100: URL
+  avatarLargeUrl: URL
+  profileDeepLink: URL
+  isVerified: Boolean
+  followerCount: Int
+  followingCount: Int
+  likesCount: Int
+  videoCount: Int
+  bioDescription: String
+  email: String
+  videos(first: Int, after: String): VideoConnection
+  createdAt: DateTime
+}
+
+"""Public user information returned by the Research API."""
+type ResearchUser {
+  displayName: String!
+  bioDescription: String
+  avatarUrl: URL
+  isVerified: Boolean
+  followerCount: Int
+  followingCount: Int
+  likesCount: Int
+  videoCount: Int
+  username: String!
+}
+
+"""OAuth access token bundle issued by Login Kit."""
+type AccessToken {
+  accessToken: String!
+  refreshToken: String!
+  tokenType: TokenType!
+  expiresIn: Int!
+  refreshExpiresIn: Int!
+  scope: String!
+  openId: ID!
+}
+
+# ─── Video Types ───────────────────────────────────────────────────────────────
+
+"""A TikTok video resource."""
+type Video {
+  id: ID!
+  createTime: DateTime
+  coverImageUrl: URL
+  shareUrl: URL
+  videoDescription: String
+  duration: Int
+  height: Int
+  width: Int
+  title: String
+  embedHtml: String
+  embedLink: URL
+  likeCount: Int
+  commentCount: Int
+  shareCount: Int
+  viewCount: Int
+  hashtags: [Hashtag!]
+  musicInfo: MusicInfo
+  privacyLevel: VideoPrivacyLevel
+  commentDisabled: Boolean
+  duetDisabled: Boolean
+  stitchDisabled: Boolean
+  format: ContentFormat
+  author: User
+  region: String
+}
+
+"""A paginated list of videos."""
+type VideoConnection {
+  nodes: [Video!]!
+  pageInfo: PageInfo!
+  totalCount: Int
+}
+
+"""Metadata about a music track used in a TikTok video."""
+type MusicInfo {
+  id: ID!
+  title: String
+  authorName: String
+  originalMusicInfo: Boolean
+  duration: Int
+  coverLargeUrl: URL
+  coverMediumUrl: URL
+  coverThumbUrl: URL
+  playUrl: URL
+}
+
+"""A hashtag/challenge entity."""
+type Hashtag {
+  name: String!
+  id: ID
+  videoCount: Int
+  viewCount: Int
+}
+
+# ─── Content Posting Types ─────────────────────────────────────────────────────
+
+"""Creator post settings retrieved before initiating a post."""
+type CreatorPostInfo {
+  creatorAvatarUrl: URL
+  creatorUsername: String
+  creatorNickname: String
+  privacyLevelOptions: [VideoPrivacyLevel!]!
+  commentDisabled: Boolean!
+  duetDisabled: Boolean!
+  stitchDisabled: Boolean!
+  maxVideoPostDurationSec: Int!
+}
+
+"""The result of initiating a video publish request."""
+type PublishInitResult {
+  publishId: ID!
+  uploadUrl: URL
+  uploadParams: JSON
+}
+
+"""The status of a pending or completed publish operation."""
+type PublishStatus {
+  publishId: ID!
+  status: VideoPublishStatus!
+  failReason: String
+  publiclyAvailable: Boolean
+  uploadedBytes: Int
+  totalBytes: Int
+}
+
+# ─── Share Kit Types ───────────────────────────────────────────────────────────
+
+"""A shareable link or deep-link for the Share Kit."""
+type ShareLink {
+  shareUrl: URL!
+  deepLinkUrl: URL
+  qrCodeUrl: URL
+  target: ShareTarget!
+  expiresAt: DateTime
+}
+
+"""Share Kit configuration for a TikTok content share."""
+type ShareConfig {
+  enabledTargets: [ShareTarget!]!
+  defaultHashtags: [String!]
+  defaultMention: String
+  defaultDescription: String
+}
+
+# ─── Research API Types ────────────────────────────────────────────────────────
+
+"""A video returned by the Research API (public data)."""
+type ResearchVideo {
+  id: ID!
+  createTime: DateTime!
+  username: String!
+  regionCode: RegionCode
+  videoDescription: String
+  musicId: ID
+  likeCount: Int
+  commentCount: Int
+  shareCount: Int
+  viewCount: Int
+  hashtags: [String!]
+  effectIds: [ID!]
+  playlistId: ID
+  voiceToText: String
+  comments: CommentConnection
+}
+
+"""A paginated list of research videos."""
+type ResearchVideoConnection {
+  data: [ResearchVideo!]!
+  cursor: String
+  hasMore: Boolean!
+  searchId: ID
+}
+
+"""A comment on a TikTok video (Research API)."""
+type Comment {
+  id: ID!
+  text: String!
+  likeCount: Int
+  replyCount: Int
+  createTime: DateTime
+  videoId: ID!
+  username: String
+}
+
+"""A paginated list of comments."""
+type CommentConnection {
+  data: [Comment!]!
+  cursor: String
+  hasMore: Boolean!
+}
+
+"""A follower or following relationship (Research API)."""
+type UserRelation {
+  displayName: String!
+  username: String!
+  avatarUrl: URL
+  followerCount: Int
+  isVerified: Boolean
+}
+
+"""A paginated list of user relations."""
+type UserRelationConnection {
+  data: [UserRelation!]!
+  cursor: String
+  hasMore: Boolean!
+}
+
+# ─── Business Account Types ────────────────────────────────────────────────────
+
+"""A TikTok Business Account profile."""
+type BusinessAccount {
+  id: ID!
+  username: String!
+  displayName: String!
+  accountType: BusinessAccountType!
+  avatarUrl: URL
+  bioDescription: String
+  followerCount: Int
+  likeCount: Int
+  videoCount: Int
+  websiteUrl: URL
+  email: String
+  phone: String
+  isVerified: Boolean
+  status: String
+  createdAt: DateTime
+}
+
+"""An ad account linked to a TikTok Business Account."""
+type AdAccount {
+  id: ID!
+  name: String!
+  currency: String
+  timezone: String
+  balance: Float
+  status: String
+  businessAccountId: ID!
+}
+
+"""An audience segment for business targeting."""
+type Audience {
+  id: ID!
+  name: String!
+  description: String
+  size: Int
+  status: String
+  createdAt: DateTime
+}
+
+# ─── TikTok Shop Types ─────────────────────────────────────────────────────────
+
+"""A TikTok Shop storefront."""
+type Shop {
+  id: ID!
+  name: String!
+  description: String
+  region: RegionCode
+  currency: ShopCurrency
+  status: String
+  logoUrl: URL
+  sellerName: String
+  productCount: Int
+  orderCount: Int
+  createdAt: DateTime
+  products(first: Int, after: String, status: ProductStatus): ProductConnection
+  orders(first: Int, after: String, status: OrderStatus): OrderConnection
+}
+
+"""A product listed in a TikTok Shop."""
+type Product {
+  id: ID!
+  name: String!
+  description: String
+  status: ProductStatus!
+  price: Money!
+  compareAtPrice: Money
+  currency: ShopCurrency!
+  sku: String
+  stock: Int
+  images: [ProductImage!]
+  category: ProductCategory
+  tags: [String!]
+  shopId: ID!
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+"""A paginated list of products."""
+type ProductConnection {
+  nodes: [Product!]!
+  pageInfo: PageInfo!
+  totalCount: Int
+}
+
+"""A product image."""
+type ProductImage {
+  id: ID!
+  url: URL!
+  altText: String
+  position: Int
+}
+
+"""A product category in TikTok Shop."""
+type ProductCategory {
+  id: ID!
+  name: String!
+  parentId: ID
+  level: Int
+}
+
+"""A monetary value with currency."""
+type Money {
+  amount: Float!
+  currency: ShopCurrency!
+}
+
+"""A TikTok Shop order."""
+type Order {
+  id: ID!
+  status: OrderStatus!
+  totalAmount: Money!
+  buyerUsername: String
+  buyerDisplayName: String
+  items: [OrderItem!]!
+  shippingAddress: Address
+  trackingNumber: String
+  carrier: String
+  createdAt: DateTime!
+  updatedAt: DateTime
+  shopId: ID!
+}
+
+"""A paginated list of orders."""
+type OrderConnection {
+  nodes: [Order!]!
+  pageInfo: PageInfo!
+  totalCount: Int
+}
+
+"""A line item within an order."""
+type OrderItem {
+  productId: ID!
+  productName: String!
+  sku: String
+  quantity: Int!
+  unitPrice: Money!
+  totalPrice: Money!
+}
+
+"""A physical address for shipping."""
+type Address {
+  line1: String!
+  line2: String
+  city: String!
+  state: String
+  postalCode: String
+  country: String!
+  phone: String
+}
+
+# ─── Pagination ────────────────────────────────────────────────────────────────
+
+"""Standard cursor-based pagination info."""
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+}
+
+# ─── Input Types ───────────────────────────────────────────────────────────────
+
+"""Input for requesting an OAuth access token."""
+input AccessTokenInput {
+  code: String!
+  clientKey: String!
+  clientSecret: String!
+  redirectUri: URL!
+}
+
+"""Input for refreshing an OAuth access token."""
+input RefreshTokenInput {
+  refreshToken: String!
+  clientKey: String!
+  clientSecret: String!
+}
+
+"""Input for initiating a video publish via URL pull."""
+input PublishVideoFromUrlInput {
+  sourceVideoUrl: URL!
+  title: String
+  privacyLevel: VideoPrivacyLevel!
+  commentDisabled: Boolean
+  duetDisabled: Boolean
+  stitchDisabled: Boolean
+  videoCoverTimestampMs: Int
+  autoAddMusic: Boolean
+  brandContentToggle: Boolean
+  brandOrganicToggle: Boolean
+}
+
+"""Input for initiating a video file upload."""
+input InitVideoUploadInput {
+  postInfo: VideoPostInfoInput!
+  sourceInfo: VideoSourceInfoInput!
+}
+
+"""Post metadata for video upload."""
+input VideoPostInfoInput {
+  title: String!
+  privacyLevel: VideoPrivacyLevel!
+  commentDisabled: Boolean
+  duetDisabled: Boolean
+  stitchDisabled: Boolean
+  videoCoverTimestampMs: Int
+  brandContentToggle: Boolean
+  brandOrganicToggle: Boolean
+}
+
+"""Source information for file-based video upload."""
+input VideoSourceInfoInput {
+  source: VideoUploadType!
+  videoUrl: URL
+  videoSize: Int
+  chunkSize: Int
+  totalChunkCount: Int
+}
+
+"""Input for querying videos via the Research API."""
+input ResearchVideoQueryInput {
+  query: ResearchQueryConditionInput!
+  startDate: String!
+  endDate: String!
+  fields: [ResearchVideoQueryField!]!
+  maxCount: Int
+  cursor: Int
+  searchId: String
+}
+
+"""Condition tree for Research API queries."""
+input ResearchQueryConditionInput {
+  and: [ResearchQueryConditionInput!]
+  or: [ResearchQueryConditionInput!]
+  not: [ResearchQueryConditionInput!]
+  operation: String
+  fieldName: String
+  fieldValues: [String!]
+}
+
+"""Input for creating a new product in TikTok Shop."""
+input CreateProductInput {
+  shopId: ID!
+  name: String!
+  description: String
+  price: Float!
+  currency: ShopCurrency!
+  sku: String
+  stock: Int
+  categoryId: ID
+  tags: [String!]
+  images: [ProductImageInput!]
+}
+
+"""Input for updating an existing product."""
+input UpdateProductInput {
+  name: String
+  description: String
+  price: Float
+  sku: String
+  stock: Int
+  categoryId: ID
+  tags: [String!]
+  status: ProductStatus
+}
+
+"""Input for a product image."""
+input ProductImageInput {
+  url: URL!
+  altText: String
+  position: Int
+}
+
+"""Input for updating an order status."""
+input UpdateOrderStatusInput {
+  status: OrderStatus!
+  trackingNumber: String
+  carrier: String
+}
+
+"""Input for filtering video lists."""
+input VideoFilterInput {
+  privacyLevel: VideoPrivacyLevel
+  minLikeCount: Int
+  minViewCount: Int
+  createdAfter: DateTime
+  createdBefore: DateTime
+}
+
+# ─── Query Root ────────────────────────────────────────────────────────────────
+
+type Query {
+  """Get the authenticated user's profile (Display API)."""
+  me(fields: [String!]): User
+
+  """Get a user's profile by open ID (Display API)."""
+  user(openId: ID!, fields: [String!]): User
+
+  """List the authenticated user's videos (Display API)."""
+  myVideos(first: Int, after: String, filter: VideoFilterInput): VideoConnection
+
+  """Get video details by IDs (Display API)."""
+  videos(ids: [ID!]!, fields: [String!]): [Video!]
+
+  """Get creator post settings before initiating a publish (Content Posting API)."""
+  creatorPostInfo: CreatorPostInfo
+
+  """Check the status of a publish operation (Content Posting API)."""
+  publishStatus(publishId: ID!): PublishStatus
+
+  """Search public videos via the Research API."""
+  researchVideos(input: ResearchVideoQueryInput!): ResearchVideoConnection
+
+  """Get a public user's profile via the Research API."""
+  researchUser(username: String!, fields: [String!]): ResearchUser
+
+  """List a user's liked videos via the Research API."""
+  researchUserLikedVideos(username: String!, maxCount: Int, cursor: String): ResearchVideoConnection
+
+  """List a user's pinned videos via the Research API."""
+  researchUserPinnedVideos(username: String!, fields: [String!]): ResearchVideoConnection
+
+  """List a user's reposted videos via the Research API."""
+  researchUserRepostedVideos(username: String!, maxCount: Int, cursor: String): ResearchVideoConnection
+
+  """Get comments on a video via the Research API."""
+  videoComments(videoId: ID!, maxCount: Int, cursor: String): CommentConnection
+
+  """Get a user's followers via the Research API."""
+  userFollowers(username: String!, maxCount: Int, cursor: String): UserRelationConnection
+
+  """Get accounts a user follows via the Research API."""
+  userFollowing(username: String!, maxCount: Int, cursor: String): UserRelationConnection
+
+  """Get a TikTok Business Account profile."""
+  businessAccount(id: ID!): BusinessAccount
+
+  """List ad accounts for a business account."""
+  adAccounts(businessAccountId: ID!): [AdAccount!]
+
+  """Get a TikTok Shop."""
+  shop(id: ID!): Shop
+
+  """List shops for the authenticated business account."""
+  shops(first: Int, after: String): [Shop!]
+
+  """Get a product by ID."""
+  product(id: ID!, shopId: ID!): Product
+
+  """List products in a shop."""
+  products(shopId: ID!, first: Int, after: String, status: ProductStatus): ProductConnection
+
+  """Get an order by ID."""
+  order(id: ID!, shopId: ID!): Order
+
+  """List orders in a shop."""
+  orders(shopId: ID!, first: Int, after: String, status: OrderStatus): OrderConnection
+
+  """List available product categories for a region."""
+  productCategories(region: RegionCode!): [ProductCategory!]
+
+  """Get share configuration for the authenticated user."""
+  shareConfig: ShareConfig
+
+  """Generate a share link for a video."""
+  shareLink(videoId: ID!, target: ShareTarget!): ShareLink
+}
+
+# ─── Mutation Root ─────────────────────────────────────────────────────────────
+
+type Mutation {
+  """Exchange an authorization code for an access token (Login Kit)."""
+  getAccessToken(input: AccessTokenInput!): AccessToken
+
+  """Refresh an expired access token (Login Kit)."""
+  refreshAccessToken(input: RefreshTokenInput!): AccessToken
+
+  """Revoke an access token (Login Kit)."""
+  revokeAccessToken(accessToken: String!): Boolean
+
+  """Initiate a direct video post by pulling from a URL (Content Posting API)."""
+  publishVideoFromUrl(input: PublishVideoFromUrlInput!): PublishInitResult
+
+  """Initiate a video upload to later publish (Content Posting API)."""
+  initVideoUpload(input: InitVideoUploadInput!): PublishInitResult
+
+  """Create a new product in a TikTok Shop."""
+  createProduct(input: CreateProductInput!): Product
+
+  """Update an existing product in a TikTok Shop."""
+  updateProduct(id: ID!, shopId: ID!, input: UpdateProductInput!): Product
+
+  """Delete a product from a TikTok Shop."""
+  deleteProduct(id: ID!, shopId: ID!): Boolean
+
+  """Update an order's status (e.g., add tracking information)."""
+  updateOrderStatus(id: ID!, shopId: ID!, input: UpdateOrderStatusInput!): Order
+
+  """Cancel an order."""
+  cancelOrder(id: ID!, shopId: ID!, reason: String): Order
+
+  """Update a business account profile."""
+  updateBusinessAccount(id: ID!, displayName: String, bioDescription: String, websiteUrl: URL): BusinessAccount
+}
