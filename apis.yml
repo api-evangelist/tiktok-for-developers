@@ -90,6 +90,10 @@ apis:
   - type: OpenAPI
     url: https://raw.githubusercontent.com/api-evangelist/tiktok-for-developers/refs/heads/main/openapi/tiktok-login-kit-openapi.yml
 common:
+- type: DomainSecurity
+  url: security/tiktok-for-developers-domain-security.yml
+- type: Authentication
+  url: authentication/tiktok-for-developers-authentication.yml
 - type: Arazzo
   url: arazzo/tiktok-for-developers-direct-post-video-workflow.yml
   name: TikTok Direct Post a Video from a URL
