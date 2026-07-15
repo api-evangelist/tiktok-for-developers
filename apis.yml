@@ -90,6 +90,8 @@ apis:
   - type: OpenAPI
     url: https://raw.githubusercontent.com/api-evangelist/tiktok-for-developers/refs/heads/main/openapi/tiktok-login-kit-openapi.yml
 common:
+- type: AgenticAccess
+  url: agentic-access/tiktok-for-developers-agentic-access.yml
 - type: DomainSecurity
   url: security/tiktok-for-developers-domain-security.yml
 - type: Authentication
