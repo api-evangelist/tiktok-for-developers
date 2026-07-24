@@ -1,36 +1,28 @@
 openapi: 3.1.0
 info:
-  title: TikTok Content Posting API
-  description: >-
-    The TikTok Content Posting API allows third-party platforms to publish
-    videos directly to a user's TikTok account. Supports direct post and
-    file-upload flows, including video initiation, chunk upload, and publish
-    status polling.
+  title: TikTok Content Posting OAuth Post API
+  description: The TikTok Content Posting API allows third-party platforms to publish videos directly to a user's TikTok account. Supports direct post and file-upload flows, including video initiation, chunk upload, and publish status polling.
   version: v2
   contact:
     name: TikTok for Developers
     url: https://developers.tiktok.com/
   termsOfService: https://developers.tiktok.com/doc/tiktok-api-terms-of-service
 servers:
-  - url: https://open.tiktokapis.com
-    description: TikTok Open API Production
+- url: https://open.tiktokapis.com
+  description: TikTok Open API Production
 security:
-  - BearerAuth: []
+- BearerAuth: []
 tags:
-  - name: Post
-    description: Video publishing operations
+- name: Post
+  description: Video publishing operations
 paths:
   /v2/post/publish/video/init/:
     post:
       operationId: initVideoPublish
       summary: Init Video Upload
-      description: >-
-        Initiates a video upload or direct post to a user's TikTok account.
-        Declare the video source type (FILE_UPLOAD or PULL_FROM_URL), chunk
-        count, file size, and publish metadata. Returns an upload_url and
-        publish_id.
+      description: Initiates a video upload or direct post to a user's TikTok account. Declare the video source type (FILE_UPLOAD or PULL_FROM_URL), chunk count, file size, and publish metadata. Returns an upload_url and publish_id.
       tags:
-        - Post
+      - Post
       requestBody:
         required: true
         content:
@@ -52,12 +44,9 @@ paths:
     post:
       operationId: getPublishStatus
       summary: Get Publish Status
-      description: >-
-        Polls the status of a video publish job using the publish_id returned
-        from the init endpoint. Status transitions from PROCESSING to
-        PUBLISH_COMPLETE.
+      description: Polls the status of a video publish job using the publish_id returned from the init endpoint. Status transitions from PROCESSING to PUBLISH_COMPLETE.
       tags:
-        - Post
+      - Post
       requestBody:
         required: true
         content:
@@ -77,11 +66,9 @@ paths:
     post:
       operationId: initInboxVideoUpload
       summary: Init Inbox Video Upload
-      description: >-
-        Initiates a video upload to a user's TikTok inbox as a draft. The user
-        can review and publish from the TikTok app.
+      description: Initiates a video upload to a user's TikTok inbox as a draft. The user can review and publish from the TikTok app.
       tags:
-        - Post
+      - Post
       requestBody:
         required: true
         content:
@@ -101,12 +88,9 @@ paths:
     post:
       operationId: queryCreatorInfo
       summary: Query Creator Info
-      description: >-
-        Retrieves the authenticated creator's content posting settings including
-        allowed privacy levels, duet and stitch permissions, and comment
-        settings.
+      description: Retrieves the authenticated creator's content posting settings including allowed privacy levels, duet and stitch permissions, and comment settings.
       tags:
-        - Post
+      - Post
       responses:
         '200':
           description: Creator info returned successfully
@@ -117,101 +101,11 @@ paths:
         '401':
           description: Unauthorized
 components:
-  securitySchemes:
-    BearerAuth:
-      type: http
-      scheme: bearer
-      description: OAuth 2.0 Bearer token
   schemas:
-    VideoInitRequest:
-      type: object
-      required:
-        - source_info
-        - post_info
-      properties:
-        source_info:
-          type: object
-          properties:
-            source:
-              type: string
-              enum:
-                - FILE_UPLOAD
-                - PULL_FROM_URL
-              description: Source type for the video
-            video_url:
-              type: string
-              description: URL of the video (required when source is PULL_FROM_URL)
-            chunk_size:
-              type: integer
-              description: Size of each upload chunk in bytes
-            total_chunk_count:
-              type: integer
-              description: Total number of chunks
-        post_info:
-          $ref: '#/components/schemas/PostInfo'
-    InboxVideoInitRequest:
-      type: object
-      required:
-        - source_info
-      properties:
-        source_info:
-          type: object
-          properties:
-            source:
-              type: string
-              enum:
-                - FILE_UPLOAD
-                - PULL_FROM_URL
-            video_url:
-              type: string
-            chunk_size:
-              type: integer
-            total_chunk_count:
-              type: integer
-    PostInfo:
-      type: object
-      properties:
-        title:
-          type: string
-          description: Caption/title for the post (max 2200 chars)
-        privacy_level:
-          type: string
-          enum:
-            - PUBLIC_TO_EVERYONE
-            - MUTUAL_FOLLOW_FRIENDS
-            - FOLLOWER_OF_CREATOR
-            - SELF_ONLY
-          description: Privacy level for the video
-        disable_duet:
-          type: boolean
-          description: Whether to disable duet for this post
-        disable_comment:
-          type: boolean
-          description: Whether to disable comments
-        disable_stitch:
-          type: boolean
-          description: Whether to disable stitch
-        video_cover_timestamp_ms:
-          type: integer
-          description: Timestamp in milliseconds for video cover
-    VideoInitResponse:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            publish_id:
-              type: string
-              description: Unique identifier for this publish job
-            upload_url:
-              type: string
-              description: URL to upload video chunks to
-        error:
-          $ref: '#/components/schemas/Error'
     PublishStatusRequest:
       type: object
       required:
-        - publish_id
+      - publish_id
       properties:
         publish_id:
           type: string
@@ -225,11 +119,11 @@ components:
             status:
               type: string
               enum:
-                - PROCESSING_UPLOAD
-                - PROCESSING_DOWNLOAD
-                - SENDING_TO_USER_INBOX
-                - FAILED
-                - PUBLISH_COMPLETE
+              - PROCESSING_UPLOAD
+              - PROCESSING_DOWNLOAD
+              - SENDING_TO_USER_INBOX
+              - FAILED
+              - PUBLISH_COMPLETE
               description: Current status of the publish job
             publish_id:
               type: string
@@ -238,6 +132,32 @@ components:
               description: Bytes uploaded so far
         error:
           $ref: '#/components/schemas/Error'
+    PostInfo:
+      type: object
+      properties:
+        title:
+          type: string
+          description: Caption/title for the post (max 2200 chars)
+        privacy_level:
+          type: string
+          enum:
+          - PUBLIC_TO_EVERYONE
+          - MUTUAL_FOLLOW_FRIENDS
+          - FOLLOWER_OF_CREATOR
+          - SELF_ONLY
+          description: Privacy level for the video
+        disable_duet:
+          type: boolean
+          description: Whether to disable duet for this post
+        disable_comment:
+          type: boolean
+          description: Whether to disable comments
+        disable_stitch:
+          type: boolean
+          description: Whether to disable stitch
+        video_cover_timestamp_ms:
+          type: integer
+          description: Timestamp in milliseconds for video cover
     CreatorInfoResponse:
       type: object
       properties:
@@ -264,6 +184,65 @@ components:
               type: integer
         error:
           $ref: '#/components/schemas/Error'
+    InboxVideoInitRequest:
+      type: object
+      required:
+      - source_info
+      properties:
+        source_info:
+          type: object
+          properties:
+            source:
+              type: string
+              enum:
+              - FILE_UPLOAD
+              - PULL_FROM_URL
+            video_url:
+              type: string
+            chunk_size:
+              type: integer
+            total_chunk_count:
+              type: integer
+    VideoInitRequest:
+      type: object
+      required:
+      - source_info
+      - post_info
+      properties:
+        source_info:
+          type: object
+          properties:
+            source:
+              type: string
+              enum:
+              - FILE_UPLOAD
+              - PULL_FROM_URL
+              description: Source type for the video
+            video_url:
+              type: string
+              description: URL of the video (required when source is PULL_FROM_URL)
+            chunk_size:
+              type: integer
+              description: Size of each upload chunk in bytes
+            total_chunk_count:
+              type: integer
+              description: Total number of chunks
+        post_info:
+          $ref: '#/components/schemas/PostInfo'
+    VideoInitResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            publish_id:
+              type: string
+              description: Unique identifier for this publish job
+            upload_url:
+              type: string
+              description: URL to upload video chunks to
+        error:
+          $ref: '#/components/schemas/Error'
     Error:
       type: object
       properties:
@@ -273,3 +252,8 @@ components:
           type: string
         log_id:
           type: string
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 Bearer token

@@ -1,32 +1,28 @@
 openapi: 3.1.0
 info:
-  title: TikTok Login Kit API
-  description: >-
-    The TikTok Login Kit API enables users to securely log in to third-party
-    applications and websites using their TikTok credentials via OAuth 2.0.
-    Supports authorization code flow, token issuance, token refresh, and token
-    revocation.
+  title: TikTok Content Posting OAuth API
+  description: The TikTok Content Posting API allows third-party platforms to publish videos directly to a user's TikTok account. Supports direct post and file-upload flows, including video initiation, chunk upload, and publish status polling.
   version: v2
   contact:
     name: TikTok for Developers
-    url: https://developers.tiktok.com/doc/login-kit-web
+    url: https://developers.tiktok.com/
   termsOfService: https://developers.tiktok.com/doc/tiktok-api-terms-of-service
 servers:
-  - url: https://open.tiktokapis.com
-    description: TikTok Open API Production
+- url: https://open.tiktokapis.com
+  description: TikTok Open API Production
+security:
+- BearerAuth: []
 tags:
-  - name: OAuth
-    description: OAuth 2.0 authorization and token management
+- name: OAuth
+  description: OAuth 2.0 authorization and token management
 paths:
   /v2/oauth/token/:
     post:
       operationId: exchangeToken
       summary: Exchange Authorization Code for Token
-      description: >-
-        Exchanges an authorization code for an access token and refresh token.
-        Called after the user completes the TikTok OAuth authorization flow.
+      description: Exchanges an authorization code for an access token and refresh token. Called after the user completes the TikTok OAuth authorization flow.
       tags:
-        - OAuth
+      - OAuth
       requestBody:
         required: true
         content:
@@ -48,10 +44,9 @@ paths:
     post:
       operationId: refreshToken
       summary: Refresh Access Token
-      description: >-
-        Refreshes an expired access token using a valid refresh token.
+      description: Refreshes an expired access token using a valid refresh token.
       tags:
-        - OAuth
+      - OAuth
       requestBody:
         required: true
         content:
@@ -71,11 +66,9 @@ paths:
     post:
       operationId: revokeToken
       summary: Revoke Access Token
-      description: >-
-        Revokes a user's access token, ending their authorized session with the
-        third-party application.
+      description: Revokes a user's access token, ending their authorized session with the third-party application.
       tags:
-        - OAuth
+      - OAuth
       requestBody:
         required: true
         content:
@@ -93,65 +86,15 @@ paths:
           description: Bad Request
 components:
   schemas:
-    TokenRequest:
+    RevokeTokenResponse:
       type: object
-      required:
-        - client_key
-        - client_secret
-        - code
-        - grant_type
-        - redirect_uri
       properties:
-        client_key:
+        error:
           type: string
-          description: Your app's client key
-        client_secret:
+        error_description:
           type: string
-          description: Your app's client secret
-        code:
+        message:
           type: string
-          description: Authorization code from the OAuth redirect
-        grant_type:
-          type: string
-          enum:
-            - authorization_code
-          description: OAuth grant type
-        redirect_uri:
-          type: string
-          description: Redirect URI registered for your app
-    RefreshTokenRequest:
-      type: object
-      required:
-        - client_key
-        - client_secret
-        - grant_type
-        - refresh_token
-      properties:
-        client_key:
-          type: string
-        client_secret:
-          type: string
-        grant_type:
-          type: string
-          enum:
-            - refresh_token
-        refresh_token:
-          type: string
-          description: The refresh token to use
-    RevokeTokenRequest:
-      type: object
-      required:
-        - client_key
-        - client_secret
-        - token
-      properties:
-        client_key:
-          type: string
-        client_secret:
-          type: string
-        token:
-          type: string
-          description: The access token to revoke
     TokenResponse:
       type: object
       properties:
@@ -176,12 +119,67 @@ components:
         token_type:
           type: string
           description: Token type (Bearer)
-    RevokeTokenResponse:
+    TokenRequest:
       type: object
+      required:
+      - client_key
+      - client_secret
+      - code
+      - grant_type
+      - redirect_uri
       properties:
-        error:
+        client_key:
           type: string
-        error_description:
+          description: Your app's client key
+        client_secret:
           type: string
-        message:
+          description: Your app's client secret
+        code:
           type: string
+          description: Authorization code from the OAuth redirect
+        grant_type:
+          type: string
+          enum:
+          - authorization_code
+          description: OAuth grant type
+        redirect_uri:
+          type: string
+          description: Redirect URI registered for your app
+    RevokeTokenRequest:
+      type: object
+      required:
+      - client_key
+      - client_secret
+      - token
+      properties:
+        client_key:
+          type: string
+        client_secret:
+          type: string
+        token:
+          type: string
+          description: The access token to revoke
+    RefreshTokenRequest:
+      type: object
+      required:
+      - client_key
+      - client_secret
+      - grant_type
+      - refresh_token
+      properties:
+        client_key:
+          type: string
+        client_secret:
+          type: string
+        grant_type:
+          type: string
+          enum:
+          - refresh_token
+        refresh_token:
+          type: string
+          description: The refresh token to use
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 Bearer token
