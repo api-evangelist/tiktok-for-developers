@@ -6,9 +6,22 @@ description: TikTok for Developers provides a suite of REST APIs enabling third-
   supporting use cases from user authentication and video publishing to advertising
   campaign management and academic research.
 type: Index
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 position: Consumer
 access: 3rd-Party
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/tiktok-for-developers.png
 tags:
 - Advertising
 - Analytics
@@ -21,75 +34,169 @@ modified: '2026-05-19'
 url: https://raw.githubusercontent.com/api-evangelist/tiktok-for-developers/refs/heads/main/apis.yml
 specificationVersion: '0.19'
 apis:
-- aid: tiktok-for-developers:tiktok-display-api
-  name: TikTok Display API
-  description: Enables developers to access TikTok user profile information and video
-    metadata. Supports retrieving user info, listing recent videos, and querying videos
-    by ID.
+- aid: tiktok-for-developers:tiktok-for-developers-oauth-api
+  name: TikTok for Developers OAuth API
+  description: OAuth 2.0 authorization and token management
   humanURL: https://developers.tiktok.com/doc/display-api-overview
   baseURL: https://open.tiktokapis.com
   tags:
-  - Content
-  - Social Media
-  - Video
+  - OAuth
   properties:
+  - type: OpenAPI
+    url: openapi/tiktok-for-developers-oauth-api-openapi.yml
   - type: Documentation
     url: https://developers.tiktok.com/doc/display-api-overview
-  - type: OpenAPI
-    url: https://raw.githubusercontent.com/api-evangelist/tiktok-for-developers/refs/heads/main/openapi/tiktok-display-openapi.yml
-  - url: graphql/tiktok-for-developers-graphql.md
-    type: GraphQL
-- aid: tiktok-for-developers:tiktok-content-posting-api
-  name: TikTok Content Posting API
-  description: Allows third-party platforms to publish videos directly to a user's
-    TikTok account. Supports direct post and upload-then-publish flows including initiating
-    uploads, uploading video chunks, and checking publish status.
-  humanURL: https://developers.tiktok.com/doc/content-posting-api-reference-direct-post
-  baseURL: https://open.tiktokapis.com
-  tags:
-  - Content
-  - Publishing
-  - Social Media
-  - Video
-  properties:
+  - type: GraphQL
+    url: graphql/tiktok-for-developers-graphql.md
   - type: Documentation
     url: https://developers.tiktok.com/doc/content-posting-api-get-started
-  - type: OpenAPI
-    url: https://raw.githubusercontent.com/api-evangelist/tiktok-for-developers/refs/heads/main/openapi/tiktok-content-posting-openapi.yml
-- aid: tiktok-for-developers:tiktok-research-api
-  name: TikTok Research API
-  description: Provides academic and institutional researchers with access to TikTok
-    public data including video queries, user information, comments, followers, and
-    liked videos.
-  humanURL: https://developers.tiktok.com/doc/research-api-get-started
-  baseURL: https://open.tiktokapis.com
-  tags:
-  - Analytics
-  - Research
-  - Social Media
-  - Video
-  properties:
   - type: Documentation
     url: https://developers.tiktok.com/doc/research-api-get-started
-  - type: OpenAPI
-    url: https://raw.githubusercontent.com/api-evangelist/tiktok-for-developers/refs/heads/main/openapi/tiktok-research-openapi.yml
-- aid: tiktok-for-developers:tiktok-login-kit
-  name: TikTok Login Kit
-  description: Allows users to securely log in to third-party apps and websites using
-    their TikTok credentials via OAuth 2.0. Supports authorization code flow and token
-    management.
-  humanURL: https://developers.tiktok.com/doc/login-kit-web
-  baseURL: https://open.tiktokapis.com
-  tags:
-  - Authentication
-  - OAuth
-  - Social Login
-  properties:
   - type: Documentation
     url: https://developers.tiktok.com/doc/login-kit-web
+- aid: tiktok-for-developers:tiktok-for-developers-post-api
+  name: TikTok for Developers Post API
+  description: Video publishing operations
+  humanURL: https://developers.tiktok.com/doc/display-api-overview
+  baseURL: https://open.tiktokapis.com
+  tags:
+  - Post
+  properties:
   - type: OpenAPI
-    url: https://raw.githubusercontent.com/api-evangelist/tiktok-for-developers/refs/heads/main/openapi/tiktok-login-kit-openapi.yml
+    url: openapi/tiktok-for-developers-post-api-openapi.yml
+  - type: Documentation
+    url: https://developers.tiktok.com/doc/display-api-overview
+  - type: GraphQL
+    url: graphql/tiktok-for-developers-graphql.md
+  - type: Documentation
+    url: https://developers.tiktok.com/doc/content-posting-api-get-started
+  - type: Documentation
+    url: https://developers.tiktok.com/doc/research-api-get-started
+  - type: Documentation
+    url: https://developers.tiktok.com/doc/login-kit-web
+- aid: tiktok-for-developers:tiktok-for-developers-research-comments-api
+  name: TikTok for Developers Research Comments API
+  description: Comment data operations
+  humanURL: https://developers.tiktok.com/doc/display-api-overview
+  baseURL: https://open.tiktokapis.com
+  tags:
+  - Research Comments
+  properties:
+  - type: OpenAPI
+    url: openapi/tiktok-for-developers-research-comments-api-openapi.yml
+  - type: Documentation
+    url: https://developers.tiktok.com/doc/display-api-overview
+  - type: GraphQL
+    url: graphql/tiktok-for-developers-graphql.md
+  - type: Documentation
+    url: https://developers.tiktok.com/doc/content-posting-api-get-started
+  - type: Documentation
+    url: https://developers.tiktok.com/doc/research-api-get-started
+  - type: Documentation
+    url: https://developers.tiktok.com/doc/login-kit-web
+- aid: tiktok-for-developers:tiktok-for-developers-research-social-api
+  name: TikTok for Developers Research Social API
+  description: Social graph data
+  humanURL: https://developers.tiktok.com/doc/display-api-overview
+  baseURL: https://open.tiktokapis.com
+  tags:
+  - Research Social
+  properties:
+  - type: OpenAPI
+    url: openapi/tiktok-for-developers-research-social-api-openapi.yml
+  - type: Documentation
+    url: https://developers.tiktok.com/doc/display-api-overview
+  - type: GraphQL
+    url: graphql/tiktok-for-developers-graphql.md
+  - type: Documentation
+    url: https://developers.tiktok.com/doc/content-posting-api-get-started
+  - type: Documentation
+    url: https://developers.tiktok.com/doc/research-api-get-started
+  - type: Documentation
+    url: https://developers.tiktok.com/doc/login-kit-web
+- aid: tiktok-for-developers:tiktok-for-developers-research-users-api
+  name: TikTok for Developers Research Users API
+  description: User information for research
+  humanURL: https://developers.tiktok.com/doc/display-api-overview
+  baseURL: https://open.tiktokapis.com
+  tags:
+  - Research Users
+  properties:
+  - type: OpenAPI
+    url: openapi/tiktok-for-developers-research-users-api-openapi.yml
+  - type: Documentation
+    url: https://developers.tiktok.com/doc/display-api-overview
+  - type: GraphQL
+    url: graphql/tiktok-for-developers-graphql.md
+  - type: Documentation
+    url: https://developers.tiktok.com/doc/content-posting-api-get-started
+  - type: Documentation
+    url: https://developers.tiktok.com/doc/research-api-get-started
+  - type: Documentation
+    url: https://developers.tiktok.com/doc/login-kit-web
+- aid: tiktok-for-developers:tiktok-for-developers-research-videos-api
+  name: TikTok for Developers Research Videos API
+  description: Video search and query operations
+  humanURL: https://developers.tiktok.com/doc/display-api-overview
+  baseURL: https://open.tiktokapis.com
+  tags:
+  - Research Videos
+  properties:
+  - type: OpenAPI
+    url: openapi/tiktok-for-developers-research-videos-api-openapi.yml
+  - type: Documentation
+    url: https://developers.tiktok.com/doc/display-api-overview
+  - type: GraphQL
+    url: graphql/tiktok-for-developers-graphql.md
+  - type: Documentation
+    url: https://developers.tiktok.com/doc/content-posting-api-get-started
+  - type: Documentation
+    url: https://developers.tiktok.com/doc/research-api-get-started
+  - type: Documentation
+    url: https://developers.tiktok.com/doc/login-kit-web
+- aid: tiktok-for-developers:tiktok-for-developers-user-api
+  name: TikTok for Developers User API
+  description: User profile information
+  humanURL: https://developers.tiktok.com/doc/display-api-overview
+  baseURL: https://open.tiktokapis.com
+  tags:
+  - User
+  properties:
+  - type: OpenAPI
+    url: openapi/tiktok-for-developers-user-api-openapi.yml
+  - type: Documentation
+    url: https://developers.tiktok.com/doc/display-api-overview
+  - type: GraphQL
+    url: graphql/tiktok-for-developers-graphql.md
+  - type: Documentation
+    url: https://developers.tiktok.com/doc/content-posting-api-get-started
+  - type: Documentation
+    url: https://developers.tiktok.com/doc/research-api-get-started
+  - type: Documentation
+    url: https://developers.tiktok.com/doc/login-kit-web
+- aid: tiktok-for-developers:tiktok-for-developers-video-api
+  name: TikTok for Developers Video API
+  description: Video metadata and management
+  humanURL: https://developers.tiktok.com/doc/display-api-overview
+  baseURL: https://open.tiktokapis.com
+  tags:
+  - Video
+  properties:
+  - type: OpenAPI
+    url: openapi/tiktok-for-developers-video-api-openapi.yml
+  - type: Documentation
+    url: https://developers.tiktok.com/doc/display-api-overview
+  - type: GraphQL
+    url: graphql/tiktok-for-developers-graphql.md
+  - type: Documentation
+    url: https://developers.tiktok.com/doc/content-posting-api-get-started
+  - type: Documentation
+    url: https://developers.tiktok.com/doc/research-api-get-started
+  - type: Documentation
+    url: https://developers.tiktok.com/doc/login-kit-web
 common:
+- type: PostmanWorkspace
+  url: https://www.postman.com/kinlaneapi/tiktok-for-developers/overview
 - type: AgenticAccess
   url: agentic-access/tiktok-for-developers-agentic-access.yml
 - type: DomainSecurity
