@@ -1,0 +1,247 @@
+{
+  "info": {
+    "_postman_id": "c892f0ae-2977-46e7-8232-e89d215ee0fe",
+    "name": "TikTok Content Posting OAuth Research Users API",
+    "description": "The TikTok Content Posting API allows third-party platforms to publish videos directly to a user's TikTok account. Supports direct post and file-upload flows, including video initiation, chunk upload, and publish status polling.\n\nContact Support:\n Name: TikTok for Developers",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:13:44.000Z",
+    "updatedAt": "2026-07-28T03:13:44.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-c892f0ae-2977-46e7-8232-e89d215ee0fe"
+  },
+  "item": [
+    {
+      "name": "v2",
+      "item": [
+        {
+          "name": "research",
+          "item": [
+            {
+              "name": "user",
+              "item": [
+                {
+                  "name": "info",
+                  "item": [
+                    {
+                      "name": "Query Research User Info",
+                      "id": "c6619c06-127b-4421-b7f0-309f651c36b1",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"username\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v2/research/user/info/?fields=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v2",
+                            "research",
+                            "user",
+                            "info",
+                            ""
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) ",
+                              "key": "fields",
+                              "value": "<string>"
+                            }
+                          ]
+                        },
+                        "description": "Retrieves public TikTok account information by TikTok handle. Returns fields such as display_name, bio_description, avatar_url, is_verified, follower_count, following_count, likes_count, and video_count."
+                      },
+                      "response": [
+                        {
+                          "id": "1da0a1dd-75c0-4a22-9556-cd0fa5ed7c44",
+                          "name": "User info returned successfully",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"username\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v2/research/user/info/?fields=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v2",
+                                "research",
+                                "user",
+                                "info",
+                                ""
+                              ],
+                              "query": [
+                                {
+                                  "description": "(Required) ",
+                                  "key": "fields",
+                                  "value": "<string>"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"data\": {\n    \"display_name\": \"<string>\",\n    \"bio_description\": \"<string>\",\n    \"avatar_url\": \"<string>\",\n    \"is_verified\": \"<boolean>\",\n    \"follower_count\": \"<integer>\",\n    \"following_count\": \"<integer>\",\n    \"likes_count\": \"<integer>\",\n    \"video_count\": \"<integer>\"\n  },\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"log_id\": \"<string>\"\n  }\n}",
+                          "createdAt": "2026-07-28T03:13:44.000Z",
+                          "updatedAt": "2026-07-28T03:13:44.000Z",
+                          "uid": "35240-1da0a1dd-75c0-4a22-9556-cd0fa5ed7c44"
+                        },
+                        {
+                          "id": "b8a9141d-6d0d-4fd4-828d-e40ba6306ebb",
+                          "name": "Unauthorized",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"username\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v2/research/user/info/?fields=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v2",
+                                "research",
+                                "user",
+                                "info",
+                                ""
+                              ],
+                              "query": [
+                                {
+                                  "description": "(Required) ",
+                                  "key": "fields",
+                                  "value": "<string>"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T03:13:44.000Z",
+                          "updatedAt": "2026-07-28T03:13:44.000Z",
+                          "uid": "35240-b8a9141d-6d0d-4fd4-828d-e40ba6306ebb"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T03:13:44.000Z",
+                      "updatedAt": "2026-07-28T03:13:44.000Z",
+                      "uid": "35240-c6619c06-127b-4421-b7f0-309f651c36b1"
+                    }
+                  ],
+                  "id": "5676875f-7ecb-4f13-9cdc-a7e6f190a0d7",
+                  "createdAt": "2026-07-28T03:13:44.000Z",
+                  "updatedAt": "2026-07-28T03:13:44.000Z",
+                  "uid": "35240-5676875f-7ecb-4f13-9cdc-a7e6f190a0d7"
+                }
+              ],
+              "id": "7c1cf950-0c77-454e-bf00-6e0ce99f8400",
+              "createdAt": "2026-07-28T03:13:44.000Z",
+              "updatedAt": "2026-07-28T03:13:44.000Z",
+              "uid": "35240-7c1cf950-0c77-454e-bf00-6e0ce99f8400"
+            }
+          ],
+          "id": "5acfeaf1-2d1a-43e8-a4d0-5974c34cbc5b",
+          "createdAt": "2026-07-28T03:13:44.000Z",
+          "updatedAt": "2026-07-28T03:13:44.000Z",
+          "uid": "35240-5acfeaf1-2d1a-43e8-a4d0-5974c34cbc5b"
+        }
+      ],
+      "id": "e893535e-7534-4a99-b70f-ab41ffa08fc6",
+      "createdAt": "2026-07-28T03:13:44.000Z",
+      "updatedAt": "2026-07-28T03:13:44.000Z",
+      "uid": "35240-e893535e-7534-4a99-b70f-ab41ffa08fc6"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://open.tiktokapis.com"
+    }
+  ]
+}

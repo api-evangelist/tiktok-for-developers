@@ -1,0 +1,422 @@
+{
+  "info": {
+    "_postman_id": "b6676e4d-67ae-4b41-b811-e55734432f72",
+    "name": "TikTok Content Posting OAuth Video API",
+    "description": "The TikTok Content Posting API allows third-party platforms to publish videos directly to a user's TikTok account. Supports direct post and file-upload flows, including video initiation, chunk upload, and publish status polling.\n\nContact Support:\n Name: TikTok for Developers",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:13:46.000Z",
+    "updatedAt": "2026-07-28T03:13:47.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-b6676e4d-67ae-4b41-b811-e55734432f72"
+  },
+  "item": [
+    {
+      "name": "v2",
+      "item": [
+        {
+          "name": "video",
+          "item": [
+            {
+              "name": "list",
+              "item": [
+                {
+                  "name": "List Videos",
+                  "id": "8514e1eb-6212-43dc-add2-8d560892ef90",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"max_count\": \"<integer>\",\n  \"cursor\": \"<integer>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v2/video/list/?fields=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v2",
+                        "video",
+                        "list",
+                        ""
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Comma-separated list of fields to return (e.g. id,create_time,cover_image_url,share_url,video_description,duration,height,width,title,embed_html,embed_link,like_count,comment_count,share_count,view_count)",
+                          "key": "fields",
+                          "value": "<string>"
+                        }
+                      ]
+                    },
+                    "description": "Retrieves a paginated list of a TikTok user's most recently uploaded public videos, sorted by create_time in descending order."
+                  },
+                  "response": [
+                    {
+                      "id": "cb136176-122a-44fc-b8b3-dccec0da522d",
+                      "name": "Video list retrieved successfully",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"max_count\": \"<integer>\",\n  \"cursor\": \"<integer>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v2/video/list/?fields=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v2",
+                            "video",
+                            "list",
+                            ""
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) Comma-separated list of fields to return (e.g. id,create_time,cover_image_url,share_url,video_description,duration,height,width,title,embed_html,embed_link,like_count,comment_count,share_count,view_count)",
+                              "key": "fields",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"data\": {\n    \"videos\": [\n      {\n        \"id\": \"<string>\",\n        \"create_time\": \"<integer>\",\n        \"cover_image_url\": \"<string>\",\n        \"share_url\": \"<string>\",\n        \"video_description\": \"<string>\",\n        \"duration\": \"<integer>\",\n        \"height\": \"<integer>\",\n        \"width\": \"<integer>\",\n        \"title\": \"<string>\",\n        \"embed_html\": \"<string>\",\n        \"embed_link\": \"<string>\",\n        \"like_count\": \"<integer>\",\n        \"comment_count\": \"<integer>\",\n        \"share_count\": \"<integer>\",\n        \"view_count\": \"<integer>\"\n      },\n      {\n        \"id\": \"<string>\",\n        \"create_time\": \"<integer>\",\n        \"cover_image_url\": \"<string>\",\n        \"share_url\": \"<string>\",\n        \"video_description\": \"<string>\",\n        \"duration\": \"<integer>\",\n        \"height\": \"<integer>\",\n        \"width\": \"<integer>\",\n        \"title\": \"<string>\",\n        \"embed_html\": \"<string>\",\n        \"embed_link\": \"<string>\",\n        \"like_count\": \"<integer>\",\n        \"comment_count\": \"<integer>\",\n        \"share_count\": \"<integer>\",\n        \"view_count\": \"<integer>\"\n      }\n    ],\n    \"cursor\": \"<integer>\",\n    \"has_more\": \"<boolean>\"\n  },\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"log_id\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-07-28T03:13:47.000Z",
+                      "updatedAt": "2026-07-28T03:13:47.000Z",
+                      "uid": "35240-cb136176-122a-44fc-b8b3-dccec0da522d"
+                    },
+                    {
+                      "id": "89efe25c-a635-4e39-9c31-9a81841ac6ef",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"max_count\": \"<integer>\",\n  \"cursor\": \"<integer>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v2/video/list/?fields=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v2",
+                            "video",
+                            "list",
+                            ""
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) Comma-separated list of fields to return (e.g. id,create_time,cover_image_url,share_url,video_description,duration,height,width,title,embed_html,embed_link,like_count,comment_count,share_count,view_count)",
+                              "key": "fields",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:13:47.000Z",
+                      "updatedAt": "2026-07-28T03:13:47.000Z",
+                      "uid": "35240-89efe25c-a635-4e39-9c31-9a81841ac6ef"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:13:47.000Z",
+                  "updatedAt": "2026-07-28T03:13:47.000Z",
+                  "uid": "35240-8514e1eb-6212-43dc-add2-8d560892ef90"
+                }
+              ],
+              "id": "50533eb1-22d6-4d1e-9e62-7e5e7a4e75be",
+              "createdAt": "2026-07-28T03:13:47.000Z",
+              "updatedAt": "2026-07-28T03:13:47.000Z",
+              "uid": "35240-50533eb1-22d6-4d1e-9e62-7e5e7a4e75be"
+            },
+            {
+              "name": "query",
+              "item": [
+                {
+                  "name": "Query Videos",
+                  "id": "c5e8f426-92d7-4b83-9aed-95b7752ba5e2",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"filters\": {\n    \"video_ids\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v2/video/query/?fields=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v2",
+                        "video",
+                        "query",
+                        ""
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Comma-separated list of fields to return",
+                          "key": "fields",
+                          "value": "<string>"
+                        }
+                      ]
+                    },
+                    "description": "Retrieves metadata of TikTok user videos filtered by video IDs. Verifies that the videos belong to the authorized user and returns video details. Can be used to refresh video cover image URL TTL."
+                  },
+                  "response": [
+                    {
+                      "id": "2bdc6169-2318-4b4c-8873-fef1c7cafc51",
+                      "name": "Video query results returned successfully",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"filters\": {\n    \"video_ids\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v2/video/query/?fields=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v2",
+                            "video",
+                            "query",
+                            ""
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) Comma-separated list of fields to return",
+                              "key": "fields",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"data\": {\n    \"videos\": [\n      {\n        \"id\": \"<string>\",\n        \"create_time\": \"<integer>\",\n        \"cover_image_url\": \"<string>\",\n        \"share_url\": \"<string>\",\n        \"video_description\": \"<string>\",\n        \"duration\": \"<integer>\",\n        \"height\": \"<integer>\",\n        \"width\": \"<integer>\",\n        \"title\": \"<string>\",\n        \"embed_html\": \"<string>\",\n        \"embed_link\": \"<string>\",\n        \"like_count\": \"<integer>\",\n        \"comment_count\": \"<integer>\",\n        \"share_count\": \"<integer>\",\n        \"view_count\": \"<integer>\"\n      },\n      {\n        \"id\": \"<string>\",\n        \"create_time\": \"<integer>\",\n        \"cover_image_url\": \"<string>\",\n        \"share_url\": \"<string>\",\n        \"video_description\": \"<string>\",\n        \"duration\": \"<integer>\",\n        \"height\": \"<integer>\",\n        \"width\": \"<integer>\",\n        \"title\": \"<string>\",\n        \"embed_html\": \"<string>\",\n        \"embed_link\": \"<string>\",\n        \"like_count\": \"<integer>\",\n        \"comment_count\": \"<integer>\",\n        \"share_count\": \"<integer>\",\n        \"view_count\": \"<integer>\"\n      }\n    ]\n  },\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"log_id\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-07-28T03:13:47.000Z",
+                      "updatedAt": "2026-07-28T03:13:47.000Z",
+                      "uid": "35240-2bdc6169-2318-4b4c-8873-fef1c7cafc51"
+                    },
+                    {
+                      "id": "bf25a1e4-b0c8-48a9-8f31-fedc760223f4",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"filters\": {\n    \"video_ids\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v2/video/query/?fields=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v2",
+                            "video",
+                            "query",
+                            ""
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) Comma-separated list of fields to return",
+                              "key": "fields",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:13:47.000Z",
+                      "updatedAt": "2026-07-28T03:13:47.000Z",
+                      "uid": "35240-bf25a1e4-b0c8-48a9-8f31-fedc760223f4"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:13:47.000Z",
+                  "updatedAt": "2026-07-28T03:13:47.000Z",
+                  "uid": "35240-c5e8f426-92d7-4b83-9aed-95b7752ba5e2"
+                }
+              ],
+              "id": "a78dd240-bf45-4eb7-87bc-990e57d591ff",
+              "createdAt": "2026-07-28T03:13:47.000Z",
+              "updatedAt": "2026-07-28T03:13:47.000Z",
+              "uid": "35240-a78dd240-bf45-4eb7-87bc-990e57d591ff"
+            }
+          ],
+          "id": "8c64ca4b-cfd6-4168-a84e-d2ba9801d73a",
+          "createdAt": "2026-07-28T03:13:47.000Z",
+          "updatedAt": "2026-07-28T03:13:47.000Z",
+          "uid": "35240-8c64ca4b-cfd6-4168-a84e-d2ba9801d73a"
+        }
+      ],
+      "id": "61debde3-71e8-47b7-86f4-aee2e4de3db2",
+      "createdAt": "2026-07-28T03:13:47.000Z",
+      "updatedAt": "2026-07-28T03:13:47.000Z",
+      "uid": "35240-61debde3-71e8-47b7-86f4-aee2e4de3db2"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://open.tiktokapis.com"
+    }
+  ]
+}

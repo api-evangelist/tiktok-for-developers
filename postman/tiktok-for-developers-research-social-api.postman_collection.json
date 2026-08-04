@@ -1,0 +1,437 @@
+{
+  "info": {
+    "_postman_id": "8db97896-bfa7-4ee3-99b9-697a4454cdd6",
+    "name": "TikTok Content Posting OAuth Research Social API",
+    "description": "The TikTok Content Posting API allows third-party platforms to publish videos directly to a user's TikTok account. Supports direct post and file-upload flows, including video initiation, chunk upload, and publish status polling.\n\nContact Support:\n Name: TikTok for Developers",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:13:43.000Z",
+    "updatedAt": "2026-07-28T03:13:43.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-8db97896-bfa7-4ee3-99b9-697a4454cdd6"
+  },
+  "item": [
+    {
+      "name": "v2",
+      "item": [
+        {
+          "name": "research",
+          "item": [
+            {
+              "name": "user",
+              "item": [
+                {
+                  "name": "followers",
+                  "item": [
+                    {
+                      "name": "List User Followers",
+                      "id": "35827456-fa50-4f10-9bf3-b5fd03aa9856",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"username\": \"<string>\",\n  \"max_count\": \"<integer>\",\n  \"cursor\": \"<integer>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v2/research/user/followers/?fields=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v2",
+                            "research",
+                            "user",
+                            "followers",
+                            ""
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) ",
+                              "key": "fields",
+                              "value": "<string>"
+                            }
+                          ]
+                        },
+                        "description": "Retrieves the list of followers for a specified TikTok user."
+                      },
+                      "response": [
+                        {
+                          "id": "206bb295-f18c-4b9c-b469-beb8c90b9f70",
+                          "name": "Followers list returned successfully",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"username\": \"<string>\",\n  \"max_count\": \"<integer>\",\n  \"cursor\": \"<integer>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v2/research/user/followers/?fields=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v2",
+                                "research",
+                                "user",
+                                "followers",
+                                ""
+                              ],
+                              "query": [
+                                {
+                                  "description": "(Required) ",
+                                  "key": "fields",
+                                  "value": "<string>"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"data\": {\n    \"user_followers\": [\n      {\n        \"display_name\": \"<string>\",\n        \"username\": \"<string>\"\n      },\n      {\n        \"display_name\": \"<string>\",\n        \"username\": \"<string>\"\n      }\n    ],\n    \"cursor\": \"<integer>\",\n    \"has_more\": \"<boolean>\"\n  },\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"log_id\": \"<string>\"\n  }\n}",
+                          "createdAt": "2026-07-28T03:13:43.000Z",
+                          "updatedAt": "2026-07-28T03:13:43.000Z",
+                          "uid": "35240-206bb295-f18c-4b9c-b469-beb8c90b9f70"
+                        },
+                        {
+                          "id": "bce598f7-a094-466d-a2aa-d37b920e6ca7",
+                          "name": "Unauthorized",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"username\": \"<string>\",\n  \"max_count\": \"<integer>\",\n  \"cursor\": \"<integer>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v2/research/user/followers/?fields=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v2",
+                                "research",
+                                "user",
+                                "followers",
+                                ""
+                              ],
+                              "query": [
+                                {
+                                  "description": "(Required) ",
+                                  "key": "fields",
+                                  "value": "<string>"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T03:13:43.000Z",
+                          "updatedAt": "2026-07-28T03:13:43.000Z",
+                          "uid": "35240-bce598f7-a094-466d-a2aa-d37b920e6ca7"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T03:13:43.000Z",
+                      "updatedAt": "2026-07-28T03:13:43.000Z",
+                      "uid": "35240-35827456-fa50-4f10-9bf3-b5fd03aa9856"
+                    }
+                  ],
+                  "id": "f379f6e3-a16d-443d-a924-18e605dae2bc",
+                  "createdAt": "2026-07-28T03:13:43.000Z",
+                  "updatedAt": "2026-07-28T03:13:43.000Z",
+                  "uid": "35240-f379f6e3-a16d-443d-a924-18e605dae2bc"
+                },
+                {
+                  "name": "following",
+                  "item": [
+                    {
+                      "name": "List User Following",
+                      "id": "e17aa3b9-d63c-43e2-ba89-cd3147107fe3",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"username\": \"<string>\",\n  \"max_count\": \"<integer>\",\n  \"cursor\": \"<integer>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v2/research/user/following/?fields=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v2",
+                            "research",
+                            "user",
+                            "following",
+                            ""
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) ",
+                              "key": "fields",
+                              "value": "<string>"
+                            }
+                          ]
+                        },
+                        "description": "Retrieves the list of accounts that a specified TikTok user follows."
+                      },
+                      "response": [
+                        {
+                          "id": "2cdb0e74-c7c7-4a8e-b639-bb517ac269de",
+                          "name": "Following list returned successfully",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"username\": \"<string>\",\n  \"max_count\": \"<integer>\",\n  \"cursor\": \"<integer>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v2/research/user/following/?fields=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v2",
+                                "research",
+                                "user",
+                                "following",
+                                ""
+                              ],
+                              "query": [
+                                {
+                                  "description": "(Required) ",
+                                  "key": "fields",
+                                  "value": "<string>"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"data\": {\n    \"user_followers\": [\n      {\n        \"display_name\": \"<string>\",\n        \"username\": \"<string>\"\n      },\n      {\n        \"display_name\": \"<string>\",\n        \"username\": \"<string>\"\n      }\n    ],\n    \"cursor\": \"<integer>\",\n    \"has_more\": \"<boolean>\"\n  },\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"log_id\": \"<string>\"\n  }\n}",
+                          "createdAt": "2026-07-28T03:13:43.000Z",
+                          "updatedAt": "2026-07-28T03:13:43.000Z",
+                          "uid": "35240-2cdb0e74-c7c7-4a8e-b639-bb517ac269de"
+                        },
+                        {
+                          "id": "ed18eb12-d43c-4baf-95a3-2dbfa0efcf6c",
+                          "name": "Unauthorized",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"username\": \"<string>\",\n  \"max_count\": \"<integer>\",\n  \"cursor\": \"<integer>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v2/research/user/following/?fields=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v2",
+                                "research",
+                                "user",
+                                "following",
+                                ""
+                              ],
+                              "query": [
+                                {
+                                  "description": "(Required) ",
+                                  "key": "fields",
+                                  "value": "<string>"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T03:13:43.000Z",
+                          "updatedAt": "2026-07-28T03:13:43.000Z",
+                          "uid": "35240-ed18eb12-d43c-4baf-95a3-2dbfa0efcf6c"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T03:13:43.000Z",
+                      "updatedAt": "2026-07-28T03:13:43.000Z",
+                      "uid": "35240-e17aa3b9-d63c-43e2-ba89-cd3147107fe3"
+                    }
+                  ],
+                  "id": "1cf55d49-9d63-4128-aef5-f9283f3e870a",
+                  "createdAt": "2026-07-28T03:13:43.000Z",
+                  "updatedAt": "2026-07-28T03:13:43.000Z",
+                  "uid": "35240-1cf55d49-9d63-4128-aef5-f9283f3e870a"
+                }
+              ],
+              "id": "0c468a34-cad4-4a0d-8684-5bc216296b26",
+              "createdAt": "2026-07-28T03:13:43.000Z",
+              "updatedAt": "2026-07-28T03:13:43.000Z",
+              "uid": "35240-0c468a34-cad4-4a0d-8684-5bc216296b26"
+            }
+          ],
+          "id": "bd2f44b1-ff89-434f-a394-781fe955b334",
+          "createdAt": "2026-07-28T03:13:43.000Z",
+          "updatedAt": "2026-07-28T03:13:43.000Z",
+          "uid": "35240-bd2f44b1-ff89-434f-a394-781fe955b334"
+        }
+      ],
+      "id": "832b1bc6-28c9-45dc-a403-4adb74d6def3",
+      "createdAt": "2026-07-28T03:13:43.000Z",
+      "updatedAt": "2026-07-28T03:13:43.000Z",
+      "uid": "35240-832b1bc6-28c9-45dc-a403-4adb74d6def3"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://open.tiktokapis.com"
+    }
+  ]
+}

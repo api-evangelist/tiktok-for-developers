@@ -1,0 +1,259 @@
+{
+  "info": {
+    "_postman_id": "3680c245-55ac-4e77-93b3-b5363ee5b92a",
+    "name": "TikTok Content Posting OAuth Research Comments API",
+    "description": "The TikTok Content Posting API allows third-party platforms to publish videos directly to a user's TikTok account. Supports direct post and file-upload flows, including video initiation, chunk upload, and publish status polling.\n\nContact Support:\n Name: TikTok for Developers",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:13:42.000Z",
+    "updatedAt": "2026-07-28T03:13:42.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-3680c245-55ac-4e77-93b3-b5363ee5b92a"
+  },
+  "item": [
+    {
+      "name": "v2",
+      "item": [
+        {
+          "name": "research",
+          "item": [
+            {
+              "name": "video",
+              "item": [
+                {
+                  "name": "comment",
+                  "item": [
+                    {
+                      "name": "list",
+                      "item": [
+                        {
+                          "name": "List Video Comments",
+                          "id": "b594794a-edea-4591-b031-a33793afc2a1",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"video_id\": \"<string>\",\n  \"max_count\": \"<integer>\",\n  \"cursor\": \"<integer>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v2/research/video/comment/list/?fields=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v2",
+                                "research",
+                                "video",
+                                "comment",
+                                "list",
+                                ""
+                              ],
+                              "query": [
+                                {
+                                  "description": "(Required) ",
+                                  "key": "fields",
+                                  "value": "<string>"
+                                }
+                              ]
+                            },
+                            "description": "Retrieves all comments on a specific TikTok video, including comment text, author information, create time, and like count."
+                          },
+                          "response": [
+                            {
+                              "id": "168aa3c0-1124-44db-8a5e-e2c06c17c094",
+                              "name": "Comments returned successfully",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"video_id\": \"<string>\",\n  \"max_count\": \"<integer>\",\n  \"cursor\": \"<integer>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/v2/research/video/comment/list/?fields=<string>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v2",
+                                    "research",
+                                    "video",
+                                    "comment",
+                                    "list",
+                                    ""
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "(Required) ",
+                                      "key": "fields",
+                                      "value": "<string>"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"data\": {\n    \"comments\": [\n      {\n        \"id\": \"<string>\",\n        \"video_id\": \"<string>\",\n        \"text\": \"<string>\",\n        \"like_count\": \"<integer>\",\n        \"reply_count\": \"<integer>\",\n        \"parent_comment_id\": \"<string>\",\n        \"create_time\": \"<integer>\"\n      },\n      {\n        \"id\": \"<string>\",\n        \"video_id\": \"<string>\",\n        \"text\": \"<string>\",\n        \"like_count\": \"<integer>\",\n        \"reply_count\": \"<integer>\",\n        \"parent_comment_id\": \"<string>\",\n        \"create_time\": \"<integer>\"\n      }\n    ],\n    \"cursor\": \"<integer>\",\n    \"has_more\": \"<boolean>\"\n  },\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"log_id\": \"<string>\"\n  }\n}",
+                              "createdAt": "2026-07-28T03:13:42.000Z",
+                              "updatedAt": "2026-07-28T03:13:42.000Z",
+                              "uid": "35240-168aa3c0-1124-44db-8a5e-e2c06c17c094"
+                            },
+                            {
+                              "id": "3dcb9d89-0471-406c-b674-45c6a8b09b7b",
+                              "name": "Unauthorized",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"video_id\": \"<string>\",\n  \"max_count\": \"<integer>\",\n  \"cursor\": \"<integer>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/v2/research/video/comment/list/?fields=<string>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v2",
+                                    "research",
+                                    "video",
+                                    "comment",
+                                    "list",
+                                    ""
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "(Required) ",
+                                      "key": "fields",
+                                      "value": "<string>"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-07-28T03:13:42.000Z",
+                              "updatedAt": "2026-07-28T03:13:42.000Z",
+                              "uid": "35240-3dcb9d89-0471-406c-b674-45c6a8b09b7b"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T03:13:42.000Z",
+                          "updatedAt": "2026-07-28T03:13:42.000Z",
+                          "uid": "35240-b594794a-edea-4591-b031-a33793afc2a1"
+                        }
+                      ],
+                      "id": "0b36b091-d579-4f8a-bd37-47156f6b7f3f",
+                      "createdAt": "2026-07-28T03:13:42.000Z",
+                      "updatedAt": "2026-07-28T03:13:42.000Z",
+                      "uid": "35240-0b36b091-d579-4f8a-bd37-47156f6b7f3f"
+                    }
+                  ],
+                  "id": "03dce59e-4fef-4c2c-8a0f-82df86401d2f",
+                  "createdAt": "2026-07-28T03:13:42.000Z",
+                  "updatedAt": "2026-07-28T03:13:42.000Z",
+                  "uid": "35240-03dce59e-4fef-4c2c-8a0f-82df86401d2f"
+                }
+              ],
+              "id": "fecee824-23f0-40b4-b44e-9b14db732f71",
+              "createdAt": "2026-07-28T03:13:42.000Z",
+              "updatedAt": "2026-07-28T03:13:42.000Z",
+              "uid": "35240-fecee824-23f0-40b4-b44e-9b14db732f71"
+            }
+          ],
+          "id": "11df6270-0f27-4e40-95a4-d61d770c29d5",
+          "createdAt": "2026-07-28T03:13:42.000Z",
+          "updatedAt": "2026-07-28T03:13:42.000Z",
+          "uid": "35240-11df6270-0f27-4e40-95a4-d61d770c29d5"
+        }
+      ],
+      "id": "acda7aa8-738c-4a7c-8c39-0e2a9403d1e7",
+      "createdAt": "2026-07-28T03:13:42.000Z",
+      "updatedAt": "2026-07-28T03:13:42.000Z",
+      "uid": "35240-acda7aa8-738c-4a7c-8c39-0e2a9403d1e7"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://open.tiktokapis.com"
+    }
+  ]
+}

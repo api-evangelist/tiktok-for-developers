@@ -1,0 +1,28 @@
+{
+  "provider": "tiktok-for-developers",
+  "sources": [
+    "tiktok-for-developers-oauth-api-openapi.yml",
+    "tiktok-for-developers-post-api-openapi.yml",
+    "tiktok-for-developers-research-comments-api-openapi.yml",
+    "tiktok-for-developers-research-social-api-openapi.yml",
+    "tiktok-for-developers-research-users-api-openapi.yml",
+    "tiktok-for-developers-research-videos-api-openapi.yml",
+    "tiktok-for-developers-user-api-openapi.yml",
+    "tiktok-for-developers-video-api-openapi.yml"
+  ],
+  "outputs": [
+    "tiktok-for-developers-oauth-api-openapi.yml",
+    "tiktok-for-developers-post-api-openapi.yml",
+    "tiktok-for-developers-research-comments-api-openapi.yml",
+    "tiktok-for-developers-research-social-api-openapi.yml",
+    "tiktok-for-developers-research-users-api-openapi.yml",
+    "tiktok-for-developers-research-videos-api-openapi.yml",
+    "tiktok-for-developers-user-api-openapi.yml",
+    "tiktok-for-developers-video-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

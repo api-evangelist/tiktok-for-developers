@@ -1,0 +1,803 @@
+{
+  "info": {
+    "_postman_id": "bbed99a6-cf9e-472f-bd73-0f7c99ad3e99",
+    "name": "TikTok Content Posting OAuth Post API",
+    "description": "The TikTok Content Posting API allows third-party platforms to publish videos directly to a user's TikTok account. Supports direct post and file-upload flows, including video initiation, chunk upload, and publish status polling.\n\nContact Support:\n Name: TikTok for Developers",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:13:41.000Z",
+    "updatedAt": "2026-07-28T03:13:41.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-bbed99a6-cf9e-472f-bd73-0f7c99ad3e99"
+  },
+  "item": [
+    {
+      "name": "v2",
+      "item": [
+        {
+          "name": "post",
+          "item": [
+            {
+              "name": "publish",
+              "item": [
+                {
+                  "name": "video",
+                  "item": [
+                    {
+                      "name": "init",
+                      "item": [
+                        {
+                          "name": "Init Video Upload",
+                          "id": "433c1db4-7942-4f07-b349-d8570ff9bab1",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"source_info\": {\n    \"source\": \"PULL_FROM_URL\",\n    \"video_url\": \"<string>\",\n    \"chunk_size\": \"<integer>\",\n    \"total_chunk_count\": \"<integer>\"\n  },\n  \"post_info\": {\n    \"title\": \"<string>\",\n    \"privacy_level\": \"FOLLOWER_OF_CREATOR\",\n    \"disable_duet\": \"<boolean>\",\n    \"disable_comment\": \"<boolean>\",\n    \"disable_stitch\": \"<boolean>\",\n    \"video_cover_timestamp_ms\": \"<integer>\"\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v2/post/publish/video/init/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v2",
+                                "post",
+                                "publish",
+                                "video",
+                                "init",
+                                ""
+                              ]
+                            },
+                            "description": "Initiates a video upload or direct post to a user's TikTok account. Declare the video source type (FILE_UPLOAD or PULL_FROM_URL), chunk count, file size, and publish metadata. Returns an upload_url and publish_id."
+                          },
+                          "response": [
+                            {
+                              "id": "f908318a-fbe4-4b5b-bd4b-bf3bc9818a79",
+                              "name": "Upload initiated successfully",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"source_info\": {\n    \"source\": \"PULL_FROM_URL\",\n    \"video_url\": \"<string>\",\n    \"chunk_size\": \"<integer>\",\n    \"total_chunk_count\": \"<integer>\"\n  },\n  \"post_info\": {\n    \"title\": \"<string>\",\n    \"privacy_level\": \"FOLLOWER_OF_CREATOR\",\n    \"disable_duet\": \"<boolean>\",\n    \"disable_comment\": \"<boolean>\",\n    \"disable_stitch\": \"<boolean>\",\n    \"video_cover_timestamp_ms\": \"<integer>\"\n  }\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/v2/post/publish/video/init/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v2",
+                                    "post",
+                                    "publish",
+                                    "video",
+                                    "init",
+                                    ""
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"data\": {\n    \"publish_id\": \"<string>\",\n    \"upload_url\": \"<string>\"\n  },\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"log_id\": \"<string>\"\n  }\n}",
+                              "createdAt": "2026-07-28T03:13:41.000Z",
+                              "updatedAt": "2026-07-28T03:13:41.000Z",
+                              "uid": "35240-f908318a-fbe4-4b5b-bd4b-bf3bc9818a79"
+                            },
+                            {
+                              "id": "3c8b93a2-7b0b-49c5-b549-fd6c2689906d",
+                              "name": "Bad Request",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"source_info\": {\n    \"source\": \"PULL_FROM_URL\",\n    \"video_url\": \"<string>\",\n    \"chunk_size\": \"<integer>\",\n    \"total_chunk_count\": \"<integer>\"\n  },\n  \"post_info\": {\n    \"title\": \"<string>\",\n    \"privacy_level\": \"FOLLOWER_OF_CREATOR\",\n    \"disable_duet\": \"<boolean>\",\n    \"disable_comment\": \"<boolean>\",\n    \"disable_stitch\": \"<boolean>\",\n    \"video_cover_timestamp_ms\": \"<integer>\"\n  }\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/v2/post/publish/video/init/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v2",
+                                    "post",
+                                    "publish",
+                                    "video",
+                                    "init",
+                                    ""
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-07-28T03:13:41.000Z",
+                              "updatedAt": "2026-07-28T03:13:41.000Z",
+                              "uid": "35240-3c8b93a2-7b0b-49c5-b549-fd6c2689906d"
+                            },
+                            {
+                              "id": "1f494dc6-ea3f-4342-92b5-a1a14c8cf614",
+                              "name": "Unauthorized",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"source_info\": {\n    \"source\": \"PULL_FROM_URL\",\n    \"video_url\": \"<string>\",\n    \"chunk_size\": \"<integer>\",\n    \"total_chunk_count\": \"<integer>\"\n  },\n  \"post_info\": {\n    \"title\": \"<string>\",\n    \"privacy_level\": \"FOLLOWER_OF_CREATOR\",\n    \"disable_duet\": \"<boolean>\",\n    \"disable_comment\": \"<boolean>\",\n    \"disable_stitch\": \"<boolean>\",\n    \"video_cover_timestamp_ms\": \"<integer>\"\n  }\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/v2/post/publish/video/init/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v2",
+                                    "post",
+                                    "publish",
+                                    "video",
+                                    "init",
+                                    ""
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-07-28T03:13:41.000Z",
+                              "updatedAt": "2026-07-28T03:13:41.000Z",
+                              "uid": "35240-1f494dc6-ea3f-4342-92b5-a1a14c8cf614"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T03:13:41.000Z",
+                          "updatedAt": "2026-07-28T03:13:41.000Z",
+                          "uid": "35240-433c1db4-7942-4f07-b349-d8570ff9bab1"
+                        }
+                      ],
+                      "id": "396ccf15-ad58-4ff7-b16c-1057517a4923",
+                      "createdAt": "2026-07-28T03:13:41.000Z",
+                      "updatedAt": "2026-07-28T03:13:41.000Z",
+                      "uid": "35240-396ccf15-ad58-4ff7-b16c-1057517a4923"
+                    }
+                  ],
+                  "id": "bbc3cfb9-87ec-4aec-80ee-0950b2baff1c",
+                  "createdAt": "2026-07-28T03:13:41.000Z",
+                  "updatedAt": "2026-07-28T03:13:41.000Z",
+                  "uid": "35240-bbc3cfb9-87ec-4aec-80ee-0950b2baff1c"
+                },
+                {
+                  "name": "status",
+                  "item": [
+                    {
+                      "name": "fetch",
+                      "item": [
+                        {
+                          "name": "Get Publish Status",
+                          "id": "fe789810-1834-47e8-bb0f-51303a2e7ebd",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"publish_id\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v2/post/publish/status/fetch/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v2",
+                                "post",
+                                "publish",
+                                "status",
+                                "fetch",
+                                ""
+                              ]
+                            },
+                            "description": "Polls the status of a video publish job using the publish_id returned from the init endpoint. Status transitions from PROCESSING to PUBLISH_COMPLETE."
+                          },
+                          "response": [
+                            {
+                              "id": "2391c8b1-4961-4aa4-8791-d85c950d0445",
+                              "name": "Publish status returned successfully",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"publish_id\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/v2/post/publish/status/fetch/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v2",
+                                    "post",
+                                    "publish",
+                                    "status",
+                                    "fetch",
+                                    ""
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"data\": {\n    \"status\": \"PROCESSING_DOWNLOAD\",\n    \"publish_id\": \"<string>\",\n    \"uploaded_bytes\": \"<integer>\"\n  },\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"log_id\": \"<string>\"\n  }\n}",
+                              "createdAt": "2026-07-28T03:13:41.000Z",
+                              "updatedAt": "2026-07-28T03:13:41.000Z",
+                              "uid": "35240-2391c8b1-4961-4aa4-8791-d85c950d0445"
+                            },
+                            {
+                              "id": "b37ff41a-c187-42b2-bbca-08f1ed217736",
+                              "name": "Unauthorized",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"publish_id\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/v2/post/publish/status/fetch/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v2",
+                                    "post",
+                                    "publish",
+                                    "status",
+                                    "fetch",
+                                    ""
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-07-28T03:13:41.000Z",
+                              "updatedAt": "2026-07-28T03:13:41.000Z",
+                              "uid": "35240-b37ff41a-c187-42b2-bbca-08f1ed217736"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T03:13:41.000Z",
+                          "updatedAt": "2026-07-28T03:13:41.000Z",
+                          "uid": "35240-fe789810-1834-47e8-bb0f-51303a2e7ebd"
+                        }
+                      ],
+                      "id": "285bbe35-a92e-478e-9d07-c9a46b93e05e",
+                      "createdAt": "2026-07-28T03:13:41.000Z",
+                      "updatedAt": "2026-07-28T03:13:41.000Z",
+                      "uid": "35240-285bbe35-a92e-478e-9d07-c9a46b93e05e"
+                    }
+                  ],
+                  "id": "5d2f8e1e-4244-42dc-87f8-697f3e55b214",
+                  "createdAt": "2026-07-28T03:13:41.000Z",
+                  "updatedAt": "2026-07-28T03:13:41.000Z",
+                  "uid": "35240-5d2f8e1e-4244-42dc-87f8-697f3e55b214"
+                },
+                {
+                  "name": "inbox",
+                  "item": [
+                    {
+                      "name": "video",
+                      "item": [
+                        {
+                          "name": "init",
+                          "item": [
+                            {
+                              "name": "Init Inbox Video Upload",
+                              "id": "0ef83638-b5f1-4992-a0aa-9f56229f8005",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"source_info\": {\n    \"source\": \"PULL_FROM_URL\",\n    \"video_url\": \"<string>\",\n    \"chunk_size\": \"<integer>\",\n    \"total_chunk_count\": \"<integer>\"\n  }\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/v2/post/publish/inbox/video/init/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v2",
+                                    "post",
+                                    "publish",
+                                    "inbox",
+                                    "video",
+                                    "init",
+                                    ""
+                                  ]
+                                },
+                                "description": "Initiates a video upload to a user's TikTok inbox as a draft. The user can review and publish from the TikTok app."
+                              },
+                              "response": [
+                                {
+                                  "id": "f12c6257-d56d-4aea-a6fb-d301b9712c7e",
+                                  "name": "Inbox upload initiated successfully",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"source_info\": {\n    \"source\": \"PULL_FROM_URL\",\n    \"video_url\": \"<string>\",\n    \"chunk_size\": \"<integer>\",\n    \"total_chunk_count\": \"<integer>\"\n  }\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/v2/post/publish/inbox/video/init/",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "v2",
+                                        "post",
+                                        "publish",
+                                        "inbox",
+                                        "video",
+                                        "init",
+                                        ""
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"data\": {\n    \"publish_id\": \"<string>\",\n    \"upload_url\": \"<string>\"\n  },\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"log_id\": \"<string>\"\n  }\n}",
+                                  "createdAt": "2026-07-28T03:13:41.000Z",
+                                  "updatedAt": "2026-07-28T03:13:41.000Z",
+                                  "uid": "35240-f12c6257-d56d-4aea-a6fb-d301b9712c7e"
+                                },
+                                {
+                                  "id": "58f5c59e-79d2-4141-9150-e4caffe9adc2",
+                                  "name": "Unauthorized",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"source_info\": {\n    \"source\": \"PULL_FROM_URL\",\n    \"video_url\": \"<string>\",\n    \"chunk_size\": \"<integer>\",\n    \"total_chunk_count\": \"<integer>\"\n  }\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/v2/post/publish/inbox/video/init/",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "v2",
+                                        "post",
+                                        "publish",
+                                        "inbox",
+                                        "video",
+                                        "init",
+                                        ""
+                                      ]
+                                    }
+                                  },
+                                  "status": "Unauthorized",
+                                  "code": 401,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-07-28T03:13:41.000Z",
+                                  "updatedAt": "2026-07-28T03:13:41.000Z",
+                                  "uid": "35240-58f5c59e-79d2-4141-9150-e4caffe9adc2"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T03:13:41.000Z",
+                              "updatedAt": "2026-07-28T03:13:41.000Z",
+                              "uid": "35240-0ef83638-b5f1-4992-a0aa-9f56229f8005"
+                            }
+                          ],
+                          "id": "b5bfa602-bf07-4267-84ac-f72d07595914",
+                          "createdAt": "2026-07-28T03:13:41.000Z",
+                          "updatedAt": "2026-07-28T03:13:41.000Z",
+                          "uid": "35240-b5bfa602-bf07-4267-84ac-f72d07595914"
+                        }
+                      ],
+                      "id": "f91306a1-db2c-42e8-8601-ef0f53b0b8b0",
+                      "createdAt": "2026-07-28T03:13:41.000Z",
+                      "updatedAt": "2026-07-28T03:13:41.000Z",
+                      "uid": "35240-f91306a1-db2c-42e8-8601-ef0f53b0b8b0"
+                    }
+                  ],
+                  "id": "49a3bee1-01e7-47d1-a5be-0e12de452534",
+                  "createdAt": "2026-07-28T03:13:41.000Z",
+                  "updatedAt": "2026-07-28T03:13:41.000Z",
+                  "uid": "35240-49a3bee1-01e7-47d1-a5be-0e12de452534"
+                },
+                {
+                  "name": "creator_info",
+                  "item": [
+                    {
+                      "name": "query",
+                      "item": [
+                        {
+                          "name": "Query Creator Info",
+                          "id": "fd616ed1-20ae-4150-9840-dc7030fce76a",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v2/post/publish/creator_info/query/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v2",
+                                "post",
+                                "publish",
+                                "creator_info",
+                                "query",
+                                ""
+                              ]
+                            },
+                            "description": "Retrieves the authenticated creator's content posting settings including allowed privacy levels, duet and stitch permissions, and comment settings."
+                          },
+                          "response": [
+                            {
+                              "id": "8a0729c7-3cfd-448d-89a5-227973ffed9d",
+                              "name": "Creator info returned successfully",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v2/post/publish/creator_info/query/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v2",
+                                    "post",
+                                    "publish",
+                                    "creator_info",
+                                    "query",
+                                    ""
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"data\": {\n    \"creator_avatar_url\": \"<string>\",\n    \"creator_username\": \"<string>\",\n    \"creator_nickname\": \"<string>\",\n    \"privacy_level_options\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"comment_disabled\": \"<boolean>\",\n    \"duet_disabled\": \"<boolean>\",\n    \"stitch_disabled\": \"<boolean>\",\n    \"max_video_post_duration_sec\": \"<integer>\"\n  },\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"log_id\": \"<string>\"\n  }\n}",
+                              "createdAt": "2026-07-28T03:13:41.000Z",
+                              "updatedAt": "2026-07-28T03:13:41.000Z",
+                              "uid": "35240-8a0729c7-3cfd-448d-89a5-227973ffed9d"
+                            },
+                            {
+                              "id": "577e85b7-0b71-4dfc-b661-f5077c7e3250",
+                              "name": "Unauthorized",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v2/post/publish/creator_info/query/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v2",
+                                    "post",
+                                    "publish",
+                                    "creator_info",
+                                    "query",
+                                    ""
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-07-28T03:13:41.000Z",
+                              "updatedAt": "2026-07-28T03:13:41.000Z",
+                              "uid": "35240-577e85b7-0b71-4dfc-b661-f5077c7e3250"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T03:13:41.000Z",
+                          "updatedAt": "2026-07-28T03:13:41.000Z",
+                          "uid": "35240-fd616ed1-20ae-4150-9840-dc7030fce76a"
+                        }
+                      ],
+                      "id": "0747ef0c-188c-4a44-9683-74ecdc6f7f16",
+                      "createdAt": "2026-07-28T03:13:41.000Z",
+                      "updatedAt": "2026-07-28T03:13:41.000Z",
+                      "uid": "35240-0747ef0c-188c-4a44-9683-74ecdc6f7f16"
+                    }
+                  ],
+                  "id": "6ac5df8e-7b39-4a36-a8a9-57f3827e2a32",
+                  "createdAt": "2026-07-28T03:13:41.000Z",
+                  "updatedAt": "2026-07-28T03:13:41.000Z",
+                  "uid": "35240-6ac5df8e-7b39-4a36-a8a9-57f3827e2a32"
+                }
+              ],
+              "id": "8b8b7223-1836-41bb-805e-ff932226add8",
+              "createdAt": "2026-07-28T03:13:41.000Z",
+              "updatedAt": "2026-07-28T03:13:41.000Z",
+              "uid": "35240-8b8b7223-1836-41bb-805e-ff932226add8"
+            }
+          ],
+          "id": "cd2665cd-ae2e-4e60-9266-3125171db7df",
+          "createdAt": "2026-07-28T03:13:41.000Z",
+          "updatedAt": "2026-07-28T03:13:41.000Z",
+          "uid": "35240-cd2665cd-ae2e-4e60-9266-3125171db7df"
+        }
+      ],
+      "id": "946445e7-79b1-466c-9404-5b22ac376804",
+      "createdAt": "2026-07-28T03:13:41.000Z",
+      "updatedAt": "2026-07-28T03:13:41.000Z",
+      "uid": "35240-946445e7-79b1-466c-9404-5b22ac376804"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://open.tiktokapis.com"
+    }
+  ]
+}
