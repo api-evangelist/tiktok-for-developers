@@ -1,0 +1,113 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TikTok Content Posting OAuth Research Videos API",
+    "version": "v2"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Research Videos",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Query Research Videos",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://open.tiktokapis.com/v2/research/video/query/",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to return"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Queries TikTok videos using boolean operators (AND, OR, NOT) with filters such as keywords, region, date range, hashtags, music ID, and effect ID. Returns video IDs and selected metadata fields."
+        },
+        {
+          "info": {
+            "name": "List User Liked Videos",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://open.tiktokapis.com/v2/research/user/liked_videos/",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Retrieves the list of videos liked by a specified TikTok user."
+        },
+        {
+          "info": {
+            "name": "List User Pinned Videos",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://open.tiktokapis.com/v2/research/user/pinned_videos/",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Retrieves the list of videos pinned by a specified TikTok user."
+        },
+        {
+          "info": {
+            "name": "List User Reposted Videos",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://open.tiktokapis.com/v2/research/user/reposted_videos/",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Retrieves the list of videos reposted by a specified TikTok user."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

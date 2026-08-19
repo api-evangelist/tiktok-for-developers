@@ -1,0 +1,219 @@
+{
+  "item": [
+    {
+      "id": "3260adc8-0acf-4036-ac10-ba5816eae075",
+      "name": "Research Comments",
+      "description": {
+        "content": "Comment data operations",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "09208ba2-79d9-41d6-a020-4cf3aadd7d67",
+          "name": "List Video Comments",
+          "request": {
+            "name": "List Video Comments",
+            "description": {
+              "content": "Retrieves all comments on a specific TikTok video, including comment text, author information, create time, and like count.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "research",
+                "video",
+                "comment",
+                "list",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"video_id\": \"<string>\",\n  \"max_count\": \"<integer>\",\n  \"cursor\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4555e9de-9570-49a4-96ce-1523839a5daa",
+              "name": "Comments returned successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "research",
+                    "video",
+                    "comment",
+                    "list",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"video_id\": \"<string>\",\n  \"max_count\": \"<integer>\",\n  \"cursor\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"comments\": [\n      {\n        \"id\": \"string\",\n        \"video_id\": \"string\",\n        \"text\": \"string\",\n        \"like_count\": 5472,\n        \"reply_count\": 3322,\n        \"parent_comment_id\": \"string\",\n        \"create_time\": 8887\n      },\n      {\n        \"id\": \"string\",\n        \"video_id\": \"string\",\n        \"text\": \"string\",\n        \"like_count\": 4703,\n        \"reply_count\": 8704,\n        \"parent_comment_id\": \"string\",\n        \"create_time\": 3474\n      }\n    ],\n    \"cursor\": 3442,\n    \"has_more\": true\n  },\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"log_id\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dab629f8-9142-4fca-8834-5f71019e3d4f",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "research",
+                    "video",
+                    "comment",
+                    "list",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"video_id\": \"<string>\",\n  \"max_count\": \"<integer>\",\n  \"cursor\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://open.tiktokapis.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "646fb3ce-9ff6-4b39-9733-0ebdc6dad4d8",
+    "name": "TikTok Content Posting OAuth Research Comments API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The TikTok Content Posting API allows third-party platforms to publish videos directly to a user's TikTok account. Supports direct post and file-upload flows, including video initiation, chunk upload, and publish status polling.\n\nContact Support:\n Name: TikTok for Developers",
+      "type": "text/plain"
+    }
+  }
+}

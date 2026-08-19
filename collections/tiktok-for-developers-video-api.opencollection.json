@@ -1,0 +1,70 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TikTok Content Posting OAuth Video API",
+    "version": "v2"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Video",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Videos",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://open.tiktokapis.com/v2/video/list/",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to return (e.g. id,create_time,cover_image_url,share_url,video_description,duration,height,width,title,embed_html,embed_link,like_count,comment_count,share_count,view_count)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Retrieves a paginated list of a TikTok user's most recently uploaded public videos, sorted by create_time in descending order."
+        },
+        {
+          "info": {
+            "name": "Query Videos",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://open.tiktokapis.com/v2/video/query/",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to return"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Retrieves metadata of TikTok user videos filtered by video IDs. Verifies that the videos belong to the authorized user and returns video details. Can be used to refresh video cover image URL TTL."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

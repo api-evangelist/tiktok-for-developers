@@ -1,0 +1,43 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TikTok Content Posting OAuth User API",
+    "version": "v2"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "User",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get User Info",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://open.tiktokapis.com/v2/user/info/",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to return (e.g. open_id,avatar_url,display_name,bio_description,profile_deep_link,union_id,is_verified,follower_count,following_count,likes_count,video_count)"
+              }
+            ]
+          },
+          "docs": "Retrieves a TikTok user's basic profile information including open_id, avatar_url, display_name, profile_deep_link, and bio_description."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

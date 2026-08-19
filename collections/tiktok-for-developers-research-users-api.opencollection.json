@@ -1,0 +1,46 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TikTok Content Posting OAuth Research Users API",
+    "version": "v2"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Research Users",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Query Research User Info",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://open.tiktokapis.com/v2/research/user/info/",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Retrieves public TikTok account information by TikTok handle. Returns fields such as display_name, bio_description, avatar_url, is_verified, follower_count, following_count, likes_count, and video_count."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
