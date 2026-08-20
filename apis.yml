@@ -27,6 +27,13 @@ tags:
 - Analytics
 - Authentication
 - Content
+- Social-Media
+- Video
+tags_raw:
+- Advertising
+- Analytics
+- Authentication
+- Content
 - Social Media
 - Video
 created: '2025-07-29'
@@ -40,6 +47,8 @@ apis:
   humanURL: https://developers.tiktok.com/doc/display-api-overview
   baseURL: https://open.tiktokapis.com
   tags:
+  - Authentication
+  tags_raw:
   - OAuth
   properties:
   - type: OpenAPI
@@ -59,7 +68,8 @@ apis:
   description: Video publishing operations
   humanURL: https://developers.tiktok.com/doc/display-api-overview
   baseURL: https://open.tiktokapis.com
-  tags:
+  tags: []
+  tags_raw:
   - Post
   properties:
   - type: OpenAPI
