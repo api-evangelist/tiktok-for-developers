@@ -12,8 +12,11 @@ info:
     and executed without opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: researchApi
-  url: ../openapi/tiktok-research-openapi.yml
+- name: researchSocialApi
+  url: ../openapi/tiktok-for-developers-research-social-api-openapi.yml
+  type: openapi
+- name: researchUsersApi
+  url: ../openapi/tiktok-for-developers-research-users-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: research-user-social-graph

@@ -12,8 +12,11 @@ info:
     underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: researchApi
-  url: ../openapi/tiktok-research-openapi.yml
+- name: researchCommentsApi
+  url: ../openapi/tiktok-for-developers-research-comments-api-openapi.yml
+  type: openapi
+- name: researchVideosApi
+  url: ../openapi/tiktok-for-developers-research-videos-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: research-search-and-comments

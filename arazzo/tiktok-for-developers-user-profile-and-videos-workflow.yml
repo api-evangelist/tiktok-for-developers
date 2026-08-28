@@ -12,8 +12,11 @@ info:
     opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: displayApi
-  url: ../openapi/tiktok-display-openapi.yml
+- name: userApi
+  url: ../openapi/tiktok-for-developers-user-api-openapi.yml
+  type: openapi
+- name: videoApi
+  url: ../openapi/tiktok-for-developers-video-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: user-profile-and-videos
