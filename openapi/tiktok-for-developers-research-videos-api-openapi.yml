@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: TikTok Content Posting OAuth Research Videos API
   description: The TikTok Content Posting API allows third-party platforms to publish videos directly to a user's TikTok account. Supports direct post and file-upload flows, including video initiation, chunk upload, and publish status polling.
@@ -133,6 +133,48 @@ paths:
           description: Unauthorized
 components:
   schemas:
+    SocialListRequest:
+      type: object
+      required:
+      - username
+      - max_count
+      properties:
+        username:
+          type: string
+          description: TikTok handle (without @)
+        max_count:
+          type: integer
+          minimum: 1
+          maximum: 100
+        cursor:
+          type: integer
+    ResearchVideo:
+      type: object
+      properties:
+        id:
+          type: string
+        create_time:
+          type: integer
+        username:
+          type: string
+        region_code:
+          type: string
+        video_description:
+          type: string
+        music_id:
+          type: string
+        like_count:
+          type: integer
+        comment_count:
+          type: integer
+        share_count:
+          type: integer
+        view_count:
+          type: integer
+        hashtag_names:
+          type: array
+          items:
+            type: string
     VideoQueryResponse:
       type: object
       properties:
@@ -192,48 +234,6 @@ components:
         search_id:
           type: string
           description: Search ID for pagination continuation
-    SocialListRequest:
-      type: object
-      required:
-      - username
-      - max_count
-      properties:
-        username:
-          type: string
-          description: TikTok handle (without @)
-        max_count:
-          type: integer
-          minimum: 1
-          maximum: 100
-        cursor:
-          type: integer
-    ResearchVideo:
-      type: object
-      properties:
-        id:
-          type: string
-        create_time:
-          type: integer
-        username:
-          type: string
-        region_code:
-          type: string
-        video_description:
-          type: string
-        music_id:
-          type: string
-        like_count:
-          type: integer
-        comment_count:
-          type: integer
-        share_count:
-          type: integer
-        view_count:
-          type: integer
-        hashtag_names:
-          type: array
-          items:
-            type: string
     QueryCondition:
       type: object
       properties:

@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: TikTok Content Posting OAuth Post API
   description: The TikTok Content Posting API allows third-party platforms to publish videos directly to a user's TikTok account. Supports direct post and file-upload flows, including video initiation, chunk upload, and publish status polling.
@@ -102,36 +102,6 @@ paths:
           description: Unauthorized
 components:
   schemas:
-    PublishStatusRequest:
-      type: object
-      required:
-      - publish_id
-      properties:
-        publish_id:
-          type: string
-          description: The publish_id returned from the init endpoint
-    PublishStatusResponse:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            status:
-              type: string
-              enum:
-              - PROCESSING_UPLOAD
-              - PROCESSING_DOWNLOAD
-              - SENDING_TO_USER_INBOX
-              - FAILED
-              - PUBLISH_COMPLETE
-              description: Current status of the publish job
-            publish_id:
-              type: string
-            uploaded_bytes:
-              type: integer
-              description: Bytes uploaded so far
-        error:
-          $ref: '#/components/schemas/Error'
     PostInfo:
       type: object
       properties:
@@ -158,6 +128,14 @@ components:
         video_cover_timestamp_ms:
           type: integer
           description: Timestamp in milliseconds for video cover
+    PublishStatusRequest:
+      type: object
+      required:
+      - publish_id
+      properties:
+        publish_id:
+          type: string
+          description: The publish_id returned from the init endpoint
     CreatorInfoResponse:
       type: object
       properties:
@@ -184,6 +162,28 @@ components:
               type: integer
         error:
           $ref: '#/components/schemas/Error'
+    PublishStatusResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            status:
+              type: string
+              enum:
+              - PROCESSING_UPLOAD
+              - PROCESSING_DOWNLOAD
+              - SENDING_TO_USER_INBOX
+              - FAILED
+              - PUBLISH_COMPLETE
+              description: Current status of the publish job
+            publish_id:
+              type: string
+            uploaded_bytes:
+              type: integer
+              description: Bytes uploaded so far
+        error:
+          $ref: '#/components/schemas/Error'
     InboxVideoInitRequest:
       type: object
       required:
@@ -203,6 +203,29 @@ components:
               type: integer
             total_chunk_count:
               type: integer
+    VideoInitResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            publish_id:
+              type: string
+              description: Unique identifier for this publish job
+            upload_url:
+              type: string
+              description: URL to upload video chunks to
+        error:
+          $ref: '#/components/schemas/Error'
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        log_id:
+          type: string
     VideoInitRequest:
       type: object
       required:
@@ -229,29 +252,6 @@ components:
               description: Total number of chunks
         post_info:
           $ref: '#/components/schemas/PostInfo'
-    VideoInitResponse:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            publish_id:
-              type: string
-              description: Unique identifier for this publish job
-            upload_url:
-              type: string
-              description: URL to upload video chunks to
-        error:
-          $ref: '#/components/schemas/Error'
-    Error:
-      type: object
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-        log_id:
-          type: string
   securitySchemes:
     BearerAuth:
       type: http

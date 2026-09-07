@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: TikTok Content Posting OAuth Research Comments API
   description: The TikTok Content Posting API allows third-party platforms to publish videos directly to a user's TikTok account. Supports direct post and file-upload flows, including video initiation, chunk upload, and publish status polling.
@@ -46,6 +46,22 @@ paths:
           description: Unauthorized
 components:
   schemas:
+    CommentListResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            comments:
+              type: array
+              items:
+                $ref: '#/components/schemas/Comment'
+            cursor:
+              type: integer
+            has_more:
+              type: boolean
+        error:
+          $ref: '#/components/schemas/Error'
     Comment:
       type: object
       properties:
@@ -63,31 +79,6 @@ components:
           type: string
         create_time:
           type: integer
-    CommentListResponse:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            comments:
-              type: array
-              items:
-                $ref: '#/components/schemas/Comment'
-            cursor:
-              type: integer
-            has_more:
-              type: boolean
-        error:
-          $ref: '#/components/schemas/Error'
-    Error:
-      type: object
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-        log_id:
-          type: string
     CommentListRequest:
       type: object
       required:
@@ -103,6 +94,15 @@ components:
           maximum: 100
         cursor:
           type: integer
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        log_id:
+          type: string
   securitySchemes:
     BearerAuth:
       type: http

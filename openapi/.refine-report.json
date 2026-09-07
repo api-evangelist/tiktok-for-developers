@@ -23,6 +23,16 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
+  "notes": [
+    "tiktok-for-developers-oauth-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "tiktok-for-developers-post-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "tiktok-for-developers-research-comments-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "tiktok-for-developers-research-social-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "tiktok-for-developers-research-users-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "tiktok-for-developers-research-videos-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "tiktok-for-developers-user-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "tiktok-for-developers-video-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
   "skipped": []
 }

@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: TikTok Content Posting OAuth Research Users API
   description: The TikTok Content Posting API allows third-party platforms to publish videos directly to a user's TikTok account. Supports direct post and file-upload flows, including video initiation, chunk upload, and publish status polling.
@@ -54,6 +54,15 @@ components:
         username:
           type: string
           description: TikTok handle (without @)
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        log_id:
+          type: string
     ResearchUserInfoResponse:
       type: object
       properties:
@@ -78,15 +87,6 @@ components:
               type: integer
         error:
           $ref: '#/components/schemas/Error'
-    Error:
-      type: object
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-        log_id:
-          type: string
   securitySchemes:
     BearerAuth:
       type: http
