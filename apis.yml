@@ -54,28 +54,6 @@ modified: '2026-05-19'
 url: https://raw.githubusercontent.com/api-evangelist/tiktok-for-developers/refs/heads/main/apis.yml
 specificationVersion: '0.23'
 apis:
-- aid: tiktok-for-developers:tiktok-for-developers-oauth-api
-  name: TikTok for Developers OAuth API
-  description: OAuth 2.0 authorization and token management
-  humanURL: https://developers.tiktok.com/doc/display-api-overview
-  baseURL: https://open.tiktokapis.com
-  tags:
-  - Authentication
-  tags_raw:
-  - OAuth
-  properties:
-  - type: OpenAPI
-    url: openapi/tiktok-for-developers-oauth-api-openapi.yml
-  - type: Documentation
-    url: https://developers.tiktok.com/doc/display-api-overview
-  - type: GraphQL
-    url: graphql/tiktok-for-developers-graphql.md
-  - type: Documentation
-    url: https://developers.tiktok.com/doc/content-posting-api-get-started
-  - type: Documentation
-    url: https://developers.tiktok.com/doc/research-api-get-started
-  - type: Documentation
-    url: https://developers.tiktok.com/doc/login-kit-web
 - aid: tiktok-for-developers:tiktok-for-developers-post-api
   name: TikTok for Developers Post API
   description: Video publishing operations
@@ -207,6 +185,26 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/tiktok-for-developers-video-api-openapi.yml
+  - type: Documentation
+    url: https://developers.tiktok.com/doc/display-api-overview
+  - type: GraphQL
+    url: graphql/tiktok-for-developers-graphql.md
+  - type: Documentation
+    url: https://developers.tiktok.com/doc/content-posting-api-get-started
+  - type: Documentation
+    url: https://developers.tiktok.com/doc/research-api-get-started
+  - type: Documentation
+    url: https://developers.tiktok.com/doc/login-kit-web
+- aid: tiktok-for-developers:tiktok-for-developers-o-auth-api
+  name: TikTok for Developers O Auth API
+  description: OAuth 2.0 authorization and token management
+  humanURL: https://developers.tiktok.com/doc/display-api-overview
+  baseURL: https://open.tiktokapis.com
+  tags:
+  - O Auth
+  properties:
+  - type: OpenAPI
+    url: openapi/tiktok-for-developers-o-auth-api-openapi.yml
   - type: Documentation
     url: https://developers.tiktok.com/doc/display-api-overview
   - type: GraphQL
