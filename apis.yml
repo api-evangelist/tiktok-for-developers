@@ -195,16 +195,16 @@ apis:
     url: https://developers.tiktok.com/doc/research-api-get-started
   - type: Documentation
     url: https://developers.tiktok.com/doc/login-kit-web
-- aid: tiktok-for-developers:tiktok-for-developers-o-auth-api
+- aid: tiktok-for-developers:tiktok-for-developers-oauth-api
   name: TikTok for Developers O Auth API
   description: OAuth 2.0 authorization and token management
   humanURL: https://developers.tiktok.com/doc/display-api-overview
   baseURL: https://open.tiktokapis.com
   tags:
-  - O Auth
+  - OAuth
   properties:
   - type: OpenAPI
-    url: openapi/tiktok-for-developers-o-auth-api-openapi.yml
+    url: openapi/tiktok-for-developers-oauth-api-openapi.yml
   - type: Documentation
     url: https://developers.tiktok.com/doc/display-api-overview
   - type: GraphQL
