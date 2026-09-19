@@ -201,6 +201,8 @@ apis:
   humanURL: https://developers.tiktok.com/doc/display-api-overview
   baseURL: https://open.tiktokapis.com
   tags:
+  - Authentication
+  tags_raw:
   - OAuth
   properties:
   - type: OpenAPI
