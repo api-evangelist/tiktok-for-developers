@@ -1,38 +1,43 @@
 {
   "provider": "tiktok-for-developers",
   "sources": [
-    "tiktok-for-developers-oauth-api-openapi.yml",
-    "tiktok-for-developers-post-api-openapi.yml",
-    "tiktok-for-developers-research-comments-api-openapi.yml",
-    "tiktok-for-developers-research-social-api-openapi.yml",
-    "tiktok-for-developers-research-users-api-openapi.yml",
-    "tiktok-for-developers-research-videos-api-openapi.yml",
-    "tiktok-for-developers-user-api-openapi.yml",
-    "tiktok-for-developers-video-api-openapi.yml"
+    "_original/tiktok-content-posting-openapi.yml",
+    "_original/tiktok-display-openapi.yml",
+    "_original/tiktok-login-kit-openapi.yml",
+    "_original/tiktok-research-openapi.yml"
   ],
   "outputs": [
-    "tiktok-for-developers-oauth-api-openapi.yml",
     "tiktok-for-developers-post-api-openapi.yml",
+    "tiktok-for-developers-user-api-openapi.yml",
+    "tiktok-for-developers-video-api-openapi.yml",
+    "tiktok-for-developers-oauth-api-openapi.yml",
     "tiktok-for-developers-research-comments-api-openapi.yml",
     "tiktok-for-developers-research-social-api-openapi.yml",
     "tiktok-for-developers-research-users-api-openapi.yml",
-    "tiktok-for-developers-research-videos-api-openapi.yml",
-    "tiktok-for-developers-user-api-openapi.yml",
-    "tiktok-for-developers-video-api-openapi.yml"
+    "tiktok-for-developers-research-videos-api-openapi.yml"
   ],
-  "archived": [],
+  "archived": [
+    "deleted 1 superseded output(s) from the previous generation"
+  ],
   "errors": [],
   "warnings": [],
   "notes": [
-    "tiktok-for-developers-oauth-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "tiktok-for-developers-post-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "tiktok-for-developers-research-comments-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "tiktok-for-developers-research-social-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "tiktok-for-developers-research-users-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "tiktok-for-developers-research-videos-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "tiktok-for-developers-user-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "tiktok-for-developers-video-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "apis.yml register: already-registered"
+    "sourced from openapi/_original/ (4 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "tiktok-content-posting-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "tiktok-display-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "tiktok-login-kit-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "tiktok-research-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "superseded outputs removed: tiktok-for-developers-o-auth-api-openapi.yml",
+    "apis.yml register: written (+1 apis, 8 total)"
   ],
-  "skipped": []
+  "skipped": [
+    "tiktok-for-developers-o-auth-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "tiktok-for-developers-post-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "tiktok-for-developers-research-comments-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "tiktok-for-developers-research-social-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "tiktok-for-developers-research-users-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "tiktok-for-developers-research-videos-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "tiktok-for-developers-user-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "tiktok-for-developers-video-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

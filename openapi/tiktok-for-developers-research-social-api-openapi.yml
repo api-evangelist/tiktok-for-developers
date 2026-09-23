@@ -1,11 +1,11 @@
 openapi: 3.2.0
 info:
-  title: TikTok Content Posting OAuth Research Social API
-  description: The TikTok Content Posting API allows third-party platforms to publish videos directly to a user's TikTok account. Supports direct post and file-upload flows, including video initiation, chunk upload, and publish status polling.
+  title: TikTok Research Research Social API
+  description: The TikTok Research API provides academic and institutional researchers access to TikTok public data. Supports querying videos, user information, comments, followers, following lists, liked videos, and reposted videos.
   version: v2
   contact:
     name: TikTok for Developers
-    url: https://developers.tiktok.com/
+    url: https://developers.tiktok.com/doc/research-api-get-started
   termsOfService: https://developers.tiktok.com/doc/tiktok-api-terms-of-service
 servers:
 - url: https://open.tiktokapis.com
@@ -74,22 +74,6 @@ paths:
           description: Unauthorized
 components:
   schemas:
-    SocialListResponse:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            user_followers:
-              type: array
-              items:
-                $ref: '#/components/schemas/SocialUser'
-            cursor:
-              type: integer
-            has_more:
-              type: boolean
-        error:
-          $ref: '#/components/schemas/Error'
     Error:
       type: object
       properties:
@@ -114,6 +98,22 @@ components:
           maximum: 100
         cursor:
           type: integer
+    SocialListResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            user_followers:
+              type: array
+              items:
+                $ref: '#/components/schemas/SocialUser'
+            cursor:
+              type: integer
+            has_more:
+              type: boolean
+        error:
+          $ref: '#/components/schemas/Error'
     SocialUser:
       type: object
       properties:
@@ -125,4 +125,4 @@ components:
     BearerAuth:
       type: http
       scheme: bearer
-      description: OAuth 2.0 Bearer token
+      description: OAuth 2.0 Bearer token (client credentials flow for Research API)

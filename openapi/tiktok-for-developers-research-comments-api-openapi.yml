@@ -1,11 +1,11 @@
 openapi: 3.2.0
 info:
-  title: TikTok Content Posting OAuth Research Comments API
-  description: The TikTok Content Posting API allows third-party platforms to publish videos directly to a user's TikTok account. Supports direct post and file-upload flows, including video initiation, chunk upload, and publish status polling.
+  title: TikTok Research Research Comments API
+  description: The TikTok Research API provides academic and institutional researchers access to TikTok public data. Supports querying videos, user information, comments, followers, following lists, liked videos, and reposted videos.
   version: v2
   contact:
     name: TikTok for Developers
-    url: https://developers.tiktok.com/
+    url: https://developers.tiktok.com/doc/research-api-get-started
   termsOfService: https://developers.tiktok.com/doc/tiktok-api-terms-of-service
 servers:
 - url: https://open.tiktokapis.com
@@ -46,6 +46,30 @@ paths:
           description: Unauthorized
 components:
   schemas:
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        log_id:
+          type: string
+    CommentListRequest:
+      type: object
+      required:
+      - video_id
+      - max_count
+      properties:
+        video_id:
+          type: string
+          description: TikTok video ID
+        max_count:
+          type: integer
+          minimum: 1
+          maximum: 100
+        cursor:
+          type: integer
     CommentListResponse:
       type: object
       properties:
@@ -79,32 +103,8 @@ components:
           type: string
         create_time:
           type: integer
-    CommentListRequest:
-      type: object
-      required:
-      - video_id
-      - max_count
-      properties:
-        video_id:
-          type: string
-          description: TikTok video ID
-        max_count:
-          type: integer
-          minimum: 1
-          maximum: 100
-        cursor:
-          type: integer
-    Error:
-      type: object
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-        log_id:
-          type: string
   securitySchemes:
     BearerAuth:
       type: http
       scheme: bearer
-      description: OAuth 2.0 Bearer token
+      description: OAuth 2.0 Bearer token (client credentials flow for Research API)

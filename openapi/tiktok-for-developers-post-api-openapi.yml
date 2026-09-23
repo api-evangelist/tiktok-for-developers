@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: TikTok Content Posting OAuth Post API
+  title: TikTok Content Posting Post API
   description: The TikTok Content Posting API allows third-party platforms to publish videos directly to a user's TikTok account. Supports direct post and file-upload flows, including video initiation, chunk upload, and publish status polling.
   version: v2
   contact:
@@ -128,6 +128,32 @@ components:
         video_cover_timestamp_ms:
           type: integer
           description: Timestamp in milliseconds for video cover
+    VideoInitRequest:
+      type: object
+      required:
+      - source_info
+      - post_info
+      properties:
+        source_info:
+          type: object
+          properties:
+            source:
+              type: string
+              enum:
+              - FILE_UPLOAD
+              - PULL_FROM_URL
+              description: Source type for the video
+            video_url:
+              type: string
+              description: URL of the video (required when source is PULL_FROM_URL)
+            chunk_size:
+              type: integer
+              description: Size of each upload chunk in bytes
+            total_chunk_count:
+              type: integer
+              description: Total number of chunks
+        post_info:
+          $ref: '#/components/schemas/PostInfo'
     PublishStatusRequest:
       type: object
       required:
@@ -136,6 +162,20 @@ components:
         publish_id:
           type: string
           description: The publish_id returned from the init endpoint
+    VideoInitResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            publish_id:
+              type: string
+              description: Unique identifier for this publish job
+            upload_url:
+              type: string
+              description: URL to upload video chunks to
+        error:
+          $ref: '#/components/schemas/Error'
     CreatorInfoResponse:
       type: object
       properties:
@@ -203,20 +243,6 @@ components:
               type: integer
             total_chunk_count:
               type: integer
-    VideoInitResponse:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            publish_id:
-              type: string
-              description: Unique identifier for this publish job
-            upload_url:
-              type: string
-              description: URL to upload video chunks to
-        error:
-          $ref: '#/components/schemas/Error'
     Error:
       type: object
       properties:
@@ -226,32 +252,6 @@ components:
           type: string
         log_id:
           type: string
-    VideoInitRequest:
-      type: object
-      required:
-      - source_info
-      - post_info
-      properties:
-        source_info:
-          type: object
-          properties:
-            source:
-              type: string
-              enum:
-              - FILE_UPLOAD
-              - PULL_FROM_URL
-              description: Source type for the video
-            video_url:
-              type: string
-              description: URL of the video (required when source is PULL_FROM_URL)
-            chunk_size:
-              type: integer
-              description: Size of each upload chunk in bytes
-            total_chunk_count:
-              type: integer
-              description: Total number of chunks
-        post_info:
-          $ref: '#/components/schemas/PostInfo'
   securitySchemes:
     BearerAuth:
       type: http

@@ -1,17 +1,15 @@
 openapi: 3.2.0
 info:
-  title: TikTok Content Posting O Auth API
-  description: The TikTok Content Posting API allows third-party platforms to publish videos directly to a user's TikTok account. Supports direct post and file-upload flows, including video initiation, chunk upload, and publish status polling.
+  title: TikTok Login Kit O Auth API
+  description: The TikTok Login Kit API enables users to securely log in to third-party applications and websites using their TikTok credentials via OAuth 2.0. Supports authorization code flow, token issuance, token refresh, and token revocation.
   version: v2
   contact:
     name: TikTok for Developers
-    url: https://developers.tiktok.com/
+    url: https://developers.tiktok.com/doc/login-kit-web
   termsOfService: https://developers.tiktok.com/doc/tiktok-api-terms-of-service
 servers:
 - url: https://open.tiktokapis.com
   description: TikTok Open API Production
-security:
-- BearerAuth: []
 tags:
 - name: OAuth
   description: OAuth 2.0 authorization and token management
@@ -112,6 +110,48 @@ components:
         redirect_uri:
           type: string
           description: Redirect URI registered for your app
+    RefreshTokenRequest:
+      type: object
+      required:
+      - client_key
+      - client_secret
+      - grant_type
+      - refresh_token
+      properties:
+        client_key:
+          type: string
+        client_secret:
+          type: string
+        grant_type:
+          type: string
+          enum:
+          - refresh_token
+        refresh_token:
+          type: string
+          description: The refresh token to use
+    RevokeTokenResponse:
+      type: object
+      properties:
+        error:
+          type: string
+        error_description:
+          type: string
+        message:
+          type: string
+    RevokeTokenRequest:
+      type: object
+      required:
+      - client_key
+      - client_secret
+      - token
+      properties:
+        client_key:
+          type: string
+        client_secret:
+          type: string
+        token:
+          type: string
+          description: The access token to revoke
     TokenResponse:
       type: object
       properties:
@@ -136,50 +176,3 @@ components:
         token_type:
           type: string
           description: Token type (Bearer)
-    RevokeTokenResponse:
-      type: object
-      properties:
-        error:
-          type: string
-        error_description:
-          type: string
-        message:
-          type: string
-    RefreshTokenRequest:
-      type: object
-      required:
-      - client_key
-      - client_secret
-      - grant_type
-      - refresh_token
-      properties:
-        client_key:
-          type: string
-        client_secret:
-          type: string
-        grant_type:
-          type: string
-          enum:
-          - refresh_token
-        refresh_token:
-          type: string
-          description: The refresh token to use
-    RevokeTokenRequest:
-      type: object
-      required:
-      - client_key
-      - client_secret
-      - token
-      properties:
-        client_key:
-          type: string
-        client_secret:
-          type: string
-        token:
-          type: string
-          description: The access token to revoke
-  securitySchemes:
-    BearerAuth:
-      type: http
-      scheme: bearer
-      description: OAuth 2.0 Bearer token

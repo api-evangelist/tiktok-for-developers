@@ -1,7 +1,7 @@
 openapi: 3.2.0
 info:
-  title: TikTok Content Posting OAuth User API
-  description: The TikTok Content Posting API allows third-party platforms to publish videos directly to a user's TikTok account. Supports direct post and file-upload flows, including video initiation, chunk upload, and publish status polling.
+  title: TikTok Display User API
+  description: The TikTok Display API enables developers to access TikTok user profile information and video metadata. Supports retrieving user info, listing recent videos, and querying specific videos by ID.
   version: v2
   contact:
     name: TikTok for Developers
@@ -43,6 +43,18 @@ paths:
           description: Bad Request
 components:
   schemas:
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Error code
+        message:
+          type: string
+          description: Human-readable error message
+        log_id:
+          type: string
+          description: Log identifier for debugging
     User:
       type: object
       properties:
@@ -89,18 +101,6 @@ components:
               $ref: '#/components/schemas/User'
         error:
           $ref: '#/components/schemas/Error'
-    Error:
-      type: object
-      properties:
-        code:
-          type: string
-          description: Error code
-        message:
-          type: string
-          description: Human-readable error message
-        log_id:
-          type: string
-          description: Log identifier for debugging
   securitySchemes:
     BearerAuth:
       type: http
